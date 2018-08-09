@@ -1,0 +1,79 @@
+<template>
+<div class="page" data-name="equip-borrow">
+    <div class="navbar">
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="/welcome-admin/" class="link ">
+                    <i class="f7-icons">arrow_left</i>
+                </a>
+            </div>
+            <div class="title">设备借出</div>
+        </div>
+    </div>
+    <div class="page-content equip-borrow">
+        <div class="">
+            <div class="row">
+                <input type="search" placeholder="姓名" class="col-45 keyword " name="borrow-username"/>
+                <input type="search" placeholder="手机号" class="col-45  keyword " name="borrow-mobilephone"/>
+            </div>
+        </div>
+        <div class="createdbrlist">
+        	
+        </div>
+    
+        <div class="block equip-list">
+        	 
+  			<div class="data-table card">
+            <table>
+               
+                <tbody>
+            
+                </tbody>
+            </table>
+        </div>
+        </div>
+        	  <div class="block ">
+        	  	
+       <p class="row">
+  			<p class="totalequip"></p>
+    		<button class="button button-fill  col saveEquipBorrow" onclick="saveEquipBorrow()">确定借出</button>
+    		
+  		</p>
+  		
+  		
+              <div class="login-footer">
+									<img src="img/footer.png" class="footer-img">
+
+								</div>
+      </div>
+    </div>
+  
+</div>
+
+</template>
+
+<script>
+	return{
+		  data: function () {
+        var mydate=new Date();
+        var year=mydate.getYear();
+        var month=mydate.getMonth();
+        var date=mydate.getDate();
+        var hour=mydate.getHours;
+        var minutes=mydate.getMinutes();
+        var seconds=mydate.getSeconds;
+        var time=mydate.toLocaleString();
+        var a=$$(".numberinput").val();
+		console.log("---------"+a);
+        return {
+            time: time
+             
+      
+        }
+    },
+    method:function(){
+    	
+    }
+	}
+
+</script>

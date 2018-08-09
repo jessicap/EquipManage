@@ -1,0 +1,127 @@
+<template>
+<div class="page" data-name="equip-repair">
+	  <div class="navbar">
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="/equip-maintenance/" class="link ">
+                    <i class="f7-icons">arrow_left</i>
+                </a>
+            </div>
+            <div class="title">维修保养</div>
+        </div>
+    </div>
+    <div class="page-content equip-repair">
+	
+    <div class="block ">
+    	<div class="row">
+    		<div class="col-50">
+    			 <div class="item-inner">
+                                <div class="item-title item-label">名称</div>
+                                <div class="item-title item-label">{{repairmsg.equipname}}</div>
+
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title item-label">型号</div>
+                                <div class="item-title item-label">{{repairmsg.type}}</div>
+                            </div>
+    		</div>
+    			<div class="col-50">
+    			 <div class="item-inner">
+                                <div class="item-title item-label">条码</div>
+                                <div class="item-title item-label centernum">{{repairmsg.centernum}}</div>
+
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title item-label">序列号</div>
+                                <div class="item-title item-label">{{repairmsg.serialnum}}</div>
+                            </div>
+    		</div>
+    	</div>
+                
+    </div>
+    <div class="block">
+    
+        <div class="block">
+        	<div class="list no-hairlines-md">
+  <form class="list" id="equiprepair-form">
+					<ul>
+
+						
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">故障现象</div>
+								<div class="item-input-wrap">
+								
+                		  <input type="text" placeholder="故障现象"  name="equipproblem" value="" />
+									<span class="input-clear-button"></span>
+								</div>
+							</div>
+						</li>
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">维修内容</div>
+								<div class="item-input-wrap">
+									<input type="text" name="repaircontent" placeholder="请输入维修内容">
+									<span class="input-clear-button"></span>
+								</div>
+							</div>
+						</li>
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">维修人员</div>
+								<div class="item-input-wrap">
+									<input type="text" name="repairperson" placeholder="请输入姓名">
+									<span class="input-clear-button"></span>
+								</div>
+							</div>
+						</li>
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">维修时间</div>
+								<div class="item-input-wrap">
+									<input type="date" name="repairtime" placeholder="请选择时间" id="repairtime">
+									<span class="input-clear-button"></span>
+								</div>
+							</div>
+						</li>
+						<li class="item-content item-input ">
+							<div class="item-inner equiprepair-imgs">
+								<div class="item-title item-label">设备图片</div>
+								<div class="row">
+							
+								<div class='collapse-content col-50' >  
+									<input type='hidden' id='ckjl.id' name='ckjl.id' value='429'> 
+									<div id='F_CKJLBS' class='row image-list'> 
+										<i class='f7-icons' id='F_CKJLB' onclick='showActionSheet(this)'>camera_fill</i>
+									</div>
+								</div>
+								
+								<div class='collapse-content col-50' > 
+									<input type='hidden' id='ckjl.idS' name='ckjl.idS' value='430'> 
+									<div id='F_CKJLBSS' class='row image-list'> 
+										<i class='f7-icons' id='F_CKJLBS' onclick='showActionSheet(this)'>camera_fill</i>
+									</div>
+								</div>
+								</div>
+							</div>
+						</li>
+						
+						
+						<li class="item-content item-input">
+							<div class="item-inner row">
+								<a class="col button button-fill" onclick="addEquipRepair(this)">确认提交</a>
+							</div>
+						</li>
+
+					</ul>
+				</form>
+</div>
+                    	 
+                    </div>
+    </div>
+
+
+	</div>
+	
+</div>
+</template>

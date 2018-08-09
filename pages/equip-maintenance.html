@@ -1,0 +1,153 @@
+<template>
+<div class="page" data-name="equip-maintenance">
+	  <div class="navbar">
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="/welcome-admin/" class="link ">
+                    <i class="f7-icons">arrow_left</i>
+                </a>
+            </div>
+            <div class="title">设备信息</div>
+        </div>
+    </div>
+    <div class="page-content">
+	  <div class="block equip-return">
+        
+            
+            <div class="block searchblock">
+			<div class="row">
+				<a class="link popup-open col-100" href="#" data-popup=".popup-about"><button class=" button button-fill ">查询</button></a>
+			</div>
+
+		</div>
+		<div class="equip-admin">
+				
+			</div>
+			
+			<div class="popup popup-about">
+
+				<div class="navbar">
+					<div class="navbar-inner">
+						<div class="title">查询条件</div>
+						<div class="right">
+							<!-- Link to close popup -->
+							<a class="link popup-close" href="#"><i class="f7-icons">close</i></a>
+						</div>
+					</div>
+				</div>
+				<div class="block equip-return">
+
+					<div class="block">
+						<div class="list no-hairlines-md inline-labels">
+							<ul>
+<form class="list" id="equipmsg-form">
+						
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">中心条码</div>
+								<div class="item-input-wrap">
+								<img src="img/scan.png"/ class="scan-barcode"  onclick="clicked('barcode_scan_maintenance.html',true,true)">
+                		  <input type="text" placeholder="中心条码" name="centernum"  value="" class="equip-centernum"/>
+									<span class="input-clear-button"></span>
+								</div>
+							</div>
+						</li>
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">设备名称</div>
+								<div class="item-input-wrap">
+									<input type="text" name="equipname" placeholder="请输入设备名称">
+									<span class="input-clear-button"></span>
+								</div>
+							</div>
+						</li>
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">序列号</div>
+								<div class="item-input-wrap">
+									<input type="text" name="serial" placeholder="请输入序列号">
+									<span class="input-clear-button"></span>
+								</div>
+							</div>
+						</li>
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">型号规格</div>
+								<div class="item-input-wrap">
+									<input type="text" name="scale" placeholder="请输入型号规格">
+									<span class="input-clear-button"></span>
+								</div>
+							</div>
+						</li>
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">标签</div>
+								<div class="item-input-wrap">
+
+									<select name="tag">
+										<option></option>
+										<option>高清摄像机</option>
+										<option>4K摄像机</option>
+										<option>小高清摄像机</option>
+										<option>演播室</option>
+										<option>转播车</option>
+									</select>
+
+								</div>
+							</div>
+						</li>
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">部门</div>
+								<div class="item-input-wrap">
+									<select name="department">
+										<option></option>
+										<option>设备部</option>
+										<option>卫视</option>
+										
+									</select>
+									<span class="input-clear-button"></span>
+								</div>
+							</div>
+						</li>
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">所有类型</div>
+								<div class="item-input-wrap">
+									<select name="type">
+										<option></option>
+										<option>t1</option>
+										<option>t2</option>
+										
+									</select>
+
+								</div>
+							</div>
+						</li>
+						
+						<li class="item-content item-input">
+							<div class="item-inner row">
+								 <a class="button button-fill  col convert-form-to-data-equipmsg popup-close"  style="width:100%">查询</a>
+							</div>
+						</li>
+</form>
+					</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+      </div>
+      
+	<div class="block equip-list">
+	</div>
+       
+       
+       <div class="login-footer">
+									<img src="img/footer.png" class="footer-img">
+
+								</div>
+	</div>
+	
+</div>
+</template>

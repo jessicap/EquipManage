@@ -1,0 +1,143 @@
+<template>
+	<div class="page" data-name="equip-br-admin-search" style="overflow: scroll;">
+		<div class="navbar">
+			<div class="navbar-inner sliding">
+				<div class="left">
+					<a href="/welcome-admin/" class="link ">
+
+						<i class="f7-icons">arrow_left</i>
+
+					</a>
+				</div>
+				<div class="title">借还单</div>
+			</div>
+		</div>
+
+		
+		<div class="page-content borrow-take">
+			
+<div class="block searchblock">
+			<div class="row">
+				<a class="link popup-open col-100" href="#" data-popup=".popup-about"><button class=" button button-fill ">查询</button></a>
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
+		</div>
+			<div class="equip-br-admin">
+				
+			</div>
+			<div class="popup popup-about">
+
+				<div class="navbar">
+					<div class="navbar-inner">
+						<div class="title">查询条件</div>
+						<div class="right">
+							<!-- Link to close popup -->
+							<a class="link popup-close " href="#"><i class="f7-icons">close</i></a>
+						</div>
+					</div>
+				</div>
+				<div class="block">
+
+					<div class="block">
+						<div class="list no-hairlines-md inline-labels">
+							<form class="list" id="brlist-admin-form">
+							<ul>
+								
+								<li class="item-content item-input">
+									<div class="item-inner">
+										<div class="item-title item-label">用户名</div>
+										<div class="item-input-wrap">
+											<input type="text" name="username" placeholder="请输入用户名">
+											<span class="input-clear-button"></span>
+										</div>
+									</div>
+								</li>
+								<li class="item-content item-input">
+									<div class="item-inner">
+										<div class="item-title item-label">中心条码</div>
+										<div class="item-input-wrap">
+											<input type="text" name="centernum" placeholder="请输入中心条码">
+											<span class="input-clear-button"></span>
+										</div>
+									</div>
+								</li>
+								<li class="item-content item-input">
+									<div class="item-inner">
+										<div class="item-title item-label">借还单编号</div>
+										<div class="item-input-wrap">
+											<input type="text" name="brlistnum" placeholder="请输入借还单编号">
+											<span class="input-clear-button"></span>
+										</div>
+									</div>
+								</li>
+								<li class="item-content item-input">
+									<div class="item-inner">
+										<div class="item-title item-label">部门</div>
+										<div class="item-input-wrap">
+
+											<select name="department">
+												<option></option>
+												<option>制作中心</option>
+												<option>卫视</option>
+											</select>
+
+											<span class="input-clear-button"></span>
+										</div>
+									</div>
+								</li>
+								<li class="item-content item-input">
+									<div class="item-inner">
+										<div class="item-title item-label">栏目</div>
+										<div class="item-input-wrap">
+											<input type="text" name="column" placeholder="请输入栏目">
+											<span class="input-clear-button"></span>
+										</div>
+									</div>
+								</li>
+								<li class="item-content item-input">
+									<div class="item-inner">
+										<div class="item-title item-label">是否核销</div>
+										<div class="item-input-wrap">
+											<select name="isverify">
+												<option></option>
+												<option>未核销</option>
+												<option>已核销</option>
+												
+											</select>
+											<span class="input-clear-button"></span>
+										</div>
+									</div>
+								</li>
+								
+								<li class="item-content item-input">
+									<div class="item-inner">
+										<a class="col button button-fill popup-close convert-form-to-data-admin"  style="width:100%;">查询</a>
+									</div>
+								</li>
+							</ul>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="login-footer">
+									<img src="img/footer.png" class="footer-img">
+
+								</div>
+		</div>
+	</div>
+</template>

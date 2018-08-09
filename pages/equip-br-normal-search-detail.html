@@ -1,0 +1,90 @@
+<template>
+	<div class="page" data-name="equip-br-normal-detail">
+		<div class="navbar">
+			<div class="navbar-inner sliding">
+				<div class="left">
+					<a href="/equip-br-normal-search/" class="link ">
+
+						<i class="f7-icons">arrow_left</i>
+
+					</a>
+				</div>
+				<div class="title">借还单详情</div>
+			</div>
+		</div>
+		<div class="page-content borrow-take-detail br-search-detail ">
+
+			<div class="row">
+				<div class="col-50">
+					<div class="item-inner">
+						<div class="item-title item-label">单号:</div>
+						<div class="item-title item-label">{{brlistmsg.brlistnum}}</div>
+					</div>
+					<div class="item-inner">
+						<div class="item-title item-label">姓名:</div>
+						<div class="item-title item-label">{{brlistmsg.username}}</div>
+					</div>
+					<div class="item-inner">
+						<div class="item-title item-label">电话:</div>
+						<div class="item-title item-label">{{brlistmsg.mobilephone}}</div>
+					</div>
+					<div class="item-inner">
+						<div class="item-title item-label">部门:</div>
+						<div class="item-title item-label">{{brlistmsg.department}}</div>
+					</div>
+					<div class="item-inner">
+						<div class="item-title item-label">栏目:</div>
+						<div class="item-title item-label">{{brlistmsg.column}}</div>
+					</div>
+					<div class="item-inner">
+						<div class="item-title item-label">备注:</div>
+						<div class="item-title item-label">{{brlistmsg.remarks}}</div>
+					</div>
+				</div>
+				<div class="col-50">
+					<div class="item-inner">
+						
+						<img src="{{brlistmsg.brlistimgurl}}" width="120px;"/>
+					</div>
+				</div>
+			</div>
+		
+		
+		
+
+			<div class="data-table card">
+				<table>
+					<thead>
+						<tr>
+							<th class="label-cell">序号</th>
+							<th class="label-cell">设备名称</th>
+							<th class="label-cell">中心条码</th>
+							<th class="label-cell">状态</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						{{#each brlistmsg.equiplist}}
+						<tr>
+							<td class="label-cell">{{@index+1}}</td>
+							<td class="label-cell">{{equipname}}</td>
+							<td class="label-cell">{{centernum}}</td>
+							<td class="label-cell">{{status}}</td>
+							
+						</tr>
+
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+ 	
+  		
+  	
+  		<div class="login-footer">
+			<img src="img/footer.png" class="footer-img">
+		</div>
+		</div>
+		
+
+	</div>
+</template>

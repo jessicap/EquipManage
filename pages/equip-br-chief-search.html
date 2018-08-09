@@ -1,0 +1,84 @@
+<template>
+	<div class="page" data-name="equip-br-chief-search" style="overflow: scroll;">
+		<div class="navbar">
+			<div class="navbar-inner sliding">
+				<div class="left">
+					<a href="/welcome-chief/" class="link ">
+
+						<i class="f7-icons">arrow_left</i>
+
+					</a>
+				</div>
+				<div class="title">借还单</div>
+			</div>
+		</div>
+
+		
+		<div class="page-content borrow-take">
+<div class="block searchblock">
+			<div class="row">
+				<a class="link popup-open col-100" href="#" data-popup=".popup-about"><button class=" button button-fill ">查询</button></a>
+			</div>
+
+		</div>
+			<div class="equip-br-chief">
+				
+			</div>
+			<div class="popup popup-about">
+
+				<div class="navbar">
+					<div class="navbar-inner">
+						<div class="title">查询条件</div>
+						<div class="right">
+							<!-- Link to close popup -->
+							<a class="link popup-close" href="#"><i class="f7-icons">close</i></a>
+						</div>
+					</div>
+				</div>
+				<div class="block">
+
+					<div class="block">
+						<div class="list no-hairlines-md inline-labels">
+							<form class="list" id="chief-form">
+					<ul>
+
+					
+						<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">开始时间</div>
+								<div class="item-input-wrap">
+									<input type="date" name="date_begin" placeholder="请选择时间" id="begintime">
+									<span class="input-clear-button"></span>
+								</div>
+							</div>
+						</li>
+							<li class="item-content item-input">
+							<div class="item-inner">
+								<div class="item-title item-label">结束时间</div>
+								<div class="item-input-wrap">
+									<input type="date" name="date_finish" placeholder="请选择时间" id="finishtime">
+									<span class="input-clear-button"></span>
+								</div>
+							</div>
+						</li>
+						
+						<li class="item-content item-input">
+							<div class="item-inner row">
+								<a class="col button button-fill  convert-form-to-data popup-close">查询</a>
+							</div>
+						</li>
+
+					</ul>
+				</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="login-footer">
+									<img src="img/footer.png" class="footer-img">
+
+								</div>
+		</div>
+	</div>
+</template>

@@ -1,0 +1,134 @@
+<template>
+<div class="page" data-name="equip-return">
+	  <div class="navbar">
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="/equip-maintenance/" class="link ">
+                    <i class="f7-icons">arrow_left</i>
+                </a>
+            </div>
+            <div class="title">设备详情</div>
+        </div>
+    </div>
+    <div class="page-content equip-maintenance">
+	
+    <div class="block block-strong">
+    	<div class="row">
+                        <div class="col-50">
+                            <div class="item-inner">
+                                <div class="item-title item-label">名称</div>
+                                <input type="text" name="equipname" class="" disabled="disabled" value="{{equipmsg.equipname}}"/>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title item-label">型号</div>
+                                <input type="text" name="type" class="" disabled="disabled" value="{{equipmsg.type}}"/>
+                            </div>
+                              <div class="item-inner">
+                                <div class="item-title item-label">部门</div>
+                                <input type="text" name="department" class="" disabled="disabled" value="{{equipmsg.department}}"/>
+                            </div>
+                             <div class="item-inner">
+                                <div class="item-title item-label">区域</div>
+                                <input type="text" name="storelocation" class="" disabled="disabled" value="{{equipmsg.storelocation}}"/>
+                            </div>
+                             <div class="item-inner">
+                                <div class="item-title item-label">标签</div>
+                                <input type="text" name="tag" class="" disabled="disabled" value="{{equipmsg.tag}}"/>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title item-label">状态</div>
+                                <input type="text" name="status" class="" disabled="disabled" value="{{equipmsg.status}}"/>
+                            </div>
+                          
+                           
+                             
+                        </div>
+                        <div class="col-50">
+                            <div class="item-inner">
+                                <div class="item-title item-label">中心条码</div>
+                                <input type="text" name="e-centernum" class="" disabled="disabled" value="{{equipmsg.centernum}}"/>
+
+                            </div>
+                              <div class="item-inner">
+                                <div class="item-title item-label">集团条码</div>
+                                <input type="text" name="groupnum" class="" disabled="disabled" value="{{equipmsg.groupnum}}"/>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title item-label">序列号</div>
+                                <input type="text" name="serielnum" class="" disabled="disabled" value="{{equipmsg.serial}}"/>
+                            </div>
+                             <div class="item-inner">
+                                <div class="item-title item-label">存放库位</div>
+                                <input type="text" name="storeplace" class="" disabled="disabled" value="{{equipmsg.storeplace}}"/>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title item-label">IMME</div>
+                                <input type="text" name="IMME" class="" disabled="disabled" value="{{equipmsg.IMME}}"/>
+                            </div>
+                             <div class="item-inner">
+                                <div class="item-title item-label">借用人</div>
+                                <input type="text" name="username" class="" disabled="disabled" value="{{equipmsg.username}}"/>
+                            </div>
+                            
+                             
+
+                        </div>
+
+                    </div>
+                    <div class="row">
+                    	<div class="item-inner">
+                                <div class="item-title item-label">备注</div>
+                                <input type="text" name="remarks" class="" disabled="disabled" value="{{equipmsg.remarks}}"/>
+                            </div>
+                    </div>
+       <div class="row">
+                
+                    {{#each equipmsg.imgurls}}
+                    <div class="equip-maintenance-imglist col-50"><img src="{{url}}" style='width:120px;' /></div>
+                    {{/each}}
+                
+         </div>    
+          <div class="row">
+                
+                     <div class="item-title item-label">维修记录</div>
+             <div class="data-table card">
+				<table>
+					<thead>
+						<tr>
+							<th class="label-cell">序号</th>
+							<th class="label-cell">故障现象</th>
+							<th class="label-cell">时间</th>
+						
+							
+						</tr>
+					</thead>
+					<tbody>
+						{{#each equipmsg.repairlist}}
+						<tr>
+							<td class="label-cell">{{@index+1}}</td>
+							<td class="label-cell">{{repairproblem}}</td>
+							<td class="label-cell">{{repairtime}}</td>
+						
+							
+						</tr>
+
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+                
+                
+         </div>  
+    </div>
+         <div class="block btn">
+       <p class="row">
+    		<button class="col button button-fill color-red edit">编辑</button></a>
+    
+    		<a href="/equip-repair/{{equipmsg.centernum}}/{{equipmsg.equipname}}/{{equipmsg.type}}/{{equipmsg.serial}}/" class="col"><button class="col button button-fill color-blue" >维修</button></a>
+  		</p>
+            
+      </div>
+	</div>
+	
+</div>
+</template>

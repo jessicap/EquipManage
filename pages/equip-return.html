@@ -1,0 +1,43 @@
+<template>
+<div class="page" data-name="equip-return">
+	  <div class="navbar">
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="/welcome-admin/" class="link ">
+                    <i class="f7-icons">arrow_left</i>
+                </a>
+            </div>
+            <div class="title">设备归还</div>
+        </div>
+    </div>
+    <div class="page-content">
+	  <div class="block equip-return">
+        	<div class="row">
+                		<span  onclick="clicked('barcode_scan_return.html',true,true)"><img src="img/scan.png"/ class="scan-barcode" ></span>
+                		  <input type="text" placeholder="中心条码" class="numberinput col-85" value=""/>
+            </div>
+      </div>
+       <div class="block equip-list">
+        	 
+  			<div class="data-table card">
+            <table>
+               
+                <tbody>
+            
+                </tbody>
+            </table>
+        </div>
+        </div>
+        <div class="equip-return-submit">
+        	<p class="totalequip"></p>
+          <button class="button button-fill  col " onclick="saveEquipReturn()">确认归还</button>
+          
+          </div>
+          <div class="login-footer">
+									<img src="img/footer.png" class="footer-img">
+
+								</div>
+	</div>
+	
+</div>
+</template>

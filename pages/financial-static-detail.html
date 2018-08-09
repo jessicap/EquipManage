@@ -1,0 +1,64 @@
+<template>
+<div class="page" data-name="financial-static-detail">
+    <div class="navbar">
+        <div class="navbar-inner sliding">
+            <div class="left">
+                <a href="/financial-statistic/" class="link ">
+
+                    <i class="f7-icons">arrow_left</i>
+
+                </a>
+            </div>
+            <div class="title">财务统计详情</div>
+        </div>
+    </div>
+    <div class="page-content borrow-take-detail ">
+    	<div class="row">
+    		<div class="col-100">
+    			<div class="item-inner">
+                <div class="item-title item-label">{{staticmsg.year}}年{{staticmsg.month}}月</div>
+                
+            </div>
+    		</div>
+    	</div>
+    	{{#each staticmsg.staticdetail}}
+    	<div class="card">
+        <div class="row">
+            <div class="col-50">
+            <div class="item-inner">
+                <div class="item-title item-label">设备编号</div>
+                <div class="item-title item-label">{{skf928}}</div>
+            </div>
+            </div>
+            <div class="col-50">
+                <div class="item-inner">
+                    <div class="item-title item-label">设备名称</div>
+                    <div class="item-title item-label">{{skf925}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-50">
+                <div class="item-inner">
+                    <div class="item-title item-label">借用人</div>
+                    <div class="item-title item-label">{{skf991}}</div>
+                </div>
+            </div>
+            <div class="col-50">
+                <div class="item-inner">
+                    <div class="item-title item-label">费用</div>
+                    <div class="item-title item-label">¥{{skf1057}}</div>
+                </div>
+            </div>
+        </div>
+       </div>
+      {{/each}}
+      
+   
+    </div>
+    <div class="login-footer">
+									<img src="img/footer.png" class="footer-img">
+
+								</div>
+</div>
+</template>
