@@ -1,3 +1,28 @@
+var ws=null,wo=null;
+var scan=null,domready=false,bCancel=false;var foo;
+// H5 plus事件处理
+function plusReady(){
+	if(ws||!window.plus||!domready){
+		return;
+	}
+	// 获取窗口对象
+	ws=plus.webview.currentWebview();
+	wo=ws.opener();
+	foo=plus.storage.getItem("username")
+	console.log(foo)
+	// 显示页面并关闭等待框
+    ws.show('pop-in');
+    wo.evalJS('closeWaiting()');
+}
+if(window.plus){
+	plusReady();
+	console.log("a");
+}else{
+	document.addEventListener('plusready', plusReady, false);
+	console.log("bb");
+
+}
+
 routes = [{
 		path: '/',
 		url: './index.html',
@@ -14,7 +39,15 @@ routes = [{
 	},
 	{
 		path: '/welcome-admin/', //管理员登录后欢迎界面
-		url: './pages/welcome-admin.html'
+		templateUrl: './pages/welcome-admin.html',
+		options:{
+			context:{
+				username:foo,
+				mobilephone:'bb',
+				channel:'cc'
+				
+			}
+		}
 
 	},
 
@@ -1179,3 +1212,4 @@ function searchManual() {
 	app.searchManuallist(filename);
 
 }
+

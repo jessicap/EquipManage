@@ -1,4 +1,26 @@
-﻿// Dom7
+﻿var ws=null,wo=null;
+var scan=null,domready=false,bCancel=false;
+// H5 plus事件处理
+function plusReady(){
+	if(ws||!window.plus||!domready){
+		return;
+	}
+	// 获取窗口对象
+	ws=plus.webview.currentWebview();
+	wo=ws.opener();
+	// 开始扫描
+	ws.addEventListener('show',function(){
+		scan=new plus.barcode.Barcode('bcid',[plus.barcode.QR,plus.barcode.EAN8,plus.barcode.EAN13],{frameColor:'#00FF00',scanbarColor:'#00FF00'});
+	    scan.onmarked=onmarked;
+	    scan.start({conserve:true,filename:'_doc/barcode/'});
+	});
+	// 显示页面并关闭等待框
+    ws.show('pop-in');
+    wo.evalJS('closeWaiting()');
+}
+
+
+// Dom7
 var $$ = Dom7;
 
 // Framework7 App main instance
@@ -44,26 +66,6 @@ var mainView = app.views.create('.view-main', {
 });
 
 
-var ws=null,wo=null;
-var scan=null,domready=false,bCancel=false;
-// H5 plus事件处理
-function plusReady(){
-	if(ws||!window.plus||!domready){
-		return;
-	}
-	// 获取窗口对象
-	ws=plus.webview.currentWebview();
-	wo=ws.opener();
-	// 开始扫描
-	ws.addEventListener('show',function(){
-		scan=new plus.barcode.Barcode('bcid',[plus.barcode.QR,plus.barcode.EAN8,plus.barcode.EAN13],{frameColor:'#00FF00',scanbarColor:'#00FF00'});
-	    scan.onmarked=onmarked;
-	    scan.start({conserve:true,filename:'_doc/barcode/'});
-	});
-	// 显示页面并关闭等待框
-    ws.show('pop-in');
-    wo.evalJS('closeWaiting()');
-}
 
 // Login Screen Demo
 $$('.login-screen-content .login-button').on('click', function() {
@@ -129,20 +131,21 @@ $$('.login-screen-content .login-button').on('click', function() {
 				
 				plus.storage.setItem("username",username);
 				plus.storage.setItem("qx",qx);
-				
+				plus.storage.setItem("mobilephone",mobilephone);
+				plus.storage.setItem("channel",channel);
 				var foo=plus.storage.getItem("username")
 				console.log(foo);
 				/////////
 				
-				
-				mainView.router.load({ //加载单独页面page
-					url: 'pages/welcome-admin.html', //页面的url
-					context: {
-						username: username,
-						channel:channel,
-						mobilephone:mobilephone
-					}
-				});
+				mainView.router.navigate('/welcome-admin/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
+//				mainView.router.load({ //加载单独页面page
+//					url: 'pages/welcome-admin.html', //页面的url
+//					context: {
+//						username: username,
+//						channel:channel,
+//						mobilephone:mobilephone
+//					}
+//				});
 			} else if(qx == "leader") { //领导
 				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
 				$.cookie("o", da, {
