@@ -114,13 +114,13 @@ $$('.login-screen-content .login-button').on('click', function() {
 				});
 				plus.storage.setItem("username",username);
 				plus.storage.setItem("qx",qx);
-				mainView.router.load({ //加载单独页面page
-					url: 'pages/welcome-normal.html', //页面的url
-					query: {
-						username: username,
-						password: password
-					}
-				});
+				plus.storage.setItem("mobilephone",mobilephone);
+				plus.storage.setItem("channel",channel);
+				var foo=plus.storage.getItem("username")
+				console.log(foo);
+				/////////
+				
+				mainView.router.navigate('/welcome-normal/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
 			} else if(qx == "admin"||username==2) { //管理员
 				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '","mobilephone":"' + mobilephone + '"}';
 				$.cookie("o", da, {
@@ -152,15 +152,15 @@ $$('.login-screen-content .login-button').on('click', function() {
 					expires: "",
 					path: "/"
 				});
-				plus.storage.setItem("username",username);	
+				plus.storage.setItem("username",username);
 				plus.storage.setItem("qx",qx);
-				mainView.router.load({ //加载单独页面page
-					url: 'pages/welcome-leader.html', //页面的url
-					query: {
-						username: username,
-						password: password
-					}
-				});
+				plus.storage.setItem("mobilephone",mobilephone);
+				plus.storage.setItem("channel",channel);
+				var foo=plus.storage.getItem("username")
+				console.log(foo);
+				/////////
+				
+				mainView.router.navigate('/welcome-leader/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
 			} else if(qx == "chief") { //总监
 				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
 				$.cookie("o", da, {
@@ -169,13 +169,13 @@ $$('.login-screen-content .login-button').on('click', function() {
 				});
 				plus.storage.setItem("username",username);
 				plus.storage.setItem("qx",qx);
-				mainView.router.load({ //加载单独页面page
-					url: 'pages/welcome-chief.html', //页面的url
-					query: {
-						username: username,
-						password: password
-					}
-				});
+				plus.storage.setItem("mobilephone",mobilephone);
+				plus.storage.setItem("channel",channel);
+				var foo=plus.storage.getItem("username")
+				console.log(foo);
+				/////////
+				
+				mainView.router.navigate('/welcome-chief/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
 			}
 
 		}
@@ -1361,149 +1361,344 @@ function downloadManual(filename,surl){
 function dealFinancialSearch(){
 	
 }
-function dealEquipViewSearch(){
-
-bar();
-line();
-pie();
+function dealEquipViewSearch() {
+	var tag = $$('select[name="tag"]').val();
+	var department = $$('select[name="department"]').val();
+	bar(tag, department);
+	line(tag, department);
+	pie(tag, department);
 }
-function bar(){
+
+function bar(tag, department) {
+
 	var dom = document.getElementById("bar");
-var myChart = echarts.init(dom);
-var app = {};
-option = null;
+	var myChart = echarts.init(dom);
 
-option = {
-	 title: {
-        text: '库存',
-       
-    },
-    xAxis: {
-        type: 'category',
-        axisLabel: {
-            fontSize : 8,
-           interval:0,
-           rotate:40,
-            color: "#657c97",
-            fontFamily : "#Arial"
-        },
-        data: ['摄像机', '转播车', '话筒', 'Sony', '电池', '录音机', '相机']
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [{
-    	label:{                     //---图形上的文本标签
-            show:true,
-            position:'insideTop',   //---相对位置
-            rotate:0,               //---旋转角度
-            color:'#eee',
-                    },
-        data: [120, 200, 150, 80, 70, 110, 130],
-        type: 'bar'
-    }]
-};
+	option = null;
+	//***********ajax修改密码************
+	var jurl = "http://115.233.208.56/zzzx/getEquipStatusStatistic?";
+	//var jurl = "http://172.20.2.158:8080/getEquipStatusStatistic?";
+	app.request({
+		url: jurl,
+		method: "get",
+		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+		dataType: "json",
+		data: {
+			tag: tag,
+			department: department
 
-if (option && typeof option === "object") {
-    myChart.setOption(option, true);
+		},
+		beforeSend: function(e) {
+			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+		},
+		success: function(data) {
+			//console.log(data.equipactivity)
+
+			option = {
+				title: {
+					text: '库存',
+
+				},
+				xAxis: {
+					type: 'category',
+					axisLabel: {
+						fontSize: 8,
+						interval: 0,
+						rotate: 30,
+						color: "#657c97",
+						fontFamily: "#Arial"
+					},
+					// data: ['摄像机', '转播车', '话筒', 'Sony', '电池', '录音机', '相机']
+				},
+				yAxis: {
+					type: 'value'
+				},
+				series: [{
+					label: { //---图形上的文本标签
+						show: true,
+						position: 'insideTop', //---相对位置
+						rotate: 0, //---旋转角度
+						color: '#eee',
+					},
+					// data: [120, 200, 150, 80, 70, 110, 130],
+					type: 'bar'
+				}]
+			};
+			var arr = [];
+			var arr2 = [];
+			$.each(data.stock, function(i, val) {
+				arr.push(data.stock[i].tag);
+				console.log(data.stock[i].tag)
+
+				arr2.push(data.stock[i].zk);
+			});
+
+			option.xAxis.data = arr;
+			option.series[0].data = arr2;
+			console.log(arr)
+			console.log(arr2);
+			console.log(option);
+
+			if(option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
+
+		}
+	});
+	//option = {
+	//	 title: {
+	//      text: '库存',
+	//     
+	//  },
+	//  xAxis: {
+	//      type: 'category',
+	//      axisLabel: {
+	//          fontSize : 8,
+	//         interval:0,
+	//         rotate:40,
+	//          color: "#657c97",
+	//          fontFamily : "#Arial"
+	//      },
+	//      data: ['摄像机', '转播车', '话筒', 'Sony', '电池', '录音机', '相机']
+	//  },
+	//  yAxis: {
+	//      type: 'value'
+	//  },
+	//  series: [{
+	//  	label:{                     //---图形上的文本标签
+	//          show:true,
+	//          position:'insideTop',   //---相对位置
+	//          rotate:0,               //---旋转角度
+	//          color:'#eee',
+	//                  },
+	//      data: [120, 200, 150, 80, 70, 110, 130],
+	//      type: 'bar'
+	//  }]
+	//};
+	//
+	//if (option && typeof option === "object") {
+	//  myChart.setOption(option, true);
+	//}
 }
-}
-function line(){
+
+function line(tag, department) {
 	var dom = document.getElementById("line");
-var myChart = echarts.init(dom);
-var app = {};
-option = null;
+	var myChart = echarts.init(dom);
 
-option = {
-	 title: {
-        text: '设备使用时长',
-       
-    },
-     legend: {
-     	right:20,
-        data:['转播车','摄像机','相机']
-    },
-    xAxis: {
-        type: 'category',
-        axisLabel: {
-            fontSize : 8,
-           interval:0,
-           rotate:40,
-            color: "#657c97",
-            fontFamily : "#Arial"
-        },
-        data: ['1月', '2', '3', '4', '5', '6', '7','8', '9', '10', '11', '12']
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [{
-    	name:"转播车",
-        data: [120, 200, 150, 80, 70, 110, 130,200, 150, 80, 60, 110, 130],
-        type: 'line'
-    },
-    {
-    	name:"摄像机",
-        data: [10, 200, 10, 80, 70, 10, 130,20, 150, 20, 72, 10, 130],
-        type: 'line'
-    },
-    {
-    	name:"相机",
-        data: [12, 20, 150, 180, 70, 110, 10,100, 150, 5, 70, 90, 20],
-        type: 'line'
-    }]
-};
+	option = null;
+	//***********ajax修改密码************
+	var jurl = "http://115.233.208.56/zzzx/getEquipStatusStatistic?";
+	//var jurl = "http://172.20.2.158:8080/getEquipStatusStatistic?";
+	app.request({
+		url: jurl,
+		method: "get",
+		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+		dataType: "json",
+		data: {
+			tag:tag,
+			department:department
 
-if (option && typeof option === "object") {
-    myChart.setOption(option, true);
+		},
+		beforeSend: function(e) {
+			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+		},
+		success: function(data) {
+			//console.log(data.equipactivity)
+
+			option = {
+				title: {
+					text: '设备使用时长',
+
+				},
+				legend: {
+					right: 20,
+					data: ['转播车', '摄像机', '相机']
+				},
+				xAxis: {
+					type: 'category',
+					axisLabel: {
+						fontSize: 8,
+						interval: 0,
+						rotate: 40,
+						color: "#657c97",
+						fontFamily: "#Arial"
+					},
+					data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+				},
+				yAxis: {
+					type: 'value'
+				},
+				series: [
+//				{
+//						name: "转播车",
+//						data: [120, 200, 150, 80, 70, 110, 130, 200, 150, 80, 60, 110, 130],
+//						type: 'line'
+//					},
+//					{
+//						name: "摄像机",
+//						data: [10, 200, 10, 80, 70, 10, 130, 20, 150, 20, 72, 10, 130],
+//						type: 'line'
+//					},
+//					{
+//						name: "相机",
+//						data: [12, 20, 150, 180, 70, 110, 10, 100, 150, 5, 70, 90, 20],
+//						type: 'line'
+//					}
+				]
+			};
+			var arr = [];
+			var arr2 = [];
+
+			$.each(data.equipusetime, function(i, val) {
+				arr.push(data.equipusetime[i].equipname);
+				console.log(data.equipusetime[i].equipname)
+				var s = {
+					name: data.equipusetime[i].equipname,
+					data:data.equipusetime[i].monthdata,
+					type:'line'
+				};
+				option.series.push(s);
+			});
+
+			option.xAxis.data = arr;
+			//option.series[0].data=arr2;
+			console.log(arr)
+			//console.log(arr2);
+			console.log(option);
+
+			if(option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
+		}
+	});
+
+	//option = {
+	//	 title: {
+	//      text: '设备使用时长',
+	//     
+	//  },
+	//   legend: {
+	//   	right:20,
+	//      data:['转播车','摄像机','相机']
+	//  },
+	//  xAxis: {
+	//      type: 'category',
+	//      axisLabel: {
+	//          fontSize : 8,
+	//         interval:0,
+	//         rotate:40,
+	//          color: "#657c97",
+	//          fontFamily : "#Arial"
+	//      },
+	//      data: ['1月', '2', '3', '4', '5', '6', '7','8', '9', '10', '11', '12']
+	//  },
+	//  yAxis: {
+	//      type: 'value'
+	//  },
+	//  series: [{
+	//  	name:"转播车",
+	//      data: [120, 200, 150, 80, 70, 110, 130,200, 150, 80, 60, 110, 130],
+	//      type: 'line'
+	//  },
+	//  {
+	//  	name:"摄像机",
+	//      data: [10, 200, 10, 80, 70, 10, 130,20, 150, 20, 72, 10, 130],
+	//      type: 'line'
+	//  },
+	//  {
+	//  	name:"相机",
+	//      data: [12, 20, 150, 180, 70, 110, 10,100, 150, 5, 70, 90, 20],
+	//      type: 'line'
+	//  }]
+	//};
+
 }
-}
-function pie(){
+
+function pie(tag, department) {
 	var dom = document.getElementById("pie");
-var myChart = echarts.init(dom);
-var app = {};
-option = null;
+	var myChart = echarts.init(dom);
 
-option = {
-	 title: {
-        text: '部门使用时长',
-       
-    },
-     legend: {
-     	type: 'scroll',
-        right: 10,
-        top: 20,
-        bottom: 20,
-        data:['浙江卫视','教育科技','影视娱乐']
-    },
-     tooltip : {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c} ({d}%)"
-    },
-    series: [ {
-            name: '部门时长',
-            type: 'pie',
-            radius : '55%',
-            center: ['50%', '60%'],
-            data:[
-                {value:335, name:'浙江卫视'},
-                {value:310, name:'教育科技'},
-                {value:234, name:'影视娱乐'},
-               
-            ],
-            itemStyle: {
-                emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
-        }]
-};
+	option = null;
+	//***********ajax修改密码************
+	var jurl = "http://115.233.208.56/zzzx/getEquipStatusStatistic?";
+	//var jurl = "http://172.20.2.158:8080/getEquipStatusStatistic?";
+	app.request({
+			url: jurl,
+			method: "get",
+			crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+			dataType: "json",
+			data: {
+				tag: tag,
+				department: department
 
-if (option && typeof option === "object") {
-    myChart.setOption(option, true);
-}
+			},
+			beforeSend: function(e) {
+				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+			},
+			success: function(data) {
+				//console.log(data.equipactivity)
+
+				option = {
+					title: {
+						text: '部门使用时长',
+
+					},
+					legend: {
+						type: 'scroll',
+						right: 10,
+						top: 20,
+						bottom: 20,
+						// data:['浙江卫视','教育科技','影视娱乐']
+					},
+					tooltip: {
+						trigger: 'item',
+						formatter: "{a} <br/>{b} : {c}小时({d}%)"
+					},
+					series: [{
+						name: '部门使用时长',
+						type: 'pie',
+						radius: '55%',
+						center: ['50%', '60%'],
+						//          data:[
+						//              {value:335, name:'浙江卫视'},
+						//              {value:310, name:'教育科技'},
+						//              {value:234, name:'影视娱乐'},
+						//             
+						//          ],
+						itemStyle: {
+							emphasis: {
+								shadowBlur: 10,
+								shadowOffsetX: 0,
+								shadowColor: 'rgba(0, 0, 0, 0.5)'
+							}
+						}
+					}]
+				};
+				var arr = [];
+				var arr2 = [];
+				$.each(data.channelequipuse, function(i, val) {
+					arr.push(data.channelequipuse[i].department);
+					console.log(data.channelequipuse[i].department)
+					var items = {
+						name: data.channelequipuse[i].department,
+						value: parseInt(data.channelequipuse[i].num)
+					};
+					arr2.push(items);
+				});
+
+				option.legend.data = arr;
+				option.series[0].data = arr2;
+				console.log(arr)
+				console.log(arr2);
+				console.log(option);
+
+				if(option && typeof option === "object") {
+					myChart.setOption(option, true);
+				}
+
+			}
+	});
+
 }
 function dealEquipView(){
 	var begintime=$$('#begintime').val();

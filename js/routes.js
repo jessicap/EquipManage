@@ -53,19 +53,43 @@ routes = [{
 
 	{
 		path: '/welcome-normal/', //普通权限登录后欢迎界面
-		url: './pages/welcome-normal.html'
+		templateUrl: './pages/welcome-normal.html',
+		options:{
+			context:{
+				username:foo,
+				mobilephone:'bb',
+				channel:'cc'
+				
+			}
+		}
 
 	},
 
 	{
 		path: '/welcome-chief/', //总监权限登录后欢迎界面
-		url: './pages/welcome-chief.html'
+		templateUrl: './pages/welcome-chief.html',
+		options:{
+			context:{
+				username:foo,
+				mobilephone:'bb',
+				channel:'cc'
+				
+			}
+		}
 
 	},
 
 	{
 		path: '/welcome-leader/', //领导权限登录后欢迎界面
-		url: './pages/welcome-leader.html'
+		templateUrl: './pages/welcome-leader.html',
+		options:{
+			context:{
+				username:foo,
+				mobilephone:'bb',
+				channel:'cc'
+				
+			}
+		}
 
 	},
 	{
@@ -141,73 +165,91 @@ routes = [{
 								//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 							},
 							success: function(data) {
-								console.log(username);
-								console.log(password);
-								console.log(data);
-								console.log('Load was performed');
-								console.log(data.qx);
+								
+			console.log(username);
+			console.log(password);
+			console.log(data);
+			console.log('Load was performed');
+			console.log(data.qx);
 
-								var qx = data.qx;
-								var userid = data.userid;
-								var channel = data.channel;
-								var column = data.column;
-								if(qx == "normal") { //普通用户
-									var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
-									$.cookie("o", da, {
-										expires: "",
-										path: "/"
-									});
-									mainView.router.load({ //加载单独页面page
-										url: 'pages/welcome-normal.html', //页面的url
-										query: {
-											username: username,
-											password: password
-										}
-									});
-								} else if(qx == "admin") { //管理员
-									var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
-									$.cookie("o", da, {
-										expires: "",
-										path: "/"
-									});
+			var qx = data.qx;
+			var userid = data.userid;
+			var channel = data.channel;
+			var column = data.column;
+			var mobilephone=data.mobilephone;
+			if(qx == "normal") { //普通用户
+				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
+				$.cookie("o", da, {
+					expires: "",
+					path: "/"
+				});
+				plus.storage.setItem("username",username);
+				plus.storage.setItem("qx",qx);
+				plus.storage.setItem("mobilephone",mobilephone);
+				plus.storage.setItem("channel",channel);
+				var foo=plus.storage.getItem("username")
+				console.log(foo);
+				/////////
+				
+				mainView.router.navigate('/welcome-normal/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
+			} else if(qx == "admin"||username==2) { //管理员
+				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '","mobilephone":"' + mobilephone + '"}';
+				$.cookie("o", da, {
+					expires: "",
+					path: "/"
+				});
+				/////////
+				
+				plus.storage.setItem("username",username);
+				plus.storage.setItem("qx",qx);
+				plus.storage.setItem("mobilephone",mobilephone);
+				plus.storage.setItem("channel",channel);
+				var foo=plus.storage.getItem("username")
+				console.log(foo);
+				/////////
+				
+				mainView.router.navigate('/welcome-admin/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
+//				mainView.router.load({ //加载单独页面page
+//					url: 'pages/welcome-admin.html', //页面的url
+//					context: {
+//						username: username,
+//						channel:channel,
+//						mobilephone:mobilephone
+//					}
+//				});
+			} else if(qx == "leader") { //领导
+				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
+				$.cookie("o", da, {
+					expires: "",
+					path: "/"
+				});
+				plus.storage.setItem("username",username);
+				plus.storage.setItem("qx",qx);
+				plus.storage.setItem("mobilephone",mobilephone);
+				plus.storage.setItem("channel",channel);
+				var foo=plus.storage.getItem("username")
+				console.log(foo);
+				/////////
+				
+				mainView.router.navigate('/welcome-leader/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
+			} else if(qx == "chief") { //总监
+				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
+				$.cookie("o", da, {
+					expires: "",
+					path: "/"
+				});
+				plus.storage.setItem("username",username);
+				plus.storage.setItem("qx",qx);
+				plus.storage.setItem("mobilephone",mobilephone);
+				plus.storage.setItem("channel",channel);
+				var foo=plus.storage.getItem("username")
+				console.log(foo);
+				/////////
+				
+				mainView.router.navigate('/welcome-chief/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
+			}
 
-									mainView.router.load({ //加载单独页面page
-										url: 'pages/welcome-admin.html', //页面的url
-										query: {
-											username: username,
-											password: password
-										}
-									});
-								} else if(qx == "leader") { //领导
-									var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
-									$.cookie("o", da, {
-										expires: "",
-										path: "/"
-									});
-
-									mainView.router.load({ //加载单独页面page
-										url: 'pages/welcome-leader.html', //页面的url
-										query: {
-											username: username,
-											password: password
-										}
-									});
-								} else if(qx == "chief") { //总监
-									var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
-									$.cookie("o", da, {
-										expires: "",
-										path: "/"
-									});
-
-									mainView.router.load({ //加载单独页面page
-										url: 'pages/welcome-chief.html', //页面的url
-										query: {
-											username: username,
-											password: password
-										}
-									});
-								}
-							}
+		}
 						});
 
 					//***********************************/
