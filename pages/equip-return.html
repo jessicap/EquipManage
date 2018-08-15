@@ -1,9 +1,9 @@
 <template>
 <div class="page" data-name="equip-return">
-	  <div class="navbar">
+	  <div class="navbar navbar-others">
         <div class="navbar-inner sliding">
             <div class="left">
-                <a href="" class="link back">
+                <a href="/welcome-admin/" class="link ">
                     <i class="f7-icons">arrow_left</i>
                 </a>
             </div>
@@ -13,8 +13,8 @@
     <div class="page-content">
 	  <div class="block equip-return">
         	<div class="row">
-                		<span  onclick="clicked('barcode_scan_return.html',true,true)"><img src="img/scan.png"/ class="scan-barcode"style="margin:15px 0" ></span>
-                		  <input type="text" placeholder="中心条码" class="numberinput col-85" value=""/>
+                		<img src="img/scan.png" class="scan-barcode " onclick="clicked('barcode_scan_return.html',true,true)">
+                		  <input type="text" placeholder="中心条码" class="numberinput col-85 keyword" name="equipnum" value=""/>
             </div>
       </div>
        <div class="block equip-list">
@@ -30,7 +30,7 @@
         </div>
         <div class="equip-return-submit">
         	<p class="totalequip"></p>
-          <button class="button button-fill  col " onclick="saveEquipReturn()">确认归还</button>
+          <button class="button button-fill  col " style="width:90%;margin: auto 0;" onclick="saveEquipReturn()">确认归还</button>
           
           </div>
           <div class="login-footer">

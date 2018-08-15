@@ -76,7 +76,7 @@ $$('.login-screen-content .login-button').on('click', function() {
 	// app.loginScreen.close('#my-login-screen');
 
 	// Alert username and password
-	app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
+	//app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
 
 	//***********ajax登录************
 
@@ -1146,7 +1146,7 @@ function updateEquip(obj) {
 //添加维修信息
 function addEquipRepair(obj) {
 	var formData = app.form.convertToData('#equiprepair-form');
-	alert(JSON.stringify(formData));
+	//alert(JSON.stringify(formData));
 	var arr = new Array();
 	$$(".equiprepair-imgs img").each(function() {
 		arr.push(

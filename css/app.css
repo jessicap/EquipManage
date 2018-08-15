@@ -128,7 +128,7 @@
 	margin:0.5rem 0;
 }
 .scan-barcode{
-	margin: 1rem 0;
+	margin: auto 0;
 	width:30px;
 	height:30x;
 }
@@ -160,7 +160,7 @@
 .login-img{
     
     width: 100%;
-    height: 150px;;
+    height: 12rem;;
 }
 .person-img{
 	width: 100px;
@@ -199,7 +199,8 @@
    bottom: 0;
    width: 100%;
    text-align: center;
-   height:100px;
+   height:30px;
+   position:relative;
   
 }
 
@@ -237,7 +238,7 @@
 	display: none;
 }
 .equip-return .scan-barcode{
-	margin: -5px 0;
+	margin: auto 0;
 }
 .equip-return .equip-centernum{
 	width:74%!important;
@@ -394,4 +395,12 @@
 }
 .visible{
 	color:darkblue;
+}
+
+.navbar-others{
+	 height: 56px!important;
+    background: #DDDDDD!important;
+    color: #000000!important;
+    font-size: 20px!important;
+    text-align: center!important;
 }

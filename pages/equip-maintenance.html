@@ -1,9 +1,9 @@
 <template>
 <div class="page" data-name="equip-maintenance">
-	  <div class="navbar">
+	  <div class="navbar navbar-others">
         <div class="navbar-inner sliding">
             <div class="left">
-                <a href="/welcome-admin/" class="link ">
+                <a href="/upper/" class="link">
                     <i class="f7-icons">arrow_left</i>
                 </a>
             </div>
@@ -26,7 +26,7 @@
 			
 			<div class="popup popup-about">
 
-				<div class="navbar">
+				<div class="navbar navbar-others">
 					<div class="navbar-inner">
 						<div class="title">查询条件</div>
 						<div class="right">
@@ -46,7 +46,7 @@
 							<div class="item-inner">
 								<div class="item-title item-label">中心条码</div>
 								<div class="item-input-wrap">
-								<img src="img/scan.png"/ class="scan-barcode"  onclick="clicked('barcode_scan_maintenance.html',true,true)">
+								<img src="img/scan.png"/ class="scan-barcode" style="margin:-5px 0" onclick="clicked('barcode_scan_maintenance.html',true,true)">
                 		  <input type="text" placeholder="中心条码" name="centernum"  value="" class="equip-centernum"/>
 									<span class="input-clear-button"></span>
 								</div>
@@ -85,12 +85,12 @@
 								<div class="item-input-wrap">
 
 									<select name="tag">
-										<option></option>
-										<option>高清摄像机</option>
-										<option>4K摄像机</option>
-										<option>小高清摄像机</option>
-										<option>演播室</option>
-										<option>转播车</option>
+										<option value="">标签</option>
+										<option value="高清摄像机">高清摄像机</option>
+										<option value="4K摄像机">4K摄像机</option>
+										<option value="小高清摄像机">小高清摄像机</option>
+										<option value="演播室">演播室</option>
+										<option value="转播车">转播车</option>
 									</select>
 
 								</div>
@@ -101,9 +101,9 @@
 								<div class="item-title item-label">部门</div>
 								<div class="item-input-wrap">
 									<select name="department">
-										<option></option>
-										<option>设备部</option>
-										<option>卫视</option>
+										<option value="" >部门</option>
+										<option value="设备部">设备部</option>
+										<option value="卫视">卫视</option>
 										
 									</select>
 									<span class="input-clear-button"></span>
@@ -115,9 +115,9 @@
 								<div class="item-title item-label">所有类型</div>
 								<div class="item-input-wrap">
 									<select name="type">
-										<option></option>
-										<option>t1</option>
-										<option>t2</option>
+										<option value="">类型</option>
+										<option value="t1">t1</option>
+										<option value="t2">t2</option>
 										
 									</select>
 

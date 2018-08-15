@@ -14,3 +14,22 @@
 //  footerPosition();
 //  $(window).resize(footerPosition);
 //});
+document.addEventListener("DOMContentLoaded", function() {
+    footerOffsetTop = $$(".login-footer").offsetTop;
+});
+var index = 0;
+window.addEventListener("resize", function() {
+    if (mui.os.android) {// 修正:android下输入法让footer上移问题
+        var offsetTop =$$(".login-footer").offsetTop;
+        if (index % 2 === 0) {
+            if (offsetTop === 0) {
+                removeClass($$(".login-footer"), "mui-hidden");
+            } else {
+                if (offsetTop < footerOffsetTop) {
+                    addClass($$(".login-footer"), "mui-hidden");
+                }
+            }
+        }
+        index++;
+    }
+})

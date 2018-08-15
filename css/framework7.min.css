@@ -186,7 +186,7 @@ p {
 }
 
 .md a {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .theme-dark {
@@ -202,7 +202,7 @@ p {
 }
 
 .md .color-theme-blue a {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .color-theme-pink a {
@@ -238,7 +238,7 @@ p {
 }
 
 .md a.color-blue {
-    color: #2196f3
+    color: #00528b
 }
 
 .md a.color-pink {
@@ -1248,8 +1248,8 @@ html.with-statusbar.device-iphone-x .framework7-root {
 
 .md .navbar {
     height: 56px;
-    background: #2196f3;
-    color: #fff;
+    background: #FFFFFF;
+    color: #000000;
     font-size: 20px
 }
 
@@ -1262,9 +1262,9 @@ html.with-statusbar.device-iphone-x .framework7-root {
     bottom: auto;
     height: 10px;
     pointer-events: none;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .3)), color-stop(40%, rgba(0, 0, 0, .1)), color-stop(50%, rgba(0, 0, 0, .05)), color-stop(80%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+    /*background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, .3)), color-stop(40%, rgba(0, 0, 0, .1)), color-stop(50%, rgba(0, 0, 0, .05)), color-stop(80%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
     background: -webkit-linear-gradient(top, rgba(0, 0, 0, .3) 0, rgba(0, 0, 0, .1) 40%, rgba(0, 0, 0, .05) 50%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%);
-    background: linear-gradient(to bottom, rgba(0, 0, 0, .3) 0, rgba(0, 0, 0, .1) 40%, rgba(0, 0, 0, .05) 50%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .3) 0, rgba(0, 0, 0, .1) 40%, rgba(0, 0, 0, .05) 50%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, 0) 100%)*/
 }
 
 .md .navbar.no-shadow:after {
@@ -1318,9 +1318,10 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .md .navbar .title {
-    margin: 0 16px;
+    margin: 0 5.5rem;
     line-height: 1.2;
-    text-align: left
+    text-align: left;
+    font-weight: bold;
 }
 
 .md .navbar .subtitle {
@@ -1392,7 +1393,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .md .color-theme-blue .navbar, .md .color-theme-blue.navbar {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-pink .navbar, .md .color-theme-pink.navbar {
@@ -1428,7 +1429,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .md .navbar.color-blue {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .navbar.color-pink {
@@ -1910,7 +1911,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .md .toolbar {
-    background: #2196f3;
+    background: #00528b;
     height: 48px;
     color: #fff;
     font-size: 14px;
@@ -2187,7 +2188,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .md .color-theme-blue .toolbar:not(.messagebar), .md .color-theme-blue.toolbar:not(.messagebar) {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-pink .toolbar:not(.messagebar), .md .color-theme-pink.toolbar:not(.messagebar) {
@@ -2223,7 +2224,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .md .toolbar:not(.messagebar).color-blue {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .toolbar:not(.messagebar).color-pink {
@@ -2529,7 +2530,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 
 .md .subnavbar {
     height: 48px;
-    background: #2196f3;
+    background: #00528b;
     color: #fff
 }
 
@@ -2663,7 +2664,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .md .color-theme-blue .subnavbar, .md .color-theme-blue.subnavbar {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-pink .subnavbar, .md .color-theme-pink.subnavbar {
@@ -2699,7 +2700,7 @@ html.with-statusbar.device-iphone-x .framework7-root {
 }
 
 .md .subnavbar.color-blue {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .subnavbar.color-pink {
@@ -4867,7 +4868,7 @@ html.device-pixel-ratio-3 .md li li:last-child .item-inner:after, html.device-pi
 }
 
 .md .color-theme-blue .list-button {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .color-theme-pink .list-button {
@@ -4903,7 +4904,7 @@ html.device-pixel-ratio-3 .md li li:last-child .item-inner:after, html.device-pi
 }
 
 .md .links-list a.color-blue, .md .links-list li.color-blue a, .md .list .item-link.color-blue, .md .list .list-button.color-blue, .md .list li.color-blue .item-link, .md .list li.color-blue .list-button, .md .simple-list li.color-blue {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .links-list a.color-pink, .md .links-list li.color-pink a, .md .list .item-link.color-pink, .md .list .list-button.color-pink, .md .list li.color-pink .item-link, .md .list li.color-pink .list-button, .md .simple-list li.color-pink {
@@ -5028,7 +5029,7 @@ html.device-pixel-ratio-3 .md li li:last-child .item-inner:after, html.device-pi
 }
 
 .md .badge.color-blue {
-    background-color: #2196f3
+    background-color: #00528b
 }
 
 .md .badge.color-pink {
@@ -5717,14 +5718,15 @@ button {
 }
 
 .md .button {
-    color: #2196f3;
+    color: #00528b;
     border-radius: 2px;
-    line-height: 36px;
-    height: 36px;
+    line-height: 40px;
+    height: 40px;
     text-transform: uppercase;
     min-width: 64px;
     padding: 0 8px;
     border: none;
+    border-radius: 5px;
     -webkit-transition-duration: .3s;
     transition-duration: .3s;
     -webkit-transform: translate3d(0, 0, 0);
@@ -5736,7 +5738,7 @@ button {
 }
 
 .md .button.button-active, .md .button.button-fill, .md .button.button-fill-md, .md .button.tab-link-active {
-    background-color: #2196f3;
+    background-color: #00528b;
     color: #fff
 }
 
@@ -5755,7 +5757,7 @@ button {
 }
 
 .md .button.button-outline {
-    border: 1px solid #2196f3;
+    border: 1px solid #00528b;
     line-height: 34px
 }
 
@@ -5782,7 +5784,8 @@ button {
 
 .md .button.button-raised {
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24)
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+    background: #00528b;
 }
 
 .md .button.button-raised.active-state {
@@ -5791,7 +5794,6 @@ button {
 }
 
 .md .navbar .button:not(.button-fill):not(.button-fill-md), .md .subnavbar .button:not(.button-fill):not(.button-fill-md), .md .toolbar .button:not(.button-fill):not(.button-fill-md) {
-    color: #fff
 }
 
 .md .navbar .button:not(.button-fill):not(.button-fill-md).active-state, .md .subnavbar .button:not(.button-fill):not(.button-fill-md).active-state, .md .toolbar .button:not(.button-fill):not(.button-fill-md).active-state {
@@ -5826,7 +5828,7 @@ button {
 }
 
 .md .segmented .button.button-outline {
-    border: 1px solid #2196f3
+    border: 1px solid #00528b
 }
 
 .md .segmented .button.button-outline:nth-child(n+2) {
@@ -5888,11 +5890,11 @@ button {
 }
 
 .md .color-blue .button, .md .color-theme-blue .button {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .color-blue .button.button-active, .md .color-blue .button.button-fill, .md .color-blue .button.button-fill-md, .md .color-blue .button.tab-link-active, .md .color-theme-blue .button.button-active, .md .color-theme-blue .button.button-fill, .md .color-theme-blue .button.button-fill-md, .md .color-theme-blue .button.tab-link-active {
-    background-color: #2196f3;
+    background-color: #00528b;
     color: #fff
 }
 
@@ -5901,7 +5903,7 @@ button {
 }
 
 .md .color-blue .button.button-outline, .md .color-theme-blue .button.button-outline {
-    border-color: #2196f3
+    border-color: #00528b
 }
 
 .md .color-pink .button, .md .color-theme-pink .button {
@@ -6041,11 +6043,11 @@ button {
 }
 
 .md .button.color-blue {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .button.color-blue.button-active, .md .button.color-blue.button-fill, .md .button.color-blue.button-fill-md, .md .button.color-blue.tab-link-active {
-    background-color: #2196f3;
+    background-color: #00528b;
     color: #fff
 }
 
@@ -6054,7 +6056,7 @@ button {
 }
 
 .md .button.color-blue.button-outline {
-    border-color: #2196f3
+    border-color: #00528b
 }
 
 .md .button.color-pink {
@@ -6612,7 +6614,7 @@ i.icon {
 }
 
 .md .icon.color-blue {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .icon.color-pink {
@@ -7129,7 +7131,7 @@ html.with-modal-dialog .page-content {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     vertical-align: middle;
-    color: #2196f3;
+    color: #00528b;
     border-radius: 2px;
     line-height: 36px;
     height: 36px;
@@ -7210,7 +7212,7 @@ input[type=button].md .dialog-button, input[type=submit].md .dialog-button {
 }
 
 .md .dialog-button.color-blue {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .dialog-button.color-pink {
@@ -7485,7 +7487,7 @@ html.with-statusbar.device-android .login-screen, html.with-statusbar.md:not(.de
 
 .md .login-screen-content .list-button {
     text-align: center;
-    color: #2196f3
+    color: #00528b
 }
 
 .md .login-screen-title {
@@ -7505,7 +7507,7 @@ html.with-statusbar.device-android .login-screen, html.with-statusbar.md:not(.de
 }
 
 .md .color-theme-blue .login-screen-content .list-button {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .color-theme-pink .login-screen-content .list-button {
@@ -7541,7 +7543,7 @@ html.with-statusbar.device-android .login-screen, html.with-statusbar.md:not(.de
 }
 
 .md .login-screen-content .list-button.color-blue {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .login-screen-content .list-button.color-pink {
@@ -8508,7 +8510,7 @@ html.with-statusbar.device-android .login-screen, html.with-statusbar.md:not(.de
 }
 
 .md .actions-button.color-blue, .md .actions-button.color-blue .actions-button-text, .md .actions-label.color-blue {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .actions-button.color-pink, .md .actions-button.color-pink .actions-button-text, .md .actions-label.color-pink {
@@ -9205,7 +9207,7 @@ html.with-modal-preloader .page-content {
 }
 
 .md .preloader.color-blue .preloader-inner-gap, .md .preloader.color-blue .preloader-inner-half-circle, .md .preloader.preloader-blue .preloader-inner-gap, .md .preloader.preloader-blue .preloader-inner-half-circle {
-    border-color: #2196f3
+    border-color: #00528b
 }
 
 .md .preloader.color-pink .preloader-inner-gap, .md .preloader.color-pink .preloader-inner-half-circle, .md .preloader.preloader-pink .preloader-inner-gap, .md .preloader.preloader-pink .preloader-inner-half-circle {
@@ -9797,7 +9799,7 @@ html.with-statusbar.device-android .framework7-root > .progressbar, html.with-st
 }
 
 .md .progressbar span {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .progressbar-infinite {
@@ -9806,7 +9808,7 @@ html.with-statusbar.device-android .framework7-root > .progressbar, html.with-st
 
 .md .progressbar-infinite:after, .md .progressbar-infinite:before {
     content: '';
-    background: #2196f3
+    background: #00528b
 }
 
 .md .progressbar-infinite:before {
@@ -9862,11 +9864,11 @@ html.with-statusbar.device-android .framework7-root > .progressbar, html.with-st
 }
 
 .md .color-theme-blue .progressbar span {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-blue .progressbar-infinite:after, .md .color-theme-blue .progressbar-infinite:before {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-pink .progressbar, .md .color-theme-pink .progressbar-infinite {
@@ -9970,11 +9972,11 @@ html.with-statusbar.device-android .framework7-root > .progressbar, html.with-st
 }
 
 .md .progressbar.color-blue span {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .progressbar-infinite.color-blue:after, .md .progressbar-infinite.color-blue:before {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .progressbar-infinite.color-pink, .md .progressbar.color-pink {
@@ -10141,7 +10143,7 @@ html.with-statusbar.device-android .framework7-root > .progressbar, html.with-st
         background-color: #f44336
     }
     50% {
-        background-color: #2196f3
+        background-color: #00528b
     }
     75% {
         background-color: #ffeb3b
@@ -10156,7 +10158,7 @@ html.with-statusbar.device-android .framework7-root > .progressbar, html.with-st
         background-color: #f44336
     }
     50% {
-        background-color: #2196f3
+        background-color: #00528b
     }
     75% {
         background-color: #ffeb3b
@@ -10177,12 +10179,12 @@ html.with-statusbar.device-android .framework7-root > .progressbar, html.with-st
     25% {
         -webkit-transform: scaleX(0);
         transform: scaleX(0);
-        background-color: #2196f3
+        background-color: #00528b
     }
     49.9% {
         -webkit-transform: scaleX(1);
         transform: scaleX(1);
-        background-color: #2196f3
+        background-color: #00528b
     }
     50% {
         -webkit-transform: scaleX(0);
@@ -10220,12 +10222,12 @@ html.with-statusbar.device-android .framework7-root > .progressbar, html.with-st
     25% {
         -webkit-transform: scaleX(0);
         transform: scaleX(0);
-        background-color: #2196f3
+        background-color: #00528b
     }
     49.9% {
         -webkit-transform: scaleX(1);
         transform: scaleX(1);
-        background-color: #2196f3
+        background-color: #00528b
     }
     50% {
         -webkit-transform: scaleX(0);
@@ -10519,7 +10521,7 @@ html.with-statusbar.device-android .framework7-root > .progressbar, html.with-st
 }
 
 .md .swipeout-actions-left > a.color-blue, .md .swipeout-actions-left > button.color-blue, .md .swipeout-actions-left > div.color-blue, .md .swipeout-actions-left > span.color-blue, .md .swipeout-actions-right > a.color-blue, .md .swipeout-actions-right > button.color-blue, .md .swipeout-actions-right > div.color-blue, .md .swipeout-actions-right > span.color-blue {
-    background-color: #2196f3
+    background-color: #00528b
 }
 
 .md .swipeout-actions-left > a.color-pink, .md .swipeout-actions-left > button.color-pink, .md .swipeout-actions-left > div.color-pink, .md .swipeout-actions-left > span.color-pink, .md .swipeout-actions-right > a.color-pink, .md .swipeout-actions-right > button.color-pink, .md .swipeout-actions-right > div.color-pink, .md .swipeout-actions-right > span.color-pink {
@@ -11031,7 +11033,7 @@ html.device-android-4 .accordion-item-content {
 }
 
 .md .list-index ul {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .list-index .list-index-skip-placeholder:after {
@@ -11040,7 +11042,7 @@ html.device-android-4 .accordion-item-content {
     height: 4px;
     margin-left: -2px;
     margin-top: -2px;
-    background: #2196f3
+    background: #00528b
 }
 
 .md .list-index .list-index-label {
@@ -11048,7 +11050,7 @@ html.device-android-4 .accordion-item-content {
     height: 56px;
     line-height: 56px;
     border-radius: 50% 50% 0 50%;
-    background: #2196f3;
+    background: #00528b;
     font-size: 20px
 }
 
@@ -11105,11 +11107,11 @@ html.device-android-4 .accordion-item-content {
 }
 
 .md .color-theme-blue .list-index ul, .md .list-index.color-theme-blue ul {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .color-theme-blue .list-index .list-index-label, .md .color-theme-blue .list-index .list-index-skip-placeholder:after, .md .list-index.color-theme-blue .list-index-label, .md .list-index.color-theme-blue .list-index-skip-placeholder:after {
-    background-color: #2196f3
+    background-color: #00528b
 }
 
 .md .color-theme-pink .list-index ul, .md .list-index.color-theme-pink ul {
@@ -11177,11 +11179,11 @@ html.device-android-4 .accordion-item-content {
 }
 
 .md .list-index.color-blue ul {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .list-index.color-blue .list-index-label, .md .list-index.color-blue .list-index-skip-placeholder:after {
-    background-color: #2196f3
+    background-color: #00528b
 }
 
 .md .list-index.color-pink ul {
@@ -12187,7 +12189,7 @@ html.device-android-4 .accordion-item-content {
 }
 
 .md .timeline-horizontal .timeline-item-date {
-    background: #2196f3;
+    background: #00528b;
     padding: 0 12px;
     color: #fff
 }
@@ -12270,7 +12272,7 @@ html.device-android-4 .accordion-item-content {
 .md .timeline-month-title, .md .timeline-year-title {
     padding: 0 12px;
     color: #fff;
-    background: #2196f3
+    background: #00528b
 }
 
 .md .timeline-month-title span, .md .timeline-year-title span {
@@ -12356,7 +12358,7 @@ html.device-android-4 .accordion-item-content {
 }
 
 .md .color-theme-blue .timeline-item-date, .md .color-theme-blue .timeline-month-title, .md .color-theme-blue .timeline-year-title {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-pink .timeline-item-date, .md .color-theme-pink .timeline-month-title, .md .color-theme-pink .timeline-year-title {
@@ -12392,7 +12394,7 @@ html.device-android-4 .accordion-item-content {
 }
 
 .md .timeline.color-theme-blue .timeline-item-date, .md .timeline.color-theme-blue .timeline-month-title, .md .timeline.color-theme-blue .timeline-year-title {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .timeline.color-theme-pink .timeline-item-date, .md .timeline.color-theme-pink .timeline-month-title, .md .timeline.color-theme-pink .timeline-year-title {
@@ -12935,7 +12937,7 @@ html.device-pixel-ratio-3 .card-footer:before {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     vertical-align: middle;
-    color: #2196f3;
+    color: #00528b;
     border-radius: 2px;
     line-height: 36px;
     height: 36px;
@@ -13023,7 +13025,7 @@ input[type=button].md .card-footer a.link, input[type=button].md .card-header a.
 }
 
 .md .card-footer.color-theme-blue a.link, .md .card-header.color-theme-blue a.link, .md .color-theme-blue .card-footer a.link, .md .color-theme-blue .card-header a.link {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .card-footer.color-theme-pink a.link, .md .card-header.color-theme-pink a.link, .md .color-theme-pink .card-footer a.link, .md .color-theme-pink .card-header a.link {
@@ -13059,7 +13061,7 @@ input[type=button].md .card-footer a.link, input[type=button].md .card-header a.
 }
 
 .md .card-footer a.link.color-blue, .md .card-header a.link.color-blue {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .card-footer a.link.color-pink, .md .card-header a.link.color-pink {
@@ -13301,7 +13303,7 @@ input[type=button].md .card-footer a.link, input[type=button].md .card-header a.
 }
 
 .md .chip.color-blue {
-    background: #2196f3;
+    background: #00528b;
     color: #fff
 }
 
@@ -13837,11 +13839,11 @@ input[type=date], input[type=datetime-local], input[type=email], input[type=numb
 }
 
 .md .item-input-focused .item-floating-label, .md .item-input-focused .item-label {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .input-focused:after, .md .item-input-focused .item-input-wrap:after {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .item-input-invalid .item-floating-label, .md .item-input-invalid .item-label, .md .item-invalid .item-floating-label, .md .item-invalid .item-label {
@@ -13953,11 +13955,11 @@ input[type=date], input[type=datetime-local], input[type=email], input[type=numb
 }
 
 .md .color-theme-blue .item-input-focused .item-floating-label, .md .color-theme-blue .item-input-focused .item-label {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .color-theme-blue .input-after:after, .md .color-theme-blue .item-input-focused .item-input-wrap:after {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-pink .item-input-focused .item-floating-label, .md .color-theme-pink .item-input-focused .item-label {
@@ -14025,7 +14027,7 @@ input[type=date], input[type=datetime-local], input[type=email], input[type=numb
 }
 
 .md .item-input-focused.color-blue .item-floating-label, .md .item-input-focused.color-blue .item-label {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .input-after.color-blue:after, .md .item-input-focused.color-blue .item-input-wrap:after {
@@ -14272,8 +14274,8 @@ label.item-checkbox.active-state:after {
 }
 
 .md .checkbox input[type=checkbox]:checked ~ i, .md label.item-checkbox input[type=checkbox]:checked ~ * .icon-checkbox, .md label.item-checkbox input[type=checkbox]:checked ~ .icon-checkbox {
-    background-color: #2196f3;
-    border-color: #2196f3
+    background-color: #00528b;
+    border-color: #00528b
 }
 
 .md .checkbox input[type=checkbox]:checked ~ i:after, .md label.item-checkbox input[type=checkbox]:checked ~ * .icon-checkbox:after, .md label.item-checkbox input[type=checkbox]:checked ~ .icon-checkbox:after {
@@ -14327,8 +14329,8 @@ label.item-checkbox.active-state:after {
 }
 
 .md .color-theme-blue .checkbox input[type=checkbox]:checked ~ i, .md .color-theme-blue label.item-checkbox input[type=checkbox]:checked ~ * .icon-checkbox, .md .color-theme-blue label.item-checkbox input[type=checkbox]:checked ~ .icon-checkbox {
-    background-color: #2196f3;
-    border-color: #2196f3
+    background-color: #00528b;
+    border-color: #00528b
 }
 
 .md .color-theme-blue .checkbox .ripple-wave {
@@ -14408,8 +14410,8 @@ label.item-checkbox.active-state:after {
 }
 
 .md .checkbox.color-blue input[type=checkbox]:checked ~ i, .md label.item-checkbox.color-blue input[type=checkbox]:checked ~ * .icon-checkbox, .md label.item-checkbox.color-blue input[type=checkbox]:checked ~ .icon-checkbox {
-    background-color: #2196f3;
-    border-color: #2196f3
+    background-color: #00528b;
+    border-color: #00528b
 }
 
 .md .checkbox.color-blue .ripple-wave {
@@ -14748,7 +14750,7 @@ label.item-radio.active-state:after {
     top: 50%;
     margin-left: -5px;
     margin-top: -5px;
-    background-color: #2196f3;
+    background-color: #00528b;
     border-radius: 50%;
     -webkit-transform: scale(0);
     transform: scale(0);
@@ -14757,11 +14759,11 @@ label.item-radio.active-state:after {
 }
 
 .md .radio input[type=radio]:checked ~ .icon-radio, .md label.item-radio input[type=radio]:checked ~ * .icon-radio, .md label.item-radio input[type=radio]:checked ~ .icon-radio {
-    border-color: #2196f3
+    border-color: #00528b
 }
 
 .md .radio input[type=radio]:checked ~ .icon-radio:after, .md label.item-radio input[type=radio]:checked ~ * .icon-radio:after, .md label.item-radio input[type=radio]:checked ~ .icon-radio:after {
-    background-color: #2196f3;
+    background-color: #00528b;
     -webkit-transform: scale(1);
     transform: scale(1)
 }
@@ -14827,15 +14829,15 @@ label.item-radio.active-state:after {
 }
 
 .md .color-theme-blue .icon-radio:after {
-    background-color: #2196f3
+    background-color: #00528b
 }
 
 .md .color-theme-blue .radio input[type=radio]:checked ~ .icon-radio, .md .color-theme-blue label.item-radio input[type=radio]:checked ~ * .icon-radio, .md .color-theme-blue label.item-radio input[type=radio]:checked ~ .icon-radio {
-    border-color: #2196f3
+    border-color: #00528b
 }
 
 .md .color-theme-blue .radio input[type=radio]:checked ~ .icon-radio:after, .md .color-theme-blue label.item-radio input[type=radio]:checked ~ * .icon-radio:after, .md .color-theme-blue label.item-radio input[type=radio]:checked ~ .icon-radio:after {
-    background-color: #2196f3
+    background-color: #00528b
 }
 
 .md .color-theme-blue .radio .ripple-wave {
@@ -14971,15 +14973,15 @@ label.item-radio.active-state:after {
 }
 
 .md .radio.color-blue .icon-radio:after {
-    background-color: #2196f3
+    background-color: #00528b
 }
 
 .md .radio.color-blue input[type=radio]:checked ~ .icon-radio, .md label.item-radio.color-blue input[type=radio]:checked ~ * .icon-radio, .md label.item-radio.color-blue input[type=radio]:checked ~ .icon-radio {
-    border-color: #2196f3
+    border-color: #00528b
 }
 
 .md .radio.color-blue input[type=radio]:checked ~ .icon-radio:after, .md label.item-radio.color-blue input[type=radio]:checked ~ * .icon-radio:after, .md label.item-radio.color-blue input[type=radio]:checked ~ .icon-radio:after {
-    background-color: #2196f3
+    background-color: #00528b
 }
 
 .md .radio.color-blue .ripple-wave {
@@ -15261,7 +15263,7 @@ label.item-radio.active-state:after {
 .md .toggle input[type=checkbox]:checked + .toggle-icon:after {
     -webkit-transform: translateX(16px);
     transform: translateX(16px);
-    background: #2196f3
+    background: #00528b
 }
 
 .md .toggle-icon {
@@ -15302,7 +15304,7 @@ label.item-radio.active-state:after {
 }
 
 .md .color-theme-blue .toggle input[type=checkbox]:checked + .toggle-icon:after {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-pink .toggle input[type=checkbox]:checked + .toggle-icon {
@@ -15374,7 +15376,7 @@ label.item-radio.active-state:after {
 }
 
 .md .toggle.color-blue input[type=checkbox]:checked + .toggle-icon:after {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .toggle.color-pink input[type=checkbox]:checked + .toggle-icon {
@@ -15636,7 +15638,7 @@ label.item-radio.active-state:after {
 }
 
 .md .range-bar-active {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .range-knob-wrap {
@@ -15647,7 +15649,7 @@ label.item-radio.active-state:after {
 }
 
 .md .range-knob {
-    background: #2196f3;
+    background: #00528b;
     -webkit-transition-duration: .2s;
     transition-duration: .2s;
     -webkit-transition-property: background-color, -webkit-transform;
@@ -15671,7 +15673,7 @@ label.item-radio.active-state:after {
     height: 26px;
     margin-left: -13px;
     margin-bottom: 8px;
-    background: #2196f3;
+    background: #00528b;
     color: #fff;
     font-size: 10px;
     border-radius: 50%;
@@ -15687,7 +15689,7 @@ label.item-radio.active-state:after {
     z-index: -1;
     width: 26px;
     height: 26px;
-    background: #2196f3;
+    background: #00528b;
     -webkit-transform: rotate(-45deg);
     transform: rotate(-45deg);
     border-radius: 50% 50% 50% 0
@@ -15712,7 +15714,7 @@ label.item-radio.active-state:after {
 }
 
 .md .color-theme-blue .range-slider .range-bar-active, .md .color-theme-blue .range-slider .range-knob, .md .color-theme-blue .range-slider .range-knob-label, .md .color-theme-blue .range-slider .range-knob-label:before {
-    background-color: #2196f3
+    background-color: #00528b
 }
 
 .md .color-theme-pink .range-slider .range-bar-active, .md .color-theme-pink .range-slider .range-knob, .md .color-theme-pink .range-slider .range-knob-label, .md .color-theme-pink .range-slider .range-knob-label:before {
@@ -15748,7 +15750,7 @@ label.item-radio.active-state:after {
 }
 
 .md .range-slider.color-blue .range-bar-active, .md .range-slider.color-blue .range-knob, .md .range-slider.color-blue .range-knob-label, .md .range-slider.color-blue .range-knob-label:before {
-    background-color: #2196f3
+    background-color: #00528b
 }
 
 .md .range-slider.color-pink .range-bar-active, .md .range-slider.color-pink .range-knob, .md .range-slider.color-pink .range-knob-label, .md .range-slider.color-pink .range-knob-label:before {
@@ -16788,8 +16790,8 @@ label.item-radio.active-state:after {
 }
 
 .md .stepper-button, .md .stepper-button-minus, .md .stepper-button-plus {
-    border: 1px solid #2196f3;
-    color: #2196f3;
+    border: 1px solid #00528b;
+    color: #00528b;
     line-height: 34px;
     height: 36px;
     width: 40px;
@@ -16817,28 +16819,28 @@ label.item-radio.active-state:after {
 }
 
 .md .stepper-button-minus:after, .md .stepper-button-minus:before, .md .stepper-button-plus:after, .md .stepper-button-plus:before {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .stepper-input-wrap, .md .stepper-value {
-    border-top: 1px solid #2196f3;
-    border-bottom: 1px solid #2196f3
+    border-top: 1px solid #00528b;
+    border-bottom: 1px solid #00528b
 }
 
 .md .stepper .stepper-value {
-    color: #2196f3;
+    color: #00528b;
     font-size: 16px
 }
 
 .md .stepper .stepper-input-wrap input {
     height: 100%;
     text-align: center;
-    color: #2196f3;
+    color: #00528b;
     font-size: 16px
 }
 
 .md .stepper-fill .stepper-button, .md .stepper-fill .stepper-button-minus, .md .stepper-fill .stepper-button-plus, .md .stepper-fill-md .stepper-button, .md .stepper-fill-md .stepper-button-minus, .md .stepper-fill-md .stepper-button-plus {
-    background-color: #2196f3;
+    background-color: #00528b;
     color: #fff;
     border: none;
     line-height: 36px
@@ -17004,29 +17006,29 @@ label.item-radio.active-state:after {
 }
 
 .md .color-theme-blue .stepper-button, .md .color-theme-blue .stepper-button-minus, .md .color-theme-blue .stepper-button-plus {
-    border-color: #2196f3;
-    color: #2196f3
+    border-color: #00528b;
+    color: #00528b
 }
 
 .md .color-theme-blue .stepper-button-minus:after, .md .color-theme-blue .stepper-button-minus:before, .md .color-theme-blue .stepper-button-plus:after, .md .color-theme-blue .stepper-button-plus:before {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-blue .stepper-input-wrap, .md .color-theme-blue .stepper-value {
-    border-top-color: #2196f3;
-    border-bottom-color: #2196f3
+    border-top-color: #00528b;
+    border-bottom-color: #00528b
 }
 
 .md .color-theme-blue .stepper-value {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .color-theme-blue .stepper .stepper-input-wrap input {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .color-theme-blue .stepper-fill .stepper-button, .md .color-theme-blue .stepper-fill .stepper-button-minus, .md .color-theme-blue .stepper-fill .stepper-button-plus, .md .color-theme-blue .stepper-fill-md .stepper-button, .md .color-theme-blue .stepper-fill-md .stepper-button-minus, .md .color-theme-blue .stepper-fill-md .stepper-button-plus {
-    background-color: #2196f3;
+    background-color: #00528b;
     color: #fff
 }
 
@@ -17319,29 +17321,29 @@ label.item-radio.active-state:after {
 }
 
 .md .stepper.color-blue .stepper-button, .md .stepper.color-blue .stepper-button-minus, .md .stepper.color-blue .stepper-button-plus {
-    border-color: #2196f3;
-    color: #2196f3
+    border-color: #00528b;
+    color: #00528b
 }
 
 .md .stepper.color-blue .stepper-button-minus:after, .md .stepper.color-blue .stepper-button-minus:before, .md .stepper.color-blue .stepper-button-plus:after, .md .stepper.color-blue .stepper-button-plus:before {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .stepper.color-blue .stepper-input-wrap, .md .stepper.color-blue .stepper-value {
-    border-top-color: #2196f3;
-    border-bottom-color: #2196f3
+    border-top-color: #00528b;
+    border-bottom-color: #00528b
 }
 
 .md .stepper.color-blue .stepper-value {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .stepper.color-blue .stepper-input-wrap input {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .stepper.color-blue.stepper-fill .stepper-button, .md .stepper.color-blue.stepper-fill .stepper-button-minus, .md .stepper.color-blue.stepper-fill .stepper-button-plus, .md .stepper.color-blue.stepper-fill-md .stepper-button, .md .stepper.color-blue.stepper-fill-md .stepper-button-minus, .md .stepper.color-blue.stepper-fill-md .stepper-button-plus {
-    background-color: #2196f3;
+    background-color: #00528b;
     color: #fff
 }
 
@@ -20525,7 +20527,7 @@ label.item-radio.active-state:after {
 
 .md .calendar-header {
     height: 56px;
-    background: #2196f3;
+    background: #00528b;
     font-size: 20px;
     line-height: 56px;
     padding: 0 24px;
@@ -20603,11 +20605,11 @@ label.item-radio.active-state:after {
 }
 
 .md .calendar-day.calendar-day-today span {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .calendar-day.calendar-day-has-events span:after {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .calendar-day.calendar-day-has-events.calendar-day-selected span:after {
@@ -20615,7 +20617,7 @@ label.item-radio.active-state:after {
 }
 
 .md .calendar-day.calendar-day-selected span {
-    background: #2196f3;
+    background: #00528b;
     color: #fff
 }
 
@@ -20779,19 +20781,19 @@ label.item-radio.active-state:after {
 }
 
 .md .color-blue .calendar-header, .md .color-theme-blue .calendar-header {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-blue .calendar-day.calendar-day-today span, .md .color-theme-blue .calendar-day.calendar-day-today span {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .color-blue .calendar-day.calendar-day-has-events span:after, .md .color-theme-blue .calendar-day.calendar-day-has-events span:after {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-blue .calendar-day.calendar-day-selected span, .md .color-theme-blue .calendar-day.calendar-day-selected span {
-    background: #2196f3;
+    background: #00528b;
     color: #fff
 }
 
@@ -22276,7 +22278,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active) .table
 }
 
 .md .data-table-title-selected {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .data-table tbody td:before {
@@ -22511,7 +22513,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active) .table
 }
 
 .md .color-blue .data-table-title-selected, .md .color-theme-blue .data-table-title-selected {
-    color: #2196f3
+    color: #00528b
 }
 
 .md .color-theme-pink .data-table-header-selected, .md .data-table-header-selected.color-pink {
@@ -23149,7 +23151,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active) .table
 }
 
 .md .fab-buttons a, .md .fab > a {
-    background: #2196f3;
+    background: #00528b;
     width: 56px;
     height: 56px;
     border-radius: 28px;
@@ -23224,7 +23226,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active) .table
 
 .md .fab-morph {
     border-radius: 28px;
-    background: #2196f3;
+    background: #00528b;
     -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, .19), 0 6px 6px rgba(0, 0, 0, .23);
     box-shadow: 0 10px 20px rgba(0, 0, 0, .19), 0 6px 6px rgba(0, 0, 0, .23)
 }
@@ -23260,7 +23262,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active) .table
 }
 
 .md .color-theme-blue .fab-buttons a, .md .color-theme-blue .fab > a, .md .color-theme-blue.fab-buttons a, .md .color-theme-blue.fab > a {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-blue .fab-buttons a.active-state, .md .color-theme-blue .fab > a.active-state, .md .color-theme-blue.fab-buttons a.active-state, .md .color-theme-blue.fab > a.active-state {
@@ -23268,7 +23270,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active) .table
 }
 
 .md .color-theme-blue .fab-morph, .md .color-theme-blue.fab-morph {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-pink .fab-buttons a, .md .color-theme-pink .fab > a, .md .color-theme-pink.fab-buttons a, .md .color-theme-pink.fab > a {
@@ -23368,7 +23370,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active) .table
 }
 
 .md .fab .fab-buttons > a.color-blue, .md .fab-buttons.color-blue a, .md .fab.color-blue .fab-buttons > a, .md .fab.color-blue > a, .md .fab > a.color-blue {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .fab .fab-buttons > a.color-blue.active-state, .md .fab-buttons.color-blue a.active-state, .md .fab.color-blue .fab-buttons > a.active-state, .md .fab.color-blue > a.active-state, .md .fab > a.color-blue.active-state {
@@ -23376,7 +23378,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active) .table
 }
 
 .md .fab-morph.color-blue {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .fab .fab-buttons > a.color-pink, .md .fab-buttons.color-pink a, .md .fab.color-pink .fab-buttons > a, .md .fab.color-pink > a, .md .fab > a.color-pink {
@@ -25230,7 +25232,7 @@ html.device-desktop .data-table .sortable-cell:not(.sortable-cell-active) .table
     top: 8px;
     width: 24px;
     height: 24px;
-    background: #2196f3;
+    background: #00528b;
     cursor: pointer;
     border-radius: 2px
 }
@@ -26026,11 +26028,11 @@ button.swiper-pagination-bullet {
 }
 
 .md .swiper-pagination-bullet-active {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-red .swiper-button-prev, .md .color-theme-red .swiper-container-rtl .swiper-button-next, .md .swiper-button-prev.color-red, .md .swiper-container-rtl .swiper-button-next.color-red {
@@ -26082,7 +26084,7 @@ button.swiper-pagination-bullet {
 }
 
 .md .color-blue .swiper-pagination-bullet-active, .md .color-theme-blue .swiper-pagination-bullet-active {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-blue .swiper-pagination-progressbar, .md .color-blue.swiper-pagination-progressbar, .md .color-theme-blue .swiper-pagination-progressbar, .md .color-theme-blue.swiper-pagination-progressbar {
@@ -26090,7 +26092,7 @@ button.swiper-pagination-bullet {
 }
 
 .md .color-blue .swiper-pagination-progressbar .swiper-pagination-progressbar-fill, .md .color-blue.swiper-pagination-progressbar .swiper-pagination-progressbar-fill, .md .color-theme-blue .swiper-pagination-progressbar .swiper-pagination-progressbar-fill, .md .color-theme-blue.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
-    background: #2196f3
+    background: #00528b
 }
 
 .md .color-theme-pink .swiper-button-prev, .md .color-theme-pink .swiper-container-rtl .swiper-button-next, .md .swiper-button-prev.color-pink, .md .swiper-container-rtl .swiper-button-next.color-pink {
@@ -26876,7 +26878,7 @@ html.with-statusbar.device-iphone-x .notification {
 .md .notification-title {
     font-size: 12px;
     line-height: 1;
-    color: #2196f3
+    color: #00528b
 }
 
 .md .notification-subtitle {
@@ -27889,15 +27891,15 @@ iframe#viAd {
 }
 
 .md .text-color-blue {
-    color: #2196f3 !important
+    color: #00528b !important
 }
 
 .md .bg-color-blue {
-    background-color: #2196f3 !important
+    background-color: #00528b !important
 }
 
 .md .border-color-blue {
-    border-color: #2196f3 !important
+    border-color: #00528b !important
 }
 
 .md .text-color-pink {

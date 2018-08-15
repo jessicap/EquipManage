@@ -1,6 +1,15 @@
 var ws=null,wo=null;
 var scan=null,domready=false,bCancel=false;var foo;
 // H5 plus事件处理
+
+if(window.plus){
+	plusReady();
+	console.log("a");
+}else{
+	document.addEventListener('plusready', plusReady, false);
+	console.log("bb");
+
+}
 function plusReady(){
 	if(ws||!window.plus||!domready){
 		return;
@@ -14,15 +23,6 @@ function plusReady(){
     ws.show('pop-in');
     wo.evalJS('closeWaiting()');
 }
-if(window.plus){
-	plusReady();
-	console.log("a");
-}else{
-	document.addEventListener('plusready', plusReady, false);
-	console.log("bb");
-
-}
-
 routes = [{
 		path: '/',
 		url: './index.html',
@@ -42,23 +42,70 @@ routes = [{
 		templateUrl: './pages/welcome-admin.html',
 		options:{
 			context:{
-				username:foo,
-				mobilephone:'bb',
-				channel:'cc'
+				
 				
 			}
 		}
 
 	},
+	{
+    path: '/upper/',
+    async(routeTo, routeFrom, resolve, reject) {
+    	var qx=plus.storage.getItem("qx");
+    	var username=plus.storage.getItem("username");
+    	var mobilephone=plus.storage.getItem("mobilephone");
+    	var channel=plus.storage.getItem("channel");
+    	
+      if (qx=="admin") {
+       resolve({
+							templateUrl: './pages/welcome-admin.html',
+						}, {
+							context: {
+								username:username,
+								mobilephone:mobilephone,
+								channel:channel
+							}
+						});
+      } else if(qx=="normal"){
+          resolve({
+							templateUrl: './pages/welcome-normal.html',
+						}, {
+							context: {
+								username:username,
+								mobilephone:mobilephone,
+								channel:channel
+							}
+						});
+      } else if(qx=="leader"){
+          resolve({
+							templateUrl: './pages/welcome-leader.html',
+						}, {
+							context: {
+								username:username,
+								mobilephone:mobilephone,
+								channel:channel
+							}
+						});
+      } else if(qx=="chief"){
+          resolve({
+							templateUrl: './pages/welcome-chief.html',
+						}, {
+							context: {
+								username:username,
+								mobilephone:mobilephone,
+								channel:channel
+							}
+						});
+      }
+    }
+  },
 
 	{
 		path: '/welcome-normal/', //普通权限登录后欢迎界面
 		templateUrl: './pages/welcome-normal.html',
 		options:{
 			context:{
-				username:foo,
-				mobilephone:'bb',
-				channel:'cc'
+			
 				
 			}
 		}
@@ -70,9 +117,7 @@ routes = [{
 		templateUrl: './pages/welcome-chief.html',
 		options:{
 			context:{
-				username:foo,
-				mobilephone:'bb',
-				channel:'cc'
+				
 				
 			}
 		}
@@ -84,9 +129,7 @@ routes = [{
 		templateUrl: './pages/welcome-leader.html',
 		options:{
 			context:{
-				username:foo,
-				mobilephone:'bb',
-				channel:'cc'
+			
 				
 			}
 		}
@@ -115,6 +158,10 @@ routes = [{
 							console.log("aaaaa" + searchName);
 							mobilephone = $$(this).val();
 							app.searchBrilstnum(username, mobilephone);
+						}else if($$(this).attr("name") == "equipnum") {
+							
+							var num = $$(this).val();
+							dealBorrow("", num);
 						}
 
 					} else {
@@ -128,6 +175,30 @@ routes = [{
 	}, {
 		path: '/equip-return/', //设备归还
 		componentUrl: './pages/equip-return.html',
+		on: {
+			pageInit: function(e, page) {
+				$$(".keyword").on('keypress', function(e) {
+					var keycode = e.keyCode;
+					var which = e.which;
+					var searchName = $$(this).val();
+					var username, mobilephone;
+
+					if(keycode == '13' || e.which == '13') {
+						e.preventDefault();
+						//请求搜索接口
+						 if($$(this).attr("name") == "equipnum") {
+							
+							var num = $$(this).val();
+							dealReturn("", num);
+						}
+
+					} else {
+						console.log(keycode);
+						console.log(which);
+					}
+				});
+			}
+		}
 
 	},
 	{
@@ -145,7 +216,7 @@ routes = [{
 					// app.loginScreen.close('#my-login-screen');
 
 					// Alert username and password
-					app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
+					//app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
 
 					//***********ajax登录************
 
@@ -267,7 +338,7 @@ routes = [{
 				$$(".convert-form-to-data-admin").on('click', function(e) {
 
 					var formData = app.form.convertToData('#brlist-admin-form');
-					alert(JSON.stringify(formData));
+					//alert(JSON.stringify(formData));
 					$$(".searchblock").remove();
 					
 					app.adminBRlist(formData);
@@ -348,7 +419,7 @@ routes = [{
 
 					var formData = app.form.convertToData('#equipmsg-form');
 					formdata = JSON.stringify(formData)
-					alert(JSON.stringify(formData));
+					//alert(JSON.stringify(formData));
 					$$(".searchblock").remove();
 					app.adminEquipSearch(formdata);
 				});
@@ -817,7 +888,7 @@ routes = [{
 				$$(".convert-form-to-data").on('click', function(e) {
 
 					var formData = app.form.convertToData('#normal-form');
-					alert(JSON.stringify(formData));
+					//alert(JSON.stringify(formData));
 					$$(".searchblock").remove();
 					app.normalBRlist(formData.isverify);
 				});
@@ -990,7 +1061,7 @@ routes = [{
 				$$(".convert-form-to-data").on('click', function(e) {
 
 					var formData = app.form.convertToData('#chief-form');
-					alert(JSON.stringify(formData));
+					//alert(JSON.stringify(formData));
 					$$(".searchblock").remove();
 					app.chiefBRlist(formData);
 				});
@@ -1208,7 +1279,7 @@ function dealLocateSearch() {
 	//alert(JSON.stringify(formData));
 	//
 	var equipname = $$('input[name="equipname"]').val();
-	var tag = $$('select[name="type"]').val();
+	var tag = $$('select[name="tag"]').val();
 	console.log(equipname + tag);
 	app.searchEquipLocate(equipname, tag);
 	$$(".equip-locate .listbutton").remove();

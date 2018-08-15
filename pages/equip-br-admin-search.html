@@ -3,7 +3,7 @@
 		<div class="navbar navbar-others">
 			<div class="navbar-inner sliding">
 				<div class="left">
-					<a href="/welcome-admin/" class="link ">
+					<a href="/welcome-admin/" class="link back">
 
 						<i class="f7-icons">arrow_left</i>
 
@@ -35,12 +35,14 @@
 			
 
 		</div>
+			<div class="block">
 			<div class="equip-br-admin">
+			</div>
 				
 			</div>
 			<div class="popup popup-about">
 
-				<div class="navbar">
+				<div class="navbar navbar-others" >
 					<div class="navbar-inner">
 						<div class="title">查询条件</div>
 						<div class="right">
@@ -89,9 +91,9 @@
 										<div class="item-input-wrap">
 
 											<select name="department">
-												<option></option>
-												<option>制作中心</option>
-												<option>卫视</option>
+												<option value="">部门</option>
+												<option value="制作中心">制作中心</option>
+												<option value="卫视">卫视</option>
 											</select>
 
 											<span class="input-clear-button"></span>
@@ -112,9 +114,9 @@
 										<div class="item-title item-label">是否核销</div>
 										<div class="item-input-wrap">
 											<select name="isverify">
-												<option></option>
-												<option>未核销</option>
-												<option>已核销</option>
+												<option value="">核销状况</option>
+												<option value="0">未核销</option>
+												<option value="1">已核销</option>
 												
 											</select>
 											<span class="input-clear-button"></span>
