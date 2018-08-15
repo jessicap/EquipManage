@@ -3,7 +3,7 @@ var procinstid = 0;
     function plusReady() {  
         //Android返回键监听事件  
         plus.key.addEventListener('backbutton',function(){  
-            myclose();  
+          //  myclose();  
         },false);  
     }  
     if (window.plus) {  

@@ -161,6 +161,7 @@ routes = [{
 						}else if($$(this).attr("name") == "equipnum") {
 							
 							var num = $$(this).val();
+							console.log(num);
 							dealBorrow("", num);
 						}
 

@@ -14,6 +14,17 @@ function plusReady(){
 	    scan.onmarked=onmarked;
 	    scan.start({conserve:true,filename:'_doc/barcode/'});
 	});
+	 plus.key.addEventListener('backbutton', function() {
+        // 事件处理
+            plus.nativeUI.confirm("退出程序？", function(event) {
+                if (event.index) {
+                    plus.runtime.quit();
+                }
+            }, null, ["取消", "确定"]);
+        }, false);
+	
+	
+	
 	// 显示页面并关闭等待框
     ws.show('pop-in');
     wo.evalJS('closeWaiting()');
@@ -216,13 +227,31 @@ app.searchBrilstnum = function(username, mobilephone) {
 				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 			},
 			success: function(data) {
-
+					
 				console.log('Load was performed');
 				brlistmsg = data;
 				console.log(brlistmsg);
 				html2 = app.searchBrilstnumResultsTemplate(brlistmsg);
 
 				$$('.createdbrlist').html(html2);
+				$$(".keyword").on('keypress', function(e) {
+					var keycode = e.keyCode;
+					var which = e.which;
+					if(keycode == '13' || e.which == '13') {
+						e.preventDefault();
+						//请求搜索接口
+					if($$(this).attr("name") == "equipnum") {
+							
+							var num = $$(this).val();
+							console.log(num);
+							dealBorrow("", num);
+						}
+
+					} else {
+						console.log(keycode);
+						console.log(which);
+					}
+				});
 
 			}
 		});
@@ -284,7 +313,24 @@ app.searchLocation = function(search) {
 						//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 					},
 					success: function(data) {
+					$$(".keyword").on('keypress', function(e) {
+					var keycode = e.keyCode;
+					var which = e.which;
+					if(keycode == '13' || e.which == '13') {
+						e.preventDefault();
+						//请求搜索接口
+					if($$(this).attr("name") == "equipnum") {
+							
+							var num = $$(this).val();
+							console.log(num);
+							dealBorrow("", num);
+						}
 
+					} else {
+						console.log(keycode);
+						console.log(which);
+					}
+				});
 						index++;
 						console.log('Load was performed');
 						equipname = data.equipname;
@@ -323,10 +369,10 @@ app.equipReturnStatus = function(search) {
 		if(search) {
 
 			var isHave = true;
-			if(equip != "") {
-				for(var i = 0; i < equip.length; i++) {
-					console.log("229" + equip[i].centernum);
-					if(search == equip[i].centernum) {
+			if(equipReturn != "") {
+				for(var i = 0; i < equipReturn.length; i++) {
+					console.log("229" + equipReturn[i].centernum);
+					if(search == equipReturn[i].centernum) {
 						alert("重复设备！");
 						isHave = false;
 					}
@@ -1027,7 +1073,10 @@ function saveEquipBorrow() {
 			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 		},
 		success: function(data) {
-			alert(data.status);
+			if(data.status=='success'){
+				alert("借出成功！");
+			}
+			
 			console.log(data.status);
 		}
 	});
@@ -1057,8 +1106,15 @@ function saveEquipReturn() {
 			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 		},
 		success: function(data) {
-
-			alert(data.status)
+			console.log(data);
+			var result="归还失败的设备中心条码：";
+			//alert(data);
+				$.each(data, function(i,item){
+					if(data[i].status=="N")
+					result=result+data[i].centernum+" "
+					
+				});
+				alert(result);
 		}
 	});
 	//	//***********************************/
