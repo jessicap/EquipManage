@@ -11,10 +11,10 @@
 }
 
 .equip-borrow input,.equip-return input,.equiprepair input{
-    border-radius: 10px;
+    border-radius: 5px;
     background: #fff;
-    line-height: 43px;
-    height: 45px;
+    line-height: 36px;
+    height: 35px;
     text-align: center;
     margin: 0.5rem 4px;
 }
@@ -27,24 +27,43 @@
 }
 .totalequip{
 	text-align: center;
+	margin: auto;
+}
+.brlistinput{
+	text-align: center!important;
+    border: 1px solid #999!important;
+
 }
 .borrow-take input {
-	 border-radius: 10px;
+	 border-radius: 5px;
     background: #fff;
-    line-height: 43px;
-    height: 45px;
-    text-align: left;
+    line-height: 36px;
+    height: 35px;
+  
     margin: 0.5rem 4px;
 }
 .borrow-take select {
-
+ border-radius: 5px;
     background: #fff;
-    line-height: 25px;
-    height: 30px;
+    line-height: 36px;
+    height: 35px;
+    color: #797979;
     text-align: center;
     margin: 0.5rem 4px;
-}
+    appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+ 
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background: url("../img/arrow.png") no-repeat scroll right center transparent;
 
+ 
+
+
+}
+.mr-05{
+	margin:0.5rem 0;
+}
  ul {
     list-style: none;
     margin: 0;
@@ -143,7 +162,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
 }
 .login-screen-form{
-	margin-bottom:75px;
+	margin-bottom:150px;
 	
 	width: 100%;
 }
@@ -373,12 +392,13 @@
             .image-item img{
             	/*height:100px;*/
             	width:8rem;
+            	height:5rem;
             }
             .equip-maintenance-imglist .image-item img{
             	width:100px;
             }
  .unverify{
- 	    margin: 3rem 0;
+ 	    margin: 50% 0;
     color: red;
     font-size: 2rem;
  }
@@ -404,3 +424,5 @@
     font-size: 20px!important;
     text-align: center!important;
 }
+
+

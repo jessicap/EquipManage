@@ -99,8 +99,8 @@ $$('.login-screen-content .login-button').on('click', function() {
 		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
 		dataType: "json",
 		data: {
-			username: username,
-			password: password
+			username: username.trim(),
+			password: password.trim()
 		},
 		beforeSend: function(e) {
 			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
@@ -227,8 +227,8 @@ app.searchBrilstnum = function(username, mobilephone) {
 				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 			},
 			success: function(data) {
-					
-				console.log('Load was performed');
+				if(data.rs!="failed"){
+					console.log('Load was performed');
 				brlistmsg = data;
 				console.log(brlistmsg);
 				html2 = app.searchBrilstnumResultsTemplate(brlistmsg);
@@ -252,6 +252,10 @@ app.searchBrilstnum = function(username, mobilephone) {
 						console.log(which);
 					}
 				});
+				}else{
+					alert("无此用户或手机号！")
+				}
+				
 
 			}
 		});
@@ -344,7 +348,7 @@ app.searchLocation = function(search) {
 						});
 						html = app.searchResultsTemplate(equip);
 
-						$$('.equip-list tbody').html(html);
+						$$('.equip-list').html(html);
 						$$('.totalequip').html("总计：" + equip.length);
 						$$('.saveEquipBorrow').show();
 					}else{
@@ -415,7 +419,7 @@ app.equipReturnStatus = function(search) {
 						});
 						equipReturnhtml = app.searchReturnResultsTemplate(equipReturn);
 
-						$$('.equip-list tbody').html(equipReturnhtml);
+						$$('.equip-list').html(equipReturnhtml);
 						$$('.totalequip').html("总计：" + equipReturn.length);
 						$$(".equip-return-submit").show();
 						}else{

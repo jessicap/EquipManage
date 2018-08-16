@@ -12,7 +12,6 @@
         * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
             * Enable inline JS: add 'unsafe-inline' to default-src
     -->
-    
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, l-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,7 +24,7 @@
 		<link rel="stylesheet" href="css/framework7.min.css">
 		<link rel="stylesheet" href="css/icons.css">
 		<link rel="stylesheet" href="css/app.css">
-		<link rel="stylesheet" href="css/font-awesome.min.css">  
+		<link rel="stylesheet" href="css/font-awesome.min.css">
 		<script src="js/common.js"></script>
 	</head>
 
@@ -44,15 +43,15 @@
 							<div class="login-screen-logo"><img src="img/logo.png" class="logo-img"></div>
 						</div>
 
-						<div class="login-screen-banner"><img src="img/login-banner.png" class="login-img"></div>
+						<div class="login-screen-banner"><img src="img/login-banner.png" class="login-img" style="height:15rem"></div>
 						<form class="login-screen-form">
 
-							<div class="list inline-label">
+							<div class="list inline-label" style="margin:12px 0">
 								<ul>
 
 									<li>
 										<div class="item-content item-input">
-											<div class="item-inner">
+											<div class="item-inner" style="margin:0">
 												<div class="item-title item-label">用户名</div>
 												<div class="item-input-wrap">
 													<input type="text" name="username" placeholder="" class="inputboder" />
@@ -63,12 +62,12 @@
 
 									<li>
 										<div class="item-content item-input">
-											<div class="item-inner">
+											<div class="item-inner" style="margin:0" >
 												<div class="item-title item-label">密&nbsp;&nbsp;&nbsp;码</div>
 												<div class="item-input-wrap">
 													<div class="inputboder">
 														<input type="password" name="password" placeholder="" class="pwd" />
-														<span class="f7-icons pwdeye invisible" >eye</span>
+														<span class="f7-icons pwdeye invisible">eye</span>
 													</div>
 												</div>
 											</div>
@@ -80,588 +79,587 @@
 							<div class="list">
 								<ul>
 									<li>
-										<a href="#" class="login-button button button-raised button-fill">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</a>
+										<a href="#" class="login-button button button-raised button-fill" style="width: 60%; margin: 0 auto;">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</a>
 									</li>
 
 								</ul>
-							
+
 							</div>
 						</form>
 						<div class="login-footer">
-									<div style="font-size:16px">浙广设备管理系统</div>
-									<div class="font-14">浙江广播电视集团©版权所有</div>
+							<div style="font-size:16px">浙广设备管理系统</div>
+							<div class="font-14">浙江广播电视集团©版权所有</div>
 
-								</div>
+						</div>
 					</div>
 				</div>
 
 			</div>
 		</div>
 
-		
-<!-- 设备借出借还单模板-->
-<script id="search-brlistnum-template" type="text/template">
-	<div class="block ad-brlist card">
-            <ul>
-                <li>
-                   
-                    <div class="row">
-                        <div class="col-50">
-                        	 <div class="item-inner">
-                                <div class="item-title item-label">单号</div>
-                                <div class="item-label brlistnum" disabled="disabled" >{{brlistnum}}</div>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title item-label">频道</div>
-                                <div class="item-label channel" disabled="disabled" >{{channel}}</div>
-                            </div>
-                          
-                            <div class="item-inner">
-                                <div class="item-title item-label">栏目</div>
-                                <div class="item-label column" disabled="disabled" >{{column}}</div>
-                            </div>
-                        </div>
-                        <div class="col-50">
-                          
-                     
-                            <div class="item-inner">
-                                <div class="item-title item-label">图片</div>
-                                 <div style="margin-top: 10px;"></div>  
-                                <input type="hidden" id="ckjl.id" name="ckjl.id" value="429"> 
-                                <div class="collapse-content" >  
- 									
-                                   <div id='F_CKJLBS' class="row image-list"> 
-                                   <i class="f7-icons" id="F_CKJLB" onclick="showActionSheet(this)">camera_fill</i>
-                               		</div>
-                               		</div>  
-                            </div>
+		<!-- 设备借出借还单模板-->
+		<script id="search-brlistnum-template" type="text/template">
+			<div class=" ad-brlist ">
+				<ul>
+					<li>
 
-                        </div>
-   
-                        <div class="col-100">
-                            
-                              
-                                <div class="row" style="padding: 0;">
-                                <i class="f7-icons col-15 mic" onclick="startRecognize()">mic_fill</i>
-                                <input type="text" class="col-85 remarks mic_text" placeholder="备注"/> 
-                               
-                                </div>
-                            
-                        </div>
-                        <div class="col-100">
-                        
-                       
-                        <div class="row" style="padding: 0;">
-                		<img src="img/scan.png"/ class="scan-barcode col-15" onclick="clicked('barcode_scan2.html',true,true)">
-                		  <input type="text" placeholder="设备条码" class="numberinput col-85 keyword" name="equipnum"/>
-                		</div>
-                		
-                		</div>
-                    </div>
-                   
-                
-                </li>
-                            </ul>
-        </div>
-            <div class="block equip-borrow">
-        	
-        </div>
-</script>
-<!-- 设备借出--扫描条形码设备模板-->
-<script id="search-equip-template" type="text/template">
-	 <thead>
-                <tr> 
-                	
-                    <th class="label-cell" name="equipname">设备名称</th>
-                    <th class="label-cell" name="centernum">中心条码</th>
-                    <th class="label-cell">删除</th>
-                </tr>
-                </thead>
-       	 {{#each this}}
-                <tr class="equip-{{centernum}}"> 
-                
-                    <td class="label-cell">{{equipname}}</td>
-                    <td class="label-cell">{{centernum}}</td>
-                    <td class="label-cell" onclick="deleteEquip('{{centernum}}');"><i class="f7-icons">trash_fill</i></td>
-                </tr>
-                {{/each}}
-</script>
-<!-- 设备归还--扫描条形码设备模板-->
-<script id="equip-return-template" type="text/template">
-	 <thead>
-                <tr> 
-                    <th class="label-cell" name="equipname">设备名称</th>
-                    <th class="label-cell" name="centernum">中心条码</th> 
-                    <th class="label-cell">删除</th>
-                </tr>
-                </thead>
-       	 {{#each this}}
-                <tr class="equip-{{centernum}}"> 
-                    <td class="label-cell">{{equipname}}</td>
-                    <td class="label-cell">{{centernum}}</td>
-                    
-                    <td class="label-cell" onclick="deleteEquipReturn('{{centernum}}');"><i class="f7-icons">trash_fill</i></td>
-                </tr>
-                {{/each}}
-              
-</script>
-<!--管理员借还单查询模板-->
-<script id="admin-search-brlistnum-template" type="text/template">
-	
-			<div class="row">
-				<a class="link popup-open col-100" href="#" data-popup=".popup-about"><button class=" button button-fill ">查询</button></a>
+						<div class="row">
+
+							<div class="col-50">
+								<div class="item-inner">
+									<span class="item-title item-label">单号:</span>
+									<span class="item-label brlistnum" disabled="disabled">{{brlistnum}}</span>
+								</div>
+								<div class="item-inner">
+									<span class="item-title item-label">频道:</span>
+									<span class="item-label channel" disabled="disabled">{{channel}}</span>
+								</div>
+
+								<div class="item-inner">
+									<span class="item-title item-label">栏目:</span>
+									<span class="item-label column" disabled="disabled">{{column}}</span>
+								</div>
+							</div>
+							<div class="col-50">
+
+								<div class="item-inner">
+
+									<div style="margin-top: 10px;"></div>
+									<input type="hidden" id="ckjl.id" name="ckjl.id" value="429">
+									<div class="collapse-content">
+
+										<div id='F_CKJLBS' class="row image-list">
+											<i class="f7-icons" id="F_CKJLB" onclick="showActionSheet(this)">camera_fill</i>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="col-100">
+
+								<div class="row" style="padding: 0;">
+									<span class="item-title " style="width: 2.3rem;font-size: 12px;margin: 0 0 0 0.5rem;">备注：</span>
+									<input type="text" class="col-60 remarks mic_text" placeholder="" style="margin:0" />
+									<i class="f7-icons col-15 mic" onclick="startRecognize()">mic_fill</i>
+								</div>
+
+							</div>
+							<div class="col-100">
+
+								<div class="row" style="padding: 0;">
+									<img src="img/scan.png" / class="scan-barcode col-15" onclick="clicked('barcode_scan2.html',true,true)" style="margin:auto 0.2rem;">
+									<input type="text" placeholder="设备条码" class="numberinput col-60 keyword" name="equipnum" style="margin:0 0 0 2rem"/>
+									<p class="totalequip"></p>
+								</div>
+
+							</div>
+						</div>
+
+					</li>
+				</ul>
 			</div>
-	   <div class="block brlist">
-		{{#each this}}
-            <ul>
-                <li class="card">
-                    
-                    <div class="row">
-                      <div class="col-40">
-                      	 <div class="item-inner">
-                              <div class="item-title item-label">单号</div>
-                              <div class="item-title item-label"><a href="/equip-br-admin-detail/{{brlistnum}}/">{{brlistnum}}</a></div>
-                          </div>
-                          <div class="item-inner">
-                              <div class="item-title item-label">姓名</div>
-                              <div class="item-title item-label">{{username}}</div>
-                          </div>
-                          <div class="item-inner">
-                              <div class="item-title item-label">手机号</div>
-                              <div class="item-title item-label">{{mobilephone}}</div>
-                          </div>
-                      </div>
-                        <div class="col-40">
-                            <div class="item-inner">
-                                <div class="item-title item-label">栏目</div>
-                                <div class="item-title item-label">{{column}}</div>
+			<div class="block equip-borrow">
 
-                            </div>
-                             <div class="item-inner">
-                              <div class="item-title item-label">借用时间</div>
-                              <div class="item-title item-label">{{borrowtime}}</div>
-                          </div>
-                            <div class="item-inner">
-                                <div class="item-title item-label">归还时间</div>
-                                <div class="item-title item-label">{{returntime}}</div>
-                            </div>
-                        </div>
-                        <div class="col-20">
-                            <div class="item-inner">
-                            	{{#if "isverify === 1"}}
-					 <i class="f7-icons unverify">close_round</i>
-					{{else}}
-                      <i class="f7-icons verified">check_round</i>
-                      {{/if}}  
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-           {{/each}}
-        </div>
-        
-	
-</script>
-<!--管理员-设备查询模板-->
-<script id="admin-equip-search-template" type="text/template">
-	
+			</div>
+		</script>
+		<!-- 设备借出--扫描条形码设备模板-->
+		<script id="search-equip-template" type="text/template">
+
+			<div class="data-table card">
+				<table>
+					<thead>
+						<tr>
+							<th class="label-cell" name="centernum">中心条码</th>
+							<th class="label-cell" name="equipname">设备名称</th>	
+							<th class="label-cell"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each this}}
+						<tr class="equip-{{centernum}}">
+							<td class="label-cell">{{centernum}}</td>
+							<td class="label-cell">{{equipname}}</td>
+							
+							<td class="label-cell" onclick="deleteEquip('{{centernum}}');"><i class="f7-icons">trash_fill</i></td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+
+		</script>
+		<!-- 设备归还--扫描条形码设备模板-->
+		<script id="equip-return-template" type="text/template">
+
+			<div class="data-table">
+				<table>
+					<thead>
+						<tr>
+							<th class="label-cell" name="centernum">中心条码</th>
+							<th class="label-cell" name="equipname">设备名称</th>
+							<th class="label-cell"></th>
+						</tr>
+					</thead>
+
+					<tbody>
+						{{#each this}}
+						<tr class="equip-{{centernum}}">
+
+							<td class="label-cell">{{centernum}}</td>
+							<td class="label-cell">{{equipname}}</td>
+							<td class="label-cell" onclick="deleteEquipReturn('{{centernum}}');"><i class="f7-icons">trash_fill</i></td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
+
+		</script>
+		<!--管理员借还单查询模板-->
+		<script id="admin-search-brlistnum-template" type="text/template">
+
+			<div class=" brlist">
+				{{#each this}}
+				<ul>
+					<a href="/equip-br-admin-detail/{{brlistnum}}/">
+						<li class="card">
+
+							<div class="row">
+								<div class="col-40">
+									<div class="item-inner">
+										<div class="item-title item-label">单号:{{brlistnum}}
+										</div>
+									</div>
+
+									<div class="item-inner">
+										<div class="item-title item-label">姓名:{{username}}</div>
+									</div>
+									<div class="item-inner">
+										<div class="item-title item-label">电话:{{mobilephone}}</div>
+									</div>
+								</div>
+								<div class="col-45">
+									<div class="item-inner">
+										<div class="item-title item-label">栏目:{{column}}</div>
+
+									</div>
+									<div class="item-inner">
+										<div class="item-title item-label">借用时间:{{borrowtime}}</div>
+									</div>
+									<div class="item-inner">
+										<div class="item-title item-label">归还时间:{{returntime}}</div>
+									</div>
+								</div>
+								<div class="col-20">
+									<div class="item-inner">
+										{{#if "isverify === 1"}}
+										<i class="f7-icons unverify">close_round</i> {{else}}
+										<i class="f7-icons verified">check_round</i> {{/if}}
+									</div>
+								</div>
+							</div>
+						</li>
+					</a>
+				</ul>
+				{{/each}}
+			</div>
+
+		</script>
+		<!--管理员-设备查询模板-->
+		<script id="admin-equip-search-template" type="text/template">
+
 			<div class="row">
 				<a class="link popup-open col-100" href="#" data-popup=".popup-about"><button class=" button button-fill color-blue">查询</button></a>
 			</div>
-	   <div class="block brlist">
-		{{#each this}}
-            <ul>
-                <li class="card">
-                  
-                    <div class="row">
-                      <div class="col-33">
-                          <div class="item-inner">
-                              <div class="item-title item-label">条码</div>
-                              <div class="item-title item-label"><a href="/equip-maintenance-detail/{{centernum}}/">{{centernum}}</a></div>
-                          </div>
-                          <div class="item-inner">
-                              <div class="item-title item-label">名称</div>
-                              <div class="item-title item-label">{{equipname}}</div>
-                          </div>
-                          <div class="item-inner">
-                              <div class="item-title item-label">部门</div>
-                              <div class="item-title item-label">{{department}}</div>
-                          </div>
-                      </div>
-                        <div class="col-33">
-                            <div class="item-inner">
-                                <div class="item-title item-label">SN</div>
-                                <div class="item-title item-label">{{serial}}</div>
+			<div class="block brlist">
+				{{#each this}}
+				<ul>
+					<li class="card">
 
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title item-label">型号</div>
-                                <div class="item-title item-label">{{scale}}</div>
-                            </div>
-                           <div class="item-inner">
-                                <div class="item-title item-label">状态</div>
-                                <div class="item-title item-label">{{status}}</div>
-                            </div>
-                        </div>
-                        <div class="col-33">
-                            <div class="item-inner">
-                      <img src="{{imgurl}}" width="85px;"/>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-           {{/each}}
-        </div>
-        
-	
-</script>
-<!--管理员-设备定位模板-->
-<script id="equip-locate-template" type="text/template">
-	
-			
-	   <div class="block brlist">
-		{{#each this}}
-            <ul>
-                <li class="card">
-                  
-                    <div class="row">
-                      <div class="col-33">
-                       
-                          <div class="item-inner">
-                              <div class="item-title item-label">名称</div>
-                              <div class="item-title item-label">{{equipname}}</div>
-                          </div>
-                          <div class="item-inner">
-                              <div class="item-title item-label">当前位置</div>
-                              {{#if location}}
-					<div class="item-title item-label"><a href="{{location}}" class="external" ><i class="f7-icons">compass</i></a></div>
-					{{else}}
-                     <div class="item-title item-label"><i class="f7-icons">compass</i></div>
-                      {{/if}}  
-                              
-                          </div>
-                      </div>
-                        <div class="col-33">
-                      
-                            <div class="item-inner">
-                                <div class="item-title item-label">中心条码</div>
-                                <div class="item-title item-label">{{centernum}}</div>
-                            </div>
-                           <div class="item-inner">
-                                <div class="item-title item-label">状态</div>
-                                <div class="item-title item-label">{{status}}</div>
-                            </div>
-                        </div>
-                        <div class="col-33">
-                            <div class="item-inner">
-                      <img src="{{imgurl}}" width="85px;"/>
-                            </div>
-                        </div>
-                    </div>
-                
-                </li>
-            </ul>
-           {{/each}}
-        </div>
-        
-	
-</script>
-<!--管理员-设备定位模板-->
-<script id="equip-locate-manage-template" type="text/template">
-	
-			
-	 
-		{{#each this}}
-            <ul>
-                <li class="card">
-                  
-                    <div class="row">
-                      <div class="col-33">
-                        <div class="item-inner">
-                              <div class="item-title item-label">条码</div>
-                              <div class="item-title item-label"><a href="/equip-maintenance-detail/{{centernum}}/">{{centernum}}</a></div>
-                          </div>
-                          <div class="item-inner">
-                              <div class="item-title item-label">名称</div>
-                              <div class="item-title item-label">{{equipname}}</div>
-                          </div>
-                          <div class="item-inner">
-                              <div class="item-title item-label">部门</div>
-                              <div class="item-title item-label">{{department}}</div>
-                          </div>
-                           
-                      </div>
-                        <div class="col-33">
-                      <div class="item-inner">
-                                <div class="item-title item-label">型号</div>
-                                <div class="item-title item-label">{{type}}</div>
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title item-label">IMME</div>
-                                <div class="item-title item-label">{{IMME}}</div>
-                            </div>
-                           <div class="item-inner">
-                                <div class="item-title item-label">电量</div>
-                                <div class="item-title item-label">{{battery}}</div>
-                            </div>
-                        </div>
-                        <div class="col-33">
-                            <div class="item-inner">
-                      <img src="{{imgurl}}" width="85px;"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                    	<div class="item-inner">
-                                <div class="item-title item-label">位置</div>
-                                <div class="item-title item-label">{{location}}</div>
-                            </div>
-                    	
-                    </div>
-                </li>
-            </ul>
-           {{/each}}
-       
-        
-	
-</script>
-<!--财务统计模板-->
-<script id="financial-template" type="text/template">
-	
-        
-	<div class="block brlist">
-		
-			<div class="data-table card">
-            <table>
-               
-                <tbody>
-            <thead>
-                <tr> 
-                	 <th class="label-cell">序号</th>
-                    <th class="label-cell">栏目名</th>
-                    <th class="label-cell">费用</th>
-                   
-                </tr>
-                </thead>
-       	 {{#each staticlist}}
-                <tr class=""> 
-                	 <td class="label-cell">{{@index+1}}</td>
-                    <td class="label-cell"><a href="/financial-static-detail/{{column}}/{{../month}}/{{../year}}/">{{column}}</a></td>
-                    <td class="label-cell">{{fee}}</td>
-                    
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
-	
-             <div class="row">
-                      <div class="col-50">
-                          <div class="item-inner">
-                              <div class="item-title item-label">总计</div>
-                             
-                          </div>
+						<div class="row">
+							<div class="col-33">
+								<div class="item-inner">
+									<div class="item-title item-label">条码</div>
+									<div class="item-title item-label">
+										<a href="/equip-maintenance-detail/{{centernum}}/">{{centernum}}</a>
+									</div>
+								</div>
+								<div class="item-inner">
+									<div class="item-title item-label">名称</div>
+									<div class="item-title item-label">{{equipname}}</div>
+								</div>
+								<div class="item-inner">
+									<div class="item-title item-label">部门</div>
+									<div class="item-title item-label">{{department}}</div>
+								</div>
+							</div>
+							<div class="col-33">
+								<div class="item-inner">
+									<div class="item-title item-label">SN</div>
+									<div class="item-title item-label">{{serial}}</div>
 
-                    </div>
-                        <div class="col-50">
-                          <div class="item-inner">
-                              <div class="item-title item-label">¥{{totalfee}}</div>
-                             
-                          </div>
+								</div>
+								<div class="item-inner">
+									<div class="item-title item-label">型号</div>
+									<div class="item-title item-label">{{scale}}</div>
+								</div>
+								<div class="item-inner">
+									<div class="item-title item-label">状态</div>
+									<div class="item-title item-label">{{status}}</div>
+								</div>
+							</div>
+							<div class="col-33">
+								<div class="item-inner">
+									<img src="{{imgurl}}" width="85px;" />
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				{{/each}}
+			</div>
 
-                    </div>
-                    </div>
-        </div>
-</script>
-<!--操作手册模板-->
-<script id="searchManual-template" type="text/template">
-	
-        
-	<div class="block brlist">
-		
-			<div class="data-table card">
-            <table>
-               
-                <tbody>
-            <thead>
-                <tr> 
-                	 <th class="label-cell">序号</th>
-                    <th class="label-cell">文件名</th>
-                  <th class="label-cell">操作</th>
-                   
-                </tr>
-                </thead>
-       	 {{#each this}}
-                <tr class=""> 
-                	 <td class="label-cell">{{@index+1}}</td>
-                    <td class="label-cell">{{filename}}</td>
-                     <td class="label-cell"><a href="#" onclick="downloadManual('{{filename}}','{{url}}')">下载</a></td>
-                   
-                    
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
-	
-        
-        </div>
-</script>
-<!--普通权限--借还单查询模板-->
-<script id="normal-search-brlistnum-template" type="text/template">
-	
+		</script>
+		<!--管理员-设备定位模板-->
+		<script id="equip-locate-template" type="text/template">
+
+			<div class="block brlist">
+				{{#each this}}
+				<ul>
+					<li class="card">
+
+						<div class="row">
+							<div class="col-33">
+
+								<div class="item-inner">
+									<div class="item-title item-label">名称</div>
+									<div class="item-title item-label">{{equipname}}</div>
+								</div>
+								<div class="item-inner">
+									<div class="item-title item-label">当前位置</div>
+									{{#if location}}
+									<div class="item-title item-label">
+										<a href="{{location}}" class="external"><i class="f7-icons">compass</i></a>
+									</div>
+									{{else}}
+									<div class="item-title item-label"><i class="f7-icons">compass</i></div>
+									{{/if}}
+
+								</div>
+							</div>
+							<div class="col-33">
+
+								<div class="item-inner">
+									<div class="item-title item-label">中心条码</div>
+									<div class="item-title item-label">{{centernum}}</div>
+								</div>
+								<div class="item-inner">
+									<div class="item-title item-label">状态</div>
+									<div class="item-title item-label">{{status}}</div>
+								</div>
+							</div>
+							<div class="col-33">
+								<div class="item-inner">
+									<img src="{{imgurl}}" width="85px;" />
+								</div>
+							</div>
+						</div>
+
+					</li>
+				</ul>
+				{{/each}}
+			</div>
+
+		</script>
+		<!--管理员-设备定位模板-->
+		<script id="equip-locate-manage-template" type="text/template">
+
+			{{#each this}}
+			<ul>
+				<li class="card">
+
+					<div class="row">
+						<div class="col-33">
+							<div class="item-inner">
+								<div class="item-title item-label">条码</div>
+								<div class="item-title item-label">
+									<a href="/equip-maintenance-detail/{{centernum}}/">{{centernum}}</a>
+								</div>
+							</div>
+							<div class="item-inner">
+								<div class="item-title item-label">名称</div>
+								<div class="item-title item-label">{{equipname}}</div>
+							</div>
+							<div class="item-inner">
+								<div class="item-title item-label">部门</div>
+								<div class="item-title item-label">{{department}}</div>
+							</div>
+
+						</div>
+						<div class="col-33">
+							<div class="item-inner">
+								<div class="item-title item-label">型号</div>
+								<div class="item-title item-label">{{type}}</div>
+							</div>
+							<div class="item-inner">
+								<div class="item-title item-label">IMME</div>
+								<div class="item-title item-label">{{IMME}}</div>
+							</div>
+							<div class="item-inner">
+								<div class="item-title item-label">电量</div>
+								<div class="item-title item-label">{{battery}}</div>
+							</div>
+						</div>
+						<div class="col-33">
+							<div class="item-inner">
+								<img src="{{imgurl}}" width="85px;" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="item-inner">
+							<div class="item-title item-label">位置</div>
+							<div class="item-title item-label">{{location}}</div>
+						</div>
+
+					</div>
+				</li>
+			</ul>
+			{{/each}}
+
+		</script>
+		<!--财务统计模板-->
+		<script id="financial-template" type="text/template">
+
+			<div class="block brlist">
+
+				<div class="data-table card">
+					<table>
+
+						<tbody>
+							<thead>
+								<tr>
+									<th class="label-cell">序号</th>
+									<th class="label-cell">栏目名</th>
+									<th class="label-cell">费用</th>
+
+								</tr>
+							</thead>
+							{{#each staticlist}}
+							<tr class="">
+								<td class="label-cell">{{@index+1}}</td>
+								<td class="label-cell">
+									<a href="/financial-static-detail/{{column}}/{{../month}}/{{../year}}/">{{column}}</a>
+								</td>
+								<td class="label-cell">{{fee}}</td>
+
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+
+					<div class="row">
+						<div class="col-50">
+							<div class="item-inner">
+								<div class="item-title item-label">总计</div>
+
+							</div>
+
+						</div>
+						<div class="col-50">
+							<div class="item-inner">
+								<div class="item-title item-label">¥{{totalfee}}</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+		</script>
+		<!--操作手册模板-->
+		<script id="searchManual-template" type="text/template">
+
+			<div class="block brlist">
+
+				<div class="data-table card">
+					<table>
+
+						<tbody>
+							<thead>
+								<tr>
+									<th class="label-cell">序号</th>
+									<th class="label-cell">文件名</th>
+									<th class="label-cell">操作</th>
+
+								</tr>
+							</thead>
+							{{#each this}}
+							<tr class="">
+								<td class="label-cell">{{@index+1}}</td>
+								<td class="label-cell">{{filename}}</td>
+								<td class="label-cell">
+									<a href="#" onclick="downloadManual('{{filename}}','{{url}}')">下载</a>
+								</td>
+
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+
+				</div>
+		</script>
+		<!--普通权限--借还单查询模板-->
+		<script id="normal-search-brlistnum-template" type="text/template">
+
 			<div class="row">
 				<a class="link popup-open col-100" href="#" data-popup=".popup-about"><button class=" button button-fill ">查询</button></a>
 			</div>
-	   <div class="block brlist">
-		{{#each this}}
-            <ul>
-                <li class="card">
-                    
-                    <div class="row">
-                      <div class="col-40">
-                      	 <div class="item-inner">
-                              <div class="item-title item-label">单号</div>
-                              <div class="item-title item-label"><a href="/equip-br-normal-detail/{{brlistnum}}/">{{brlistnum}}</a></div>
-                          </div>
-                            <div class="item-inner">
-                              <div class="item-title item-label">借用时间</div>
-                              <div class="item-title item-label">{{borrowtime}}</div>
-                          </div>
-                        
-                      </div>
-                        <div class="col-40">
-                            <div class="item-inner">
-                                <div class="item-title item-label">栏目</div>
-                                <div class="item-title item-label">{{department}}</div>
+			<div class="block brlist">
+				{{#each this}}
+				<ul>
+					<li class="card">
 
-                            </div>
-                           
-                            <div class="item-inner">
-                                <div class="item-title item-label">归还时间</div>
-                                <div class="item-title item-label">{{returntime}}</div>
-                            </div>
-                        </div>
-                        <div class="col-20">
-                            <div class="item-inner">
-                            	{{#if "isverify === 1"}}
-					 <i class="f7-icons unverify">close_round</i>
-					{{else}}
-                      <i class="f7-icons verified">check_round</i>
-                      {{/if}}  
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-           {{/each}}
-        </div>
-        
-	
-</script>
-<!--普通权限--财务速览模板-->
-<script id="financial-normal-template" type="text/template">
-	
-        
-	<div class="block brlist">
-		
-			<div class="data-table card">
-            <table>
-               
-                <tbody>
-            <thead>
-                <tr> 
-                	 <th class="label-cell">设备</th>
-                    <th class="label-cell">栏目名</th>
-                    <th class="label-cell">费用</th>
-                   
-                </tr>
-                </thead>
-       	 {{#each staticlist}}
-                <tr class=""> 
-                	 <td class="label-cell">{{equipname}}</td>
-                    <td class="label-cell">{{column}}</td>
-                    <td class="label-cell">{{fee}}</td>
-                    
-                </tr>
-                {{/each}}
-                </tbody>
-            </table>
-	
-             <div class="row">
-                      <div class="col-50">
-                          <div class="item-inner">
-                              <div class="item-title item-label">总计</div>
-                             
-                          </div>
+						<div class="row">
+							<div class="col-40">
+								<div class="item-inner">
+									<div class="item-title item-label">单号</div>
+									<div class="item-title item-label">
+										<a href="/equip-br-normal-detail/{{brlistnum}}/">{{brlistnum}}</a>
+									</div>
+								</div>
+								<div class="item-inner">
+									<div class="item-title item-label">借用时间</div>
+									<div class="item-title item-label">{{borrowtime}}</div>
+								</div>
 
-                    </div>
-                        <div class="col-50">
-                          <div class="item-inner">
-                              <div class="item-title item-label">¥{{totalfee}}</div>
-                             
-                          </div>
+							</div>
+							<div class="col-40">
+								<div class="item-inner">
+									<div class="item-title item-label">栏目</div>
+									<div class="item-title item-label">{{department}}</div>
 
-                    </div>
-                    </div>
-        </div>
-</script>
-<!--总监权限--借还单查询模板-->
-<script id="chief-search-brlistnum-template" type="text/template">
-	
+								</div>
+
+								<div class="item-inner">
+									<div class="item-title item-label">归还时间</div>
+									<div class="item-title item-label">{{returntime}}</div>
+								</div>
+							</div>
+							<div class="col-20">
+								<div class="item-inner">
+									{{#if "isverify === 1"}}
+									<i class="f7-icons unverify">close_round</i> {{else}}
+									<i class="f7-icons verified">check_round</i> {{/if}}
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				{{/each}}
+			</div>
+
+		</script>
+		<!--普通权限--财务速览模板-->
+		<script id="financial-normal-template" type="text/template">
+
+			<div class="block brlist">
+
+				<div class="data-table card">
+					<table>
+
+						<tbody>
+							<thead>
+								<tr>
+									<th class="label-cell">设备</th>
+									<th class="label-cell">栏目名</th>
+									<th class="label-cell">费用</th>
+
+								</tr>
+							</thead>
+							{{#each staticlist}}
+							<tr class="">
+								<td class="label-cell">{{equipname}}</td>
+								<td class="label-cell">{{column}}</td>
+								<td class="label-cell">{{fee}}</td>
+
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+
+					<div class="row">
+						<div class="col-50">
+							<div class="item-inner">
+								<div class="item-title item-label">总计</div>
+
+							</div>
+
+						</div>
+						<div class="col-50">
+							<div class="item-inner">
+								<div class="item-title item-label">¥{{totalfee}}</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+		</script>
+		<!--总监权限--借还单查询模板-->
+		<script id="chief-search-brlistnum-template" type="text/template">
+
 			<div class="row">
 				<a class="link popup-open col-100" href="#" data-popup=".popup-about"><button class=" button button-fill ">查询</button></a>
 			</div>
-	   <div class="block brlist">
-		{{#each this}}
-            <ul>
-                <li class="card">
-                    
-                    <div class="row">
-                      <div class="col-40">
-                      	 <div class="item-inner">
-                              <div class="item-title item-label">单号</div>
-                              <div class="item-title item-label"><a href="/equip-br-chief-detail/{{brlistnum}}/">{{brlistnum}}</a></div>
-                          </div>
-                            <div class="item-inner">
-                              <div class="item-title item-label">电话</div>
-                              <div class="item-title item-label">{{mobilephone}}</div>
-                          </div>
-                        
-                      </div>
-                        <div class="col-40">
-                            <div class="item-inner">
-                                <div class="item-title item-label">栏目</div>
-                                <div class="item-title item-label">{{column}}</div>
+			<div class="block brlist">
+				{{#each this}}
+				<ul>
+					<li class="card">
 
-                            </div>
-                            <div class="item-inner">
-                              <div class="item-title item-label">借用时间</div>
-                              <div class="item-title item-label">{{borrowtime}}</div>
-                          </div>
-                            <div class="item-inner">
-                                <div class="item-title item-label">归还时间</div>
-                                <div class="item-title item-label">{{returntime}}</div>
-                            </div>
-                        </div>
-                        <div class="col-20">
-                            <div class="item-inner">
-                            	{{#if verify}}
-					 <i class="f7-icons unverify">close_round</i>
-					{{else}}
-                      <i class="f7-icons verified">check_round</i>
-                      {{/if}}  
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-           {{/each}}
-        </div>
-        
-	
-</script>
-<!-- Framework7 library -->
+						<div class="row">
+							<div class="col-40">
+								<div class="item-inner">
+									<div class="item-title item-label">单号</div>
+									<div class="item-title item-label">
+										<a href="/equip-br-chief-detail/{{brlistnum}}/">{{brlistnum}}</a>
+									</div>
+								</div>
+								<div class="item-inner">
+									<div class="item-title item-label">电话</div>
+									<div class="item-title item-label">{{mobilephone}}</div>
+								</div>
+
+							</div>
+							<div class="col-40">
+								<div class="item-inner">
+									<div class="item-title item-label">栏目</div>
+									<div class="item-title item-label">{{column}}</div>
+
+								</div>
+								<div class="item-inner">
+									<div class="item-title item-label">借用时间</div>
+									<div class="item-title item-label">{{borrowtime}}</div>
+								</div>
+								<div class="item-inner">
+									<div class="item-title item-label">归还时间</div>
+									<div class="item-title item-label">{{returntime}}</div>
+								</div>
+							</div>
+							<div class="col-20">
+								<div class="item-inner">
+									{{#if verify}}
+									<i class="f7-icons unverify">close_round</i> {{else}}
+									<i class="f7-icons verified">check_round</i> {{/if}}
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				{{/each}}
+			</div>
+
+		</script>
+		<!-- Framework7 library -->
 
 		<script src="js/framework7.min.js"></script>
 		<script src="js/jquery.js"></script>
@@ -672,24 +670,22 @@
 		<script src="js/routes.js"></script>
 
 		<!-- Your custom app scripts -->
-		
+
 		<script src="js/app.js"></script>
 		<script src="js/xback.js"></script>
- 	   <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
-       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
 		<script src="js/immersed.js"></script>
 		<script src="js/image.js"></script>
 		<script src="js/bottom.js"></script>
-		
-		
+
 	</body>
 
 </html>
-

@@ -13,133 +13,55 @@
 			</div>
 		</div>
 
-		
 		<div class="page-content borrow-take">
-			
-<div class="block searchblock">
-			<div class="row">
-				<a class="link popup-open col-100" href="#" data-popup=".popup-about"><button class=" button button-fill ">查询</button></a>
-			</div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 
-		</div>
-			<div class="block">
-			<div class="equip-br-admin">
-			</div>
-				
-			</div>
-			<div class="popup popup-about">
+			<div class="">
+				<form id="brlist-admin-form" class="mr-05">
+					<div class="row">
 
-				<div class="navbar navbar-others" >
-					<div class="navbar-inner">
-						<div class="title">查询条件</div>
-						<div class="right">
-							<!-- Link to close popup -->
-							<a class="link popup-close " href="#"><i class="f7-icons">close</i></a>
-						</div>
-					</div>
-				</div>
-				<div class="block">
+						<input type="text" name="username" placeholder="用户名" class="col-33 brlistinput">
 
-					<div class="block">
-						<div class="list no-hairlines-md inline-labels">
-							<form class="list" id="brlist-admin-form">
-							<ul>
-								
-								<li class="item-content item-input">
-									<div class="item-inner">
-										<div class="item-title item-label">用户名</div>
-										<div class="item-input-wrap">
-											<input type="text" name="username" placeholder="请输入用户名">
-											<span class="input-clear-button"></span>
-										</div>
-									</div>
-								</li>
-								<li class="item-content item-input">
-									<div class="item-inner">
-										<div class="item-title item-label">中心条码</div>
-										<div class="item-input-wrap">
-											<input type="text" name="centernum" placeholder="请输入中心条码">
-											<span class="input-clear-button"></span>
-										</div>
-									</div>
-								</li>
-								<li class="item-content item-input">
-									<div class="item-inner">
-										<div class="item-title item-label">借还单编号</div>
-										<div class="item-input-wrap">
-											<input type="text" name="brlistnum" placeholder="请输入借还单编号">
-											<span class="input-clear-button"></span>
-										</div>
-									</div>
-								</li>
-								<li class="item-content item-input">
-									<div class="item-inner">
-										<div class="item-title item-label">部门</div>
-										<div class="item-input-wrap">
+						<input type="text" name="centernum" placeholder="中心条码" class="col-33 brlistinput">
 
-											<select name="department">
-												<option value="">部门</option>
-												<option value="制作中心">制作中心</option>
-												<option value="卫视">卫视</option>
-											</select>
-
-											<span class="input-clear-button"></span>
-										</div>
-									</div>
-								</li>
-								<li class="item-content item-input">
-									<div class="item-inner">
-										<div class="item-title item-label">栏目</div>
-										<div class="item-input-wrap">
-											<input type="text" name="column" placeholder="请输入栏目">
-											<span class="input-clear-button"></span>
-										</div>
-									</div>
-								</li>
-								<li class="item-content item-input">
-									<div class="item-inner">
-										<div class="item-title item-label">是否核销</div>
-										<div class="item-input-wrap">
-											<select name="isverify">
-												<option value="">核销状况</option>
-												<option value="0">未核销</option>
-												<option value="1">已核销</option>
-												
-											</select>
-											<span class="input-clear-button"></span>
-										</div>
-									</div>
-								</li>
-								
-								<li class="item-content item-input">
-									<div class="item-inner">
-										<a class="col button button-fill popup-close convert-form-to-data-admin"  style="width:100%;">查询</a>
-									</div>
-								</li>
-							</ul>
-							</form>
-						</div>
+						<input type="text" name="brlistnum" placeholder="借还单编号" class="col-33 brlistinput">
 
 					</div>
+					<div class="row">
+
+						<input type="text" name="column" placeholder="栏目" class="col-33 brlistinput">
+
+						<select name="department" class="col-33 brlistinput">
+							<option value="">部门</option>
+							<option value="制作中心">制作中心</option>
+							<option value="卫视">卫视</option>
+						</select>
+
+						<select name="isverify" class="col-33 brlistinput">
+							<option value="">核销状况</option>
+							<option value="0">未核销</option>
+							<option value="1">已核销</option>
+
+						</select>
+
+					</div>
+
+				</form>
+
+				<div class="row">
+					<a class="col button button-fill mr-05  convert-form-to-data-admin" style="width:50%;margin: 0 auto;font-size: 20px;">查&nbsp;&nbsp;&nbsp;&nbsp;询</a>
 				</div>
+
 			</div>
+			
+				<div class="equip-br-admin">
+				</div>
+
+			
+			
 			<div class="login-footer">
-									<img src="img/footer.png" class="footer-img">
+				<img src="img/footer.png" class="footer-img">
 
-								</div>
+			</div>
 		</div>
 	</div>
 </template>
