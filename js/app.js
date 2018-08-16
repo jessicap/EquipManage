@@ -292,6 +292,8 @@ app.searchLocation = function(search) {
 					if(search == equip[i].centernum) {
 						alert("重复设备！");
 						isHave = false;
+						return false;
+						
 					}
 				}
 			}
@@ -313,24 +315,25 @@ app.searchLocation = function(search) {
 						//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 					},
 					success: function(data) {
-					$$(".keyword").on('keypress', function(e) {
-					var keycode = e.keyCode;
-					var which = e.which;
-					if(keycode == '13' || e.which == '13') {
-						e.preventDefault();
-						//请求搜索接口
-					if($$(this).attr("name") == "equipnum") {
-							
-							var num = $$(this).val();
-							console.log(num);
-							dealBorrow("", num);
-						}
-
-					} else {
-						console.log(keycode);
-						console.log(which);
-					}
-				});
+//					$$(".keyword").on('keypress', function(e) {
+//					var keycode = e.keyCode;
+//					var which = e.which;
+//					if(keycode == '13' || e.which == '13') {
+//						e.preventDefault();
+//						//请求搜索接口
+//					if($$(this).attr("name") == "equipnum") {
+//							
+//							var num = $$(this).val();
+//							console.log(num);
+//							dealBorrow("", num);
+//						}
+//
+//					} else {
+//						console.log(keycode);
+//						console.log(which);
+//					}
+//				});
+					if(data.rs!="failed"){
 						index++;
 						console.log('Load was performed');
 						equipname = data.equipname;
@@ -344,6 +347,10 @@ app.searchLocation = function(search) {
 						$$('.equip-list tbody').html(html);
 						$$('.totalequip').html("总计：" + equip.length);
 						$$('.saveEquipBorrow').show();
+					}else{
+							alert("无此设备！")
+						}
+						
 
 					}
 				});
@@ -374,6 +381,7 @@ app.equipReturnStatus = function(search) {
 					console.log("229" + equipReturn[i].centernum);
 					if(search == equipReturn[i].centernum) {
 						alert("重复设备！");
+						return false;
 						isHave = false;
 					}
 				}
@@ -395,8 +403,8 @@ app.equipReturnStatus = function(search) {
 						//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 					},
 					success: function(data) {
-
-						index1++;
+						if(data.rs!="failed"){
+							index1++;
 						console.log('Load was performed');
 						equipname = data.equipname;
 						equipReturn.push({
@@ -410,6 +418,10 @@ app.equipReturnStatus = function(search) {
 						$$('.equip-list tbody').html(equipReturnhtml);
 						$$('.totalequip').html("总计：" + equipReturn.length);
 						$$(".equip-return-submit").show();
+						}else{
+							alert("无此设备！")
+						}
+						
 					}
 				});
 

@@ -1303,8 +1303,10 @@ function dealLocateManageSearch() {
 }
 
 function deleteEquipReturn(centernum) {
-	console.log("delete");
-	equipReturn.splice(equipReturn.indexOf(centernum), 1);
+	console.log("delete "+centernum);
+	console.log(getJsonArrnum(centernum,equipReturn));
+	equipReturn.splice(getJsonArrnum(centernum,equipReturn), 1);
+	console.log(equipReturn);
 	$$('.totalequip').html("总计：" + equipReturn.length);
 	$$(".equip-" + centernum).remove();
 
@@ -1312,8 +1314,9 @@ function deleteEquipReturn(centernum) {
 
 function deleteEquip(centernum) {
 	console.log("delete " + centernum);
-	equip.splice(equip.indexOf(centernum), 1);
-
+	console.log(getJsonArrnum(centernum,equip));
+	equip.splice(getJsonArrnum(centernum,equip), 1);
+		console.log(equip);
 	$$('.totalequip').html("总计：" + equip.length);
 	$$(".equip-" + centernum).remove();
 
@@ -1327,3 +1330,18 @@ function searchManual() {
 
 }
 
+function getJsonArrnum(value,arr){
+	var xiabiao;
+	console.log("1333"+value);
+	$.each(arr,function(i,item){
+		console.log(arr[i].centernum)
+		if(arr[i].centernum==value){
+			xiabiao=i;
+			console.log(i);
+			return false;
+		}
+		
+	});
+	console.log(xiabiao);
+	return xiabiao;
+}
