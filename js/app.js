@@ -1,35 +1,41 @@
-﻿var ws=null,wo=null;
-var scan=null,domready=false,bCancel=false;
+﻿var ws = null,
+	wo = null;
+var scan = null,
+	domready = false,
+	bCancel = false;
 // H5 plus事件处理
-function plusReady(){
-	if(ws||!window.plus||!domready){
+function plusReady() {
+	if(ws || !window.plus || !domready) {
 		return;
 	}
 	// 获取窗口对象
-	ws=plus.webview.currentWebview();
-	wo=ws.opener();
+	ws = plus.webview.currentWebview();
+	wo = ws.opener();
 	// 开始扫描
-	ws.addEventListener('show',function(){
-		scan=new plus.barcode.Barcode('bcid',[plus.barcode.QR,plus.barcode.EAN8,plus.barcode.EAN13],{frameColor:'#00FF00',scanbarColor:'#00FF00'});
-	    scan.onmarked=onmarked;
-	    scan.start({conserve:true,filename:'_doc/barcode/'});
+	ws.addEventListener('show', function() {
+		scan = new plus.barcode.Barcode('bcid', [plus.barcode.QR, plus.barcode.EAN8, plus.barcode.EAN13], {
+			frameColor: '#00FF00',
+			scanbarColor: '#00FF00'
+		});
+		scan.onmarked = onmarked;
+		scan.start({
+			conserve: true,
+			filename: '_doc/barcode/'
+		});
 	});
-	 plus.key.addEventListener('backbutton', function() {
-        // 事件处理
-            plus.nativeUI.confirm("退出程序？", function(event) {
-                if (event.index) {
-                    plus.runtime.quit();
-                }
-            }, null, ["取消", "确定"]);
-        }, false);
-	
-	
-	
-	// 显示页面并关闭等待框
-    ws.show('pop-in');
-    wo.evalJS('closeWaiting()');
-}
+	plus.key.addEventListener('backbutton', function() {
+		// 事件处理
+		plus.nativeUI.confirm("退出程序？", function(event) {
+			if(event.index) {
+				plus.runtime.quit();
+			}
+		}, null, ["取消", "确定"]);
+	}, false);
 
+	// 显示页面并关闭等待框
+	ws.show('pop-in');
+	wo.evalJS('closeWaiting()');
+}
 
 // Dom7
 var $$ = Dom7;
@@ -76,8 +82,6 @@ var mainView = app.views.create('.view-main', {
 
 });
 
-
-
 // Login Screen Demo
 $$('.login-screen-content .login-button').on('click', function() {
 	var username = $$('.login-screen-content [name="username"]').val();
@@ -116,77 +120,105 @@ $$('.login-screen-content .login-button').on('click', function() {
 			var userid = data.userid;
 			var channel = data.channel;
 			var column = data.column;
-			var mobilephone=data.mobilephone;
-			if(qx == "normal") { //普通用户
-				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
-				$.cookie("o", da, {
-					expires: "",
-					path: "/"
-				});
-				plus.storage.setItem("username",username);
-				plus.storage.setItem("qx",qx);
-				plus.storage.setItem("mobilephone",mobilephone);
-				plus.storage.setItem("channel",channel);
-				var foo=plus.storage.getItem("username")
-				console.log(foo);
-				/////////
-				
-				mainView.router.navigate('/welcome-normal/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
-			} else if(qx == "admin"||username==2) { //管理员
-				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '","mobilephone":"' + mobilephone + '"}';
-				$.cookie("o", da, {
-					expires: "",
-					path: "/"
-				});
-				/////////
-				
-				plus.storage.setItem("username",username);
-				plus.storage.setItem("qx",qx);
-				plus.storage.setItem("mobilephone",mobilephone);
-				plus.storage.setItem("channel",channel);
-				var foo=plus.storage.getItem("username")
-				console.log(foo);
-				/////////
-				
-				mainView.router.navigate('/welcome-admin/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
-//				mainView.router.load({ //加载单独页面page
-//					url: 'pages/welcome-admin.html', //页面的url
-//					context: {
-//						username: username,
-//						channel:channel,
-//						mobilephone:mobilephone
-//					}
-//				});
-			} else if(qx == "leader") { //领导
-				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
-				$.cookie("o", da, {
-					expires: "",
-					path: "/"
-				});
-				plus.storage.setItem("username",username);
-				plus.storage.setItem("qx",qx);
-				plus.storage.setItem("mobilephone",mobilephone);
-				plus.storage.setItem("channel",channel);
-				var foo=plus.storage.getItem("username")
-				console.log(foo);
-				/////////
-				
-				mainView.router.navigate('/welcome-leader/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
-			} else if(qx == "chief") { //总监
-				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
-				$.cookie("o", da, {
-					expires: "",
-					path: "/"
-				});
-				plus.storage.setItem("username",username);
-				plus.storage.setItem("qx",qx);
-				plus.storage.setItem("mobilephone",mobilephone);
-				plus.storage.setItem("channel",channel);
-				var foo=plus.storage.getItem("username")
-				console.log(foo);
-				/////////
-				
-				mainView.router.navigate('/welcome-chief/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
+			var mobilephone = data.mobilephone;
+			if(data.status != "failed") {
+				if(qx == "normal") { //普通用户
+					var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
+					$.cookie("o", da, {
+						expires: "",
+						path: "/"
+					});
+					plus.storage.setItem("username", username);
+					plus.storage.setItem("qx", qx);
+					plus.storage.setItem("mobilephone", mobilephone);
+					plus.storage.setItem("channel", channel);
+					var foo = plus.storage.getItem("username")
+					console.log(foo);
+					/////////
+
+					mainView.router.navigate('/welcome-normal/', {
+						context: {
+							username: username,
+							mobilephone: mobilephone,
+							channel: channel
+						}
+					})
+				} else if(qx == "admin" || username == 2) { //管理员
+					var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '","mobilephone":"' + mobilephone + '"}';
+					$.cookie("o", da, {
+						expires: "",
+						path: "/"
+					});
+					/////////
+
+					plus.storage.setItem("username", username);
+					plus.storage.setItem("qx", qx);
+					plus.storage.setItem("mobilephone", mobilephone);
+					plus.storage.setItem("channel", channel);
+					var foo = plus.storage.getItem("username")
+					console.log(foo);
+					/////////
+
+					mainView.router.navigate('/welcome-admin/', {
+						context: {
+							username: username,
+							mobilephone: mobilephone,
+							channel: channel
+						}
+					})
+					//				mainView.router.load({ //加载单独页面page
+					//					url: 'pages/welcome-admin.html', //页面的url
+					//					context: {
+					//						username: username,
+					//						channel:channel,
+					//						mobilephone:mobilephone
+					//					}
+					//				});
+				} else if(qx == "leader") { //领导
+					var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
+					$.cookie("o", da, {
+						expires: "",
+						path: "/"
+					});
+					plus.storage.setItem("username", username);
+					plus.storage.setItem("qx", qx);
+					plus.storage.setItem("mobilephone", mobilephone);
+					plus.storage.setItem("channel", channel);
+					var foo = plus.storage.getItem("username")
+					console.log(foo);
+					/////////
+
+					mainView.router.navigate('/welcome-leader/', {
+						context: {
+							username: username,
+							mobilephone: mobilephone,
+							channel: channel
+						}
+					})
+				} else if(qx == "chief") { //总监
+					var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
+					$.cookie("o", da, {
+						expires: "",
+						path: "/"
+					});
+					plus.storage.setItem("username", username);
+					plus.storage.setItem("qx", qx);
+					plus.storage.setItem("mobilephone", mobilephone);
+					plus.storage.setItem("channel", channel);
+					var foo = plus.storage.getItem("username")
+					console.log(foo);
+					/////////
+
+					mainView.router.navigate('/welcome-chief/', {
+						context: {
+							username: username,
+							mobilephone: mobilephone,
+							channel: channel
+						}
+					})
+				}
+			} else {
+				alert("无此用户或密码错误！");
 			}
 
 		}
@@ -227,35 +259,34 @@ app.searchBrilstnum = function(username, mobilephone) {
 				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 			},
 			success: function(data) {
-				if(data.rs!="failed"){
+				if(data.rs != "failed") {
 					console.log('Load was performed');
-				brlistmsg = data;
-				console.log(brlistmsg);
-				html2 = app.searchBrilstnumResultsTemplate(brlistmsg);
+					brlistmsg = data;
+					console.log(brlistmsg);
+					html2 = app.searchBrilstnumResultsTemplate(brlistmsg);
 
-				$$('.createdbrlist').html(html2);
-				$$(".keyword").on('keypress', function(e) {
-					var keycode = e.keyCode;
-					var which = e.which;
-					if(keycode == '13' || e.which == '13') {
-						e.preventDefault();
-						//请求搜索接口
-					if($$(this).attr("name") == "equipnum") {
-							
-							var num = $$(this).val();
-							console.log(num);
-							dealBorrow("", num);
+					$$('.createdbrlist').html(html2);
+					$$(".keyword").on('keypress', function(e) {
+						var keycode = e.keyCode;
+						var which = e.which;
+						if(keycode == '13' || e.which == '13') {
+							e.preventDefault();
+							//请求搜索接口
+							if($$(this).attr("name") == "equipnum") {
+
+								var num = $$(this).val();
+								console.log(num);
+								dealBorrow("", num);
+							}
+
+						} else {
+							console.log(keycode);
+							console.log(which);
 						}
-
-					} else {
-						console.log(keycode);
-						console.log(which);
-					}
-				});
-				}else{
+					});
+				} else {
 					alert("无此用户或手机号！")
 				}
-				
 
 			}
 		});
@@ -297,7 +328,7 @@ app.searchLocation = function(search) {
 						alert("重复设备！");
 						isHave = false;
 						return false;
-						
+
 					}
 				}
 			}
@@ -319,42 +350,41 @@ app.searchLocation = function(search) {
 						//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 					},
 					success: function(data) {
-//					$$(".keyword").on('keypress', function(e) {
-//					var keycode = e.keyCode;
-//					var which = e.which;
-//					if(keycode == '13' || e.which == '13') {
-//						e.preventDefault();
-//						//请求搜索接口
-//					if($$(this).attr("name") == "equipnum") {
-//							
-//							var num = $$(this).val();
-//							console.log(num);
-//							dealBorrow("", num);
-//						}
-//
-//					} else {
-//						console.log(keycode);
-//						console.log(which);
-//					}
-//				});
-					if(data.rs!="failed"){
-						index++;
-						console.log('Load was performed');
-						equipname = data.equipname;
-						equip.push({
-							"index": index,
-							"equipname": equipname,
-							"centernum": search
-						});
-						html = app.searchResultsTemplate(equip);
+						//					$$(".keyword").on('keypress', function(e) {
+						//					var keycode = e.keyCode;
+						//					var which = e.which;
+						//					if(keycode == '13' || e.which == '13') {
+						//						e.preventDefault();
+						//						//请求搜索接口
+						//					if($$(this).attr("name") == "equipnum") {
+						//							
+						//							var num = $$(this).val();
+						//							console.log(num);
+						//							dealBorrow("", num);
+						//						}
+						//
+						//					} else {
+						//						console.log(keycode);
+						//						console.log(which);
+						//					}
+						//				});
+						if(data.rs != "failed") {
+							index++;
+							console.log('Load was performed');
+							equipname = data.equipname;
+							equip.push({
+								"index": index,
+								"equipname": equipname,
+								"centernum": search
+							});
+							html = app.searchResultsTemplate(equip);
 
-						$$('.equip-list').html(html);
-						$$('.totalequip').html("总计：" + equip.length);
-						$$('.saveEquipBorrow').show();
-					}else{
+							$$('.equip-list').html(html);
+							$$('.totalequip').html("总计：" + equip.length);
+							$$('.saveEquipBorrow').show();
+						} else {
 							alert("无此设备！")
 						}
-						
 
 					}
 				});
@@ -407,25 +437,25 @@ app.equipReturnStatus = function(search) {
 						//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 					},
 					success: function(data) {
-						if(data.rs!="failed"){
+						if(data.rs != "failed") {
 							index1++;
-						console.log('Load was performed');
-						equipname = data.equipname;
-						equipReturn.push({
-							"index": index1,
-							"equipname": equipname,
-							"centernum": search,
+							console.log('Load was performed');
+							equipname = data.equipname;
+							equipReturn.push({
+								"index": index1,
+								"equipname": equipname,
+								"centernum": search,
 
-						});
-						equipReturnhtml = app.searchReturnResultsTemplate(equipReturn);
+							});
+							equipReturnhtml = app.searchReturnResultsTemplate(equipReturn);
 
-						$$('.equip-list').html(equipReturnhtml);
-						$$('.totalequip').html("总计：" + equipReturn.length);
-						$$(".equip-return-submit").show();
-						}else{
+							$$('.equip-list').html(equipReturnhtml);
+							$$('.totalequip').html("总计：" + equipReturn.length);
+							$$(".equip-return-submit").show();
+						} else {
 							alert("无此设备！")
 						}
-						
+
 					}
 				});
 
@@ -458,8 +488,8 @@ app.adminBRlist = function(formdata) {
 		var centernum = formdata.centernum;
 		var isverify = formdata.isverify;
 		//var userid = JSON.parse($.cookie("o")).username;
-		var userid=plus.storage.getItem("username");
-		
+		var userid = plus.storage.getItem("username");
+
 		//***********ajax************
 
 		var jurl = "http://115.233.208.56/zzzx/getAdminBrlist?";
@@ -537,7 +567,7 @@ app.adminEquipSearch = function(formdata) {
 		var type = a.type;
 		var tag = a.tag;
 		//var userid = JSON.parse($.cookie("o")).username;
-		var userid=plus.storage.getItem("username");
+		var userid = plus.storage.getItem("username");
 		var html2 = '';
 		var equipmsg = [];
 		//***********ajax************
@@ -573,17 +603,17 @@ app.adminEquipSearch = function(formdata) {
 				department = data.department;
 				status = data.status;
 				imgurl = data.imgurl;
-//				equipmsg.push({
-//					"centernum": a.centernum,
-//					"serialnum": serial,
-//					"equipname": equipname,
-//					"scale": scale,
-//					"department": department,
-//					"status": status,
-//					"imgurl": imgurl
-//
-//				});
-				equipmsg=data;
+				//				equipmsg.push({
+				//					"centernum": a.centernum,
+				//					"serialnum": serial,
+				//					"equipname": equipname,
+				//					"scale": scale,
+				//					"department": department,
+				//					"status": status,
+				//					"imgurl": imgurl
+				//
+				//				});
+				equipmsg = data;
 
 				html2 = app.adminEquipSearchTemplate(equipmsg);
 
@@ -626,39 +656,34 @@ app.searchEquipLocate = function(equipname, tag) {
 		console.log(equipname);
 		if(equipname || tag) {
 
-//***********ajax************
-		var jurl = "http://115.233.208.56/zzzx/getEquipLocation?";
-		//var jurl = "http://172.20.2.158:8080/getEquipLocation?";
-		app.request({
-			url: jurl,
-			method: "GET",
-			crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
-			dataType: "json",
-			data: {
-				equipname: equipname,
-				tag: tag
-			
-			},
-			beforeSend: function(e) {
-				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
-			},
-			success: function(data) {
+			//***********ajax************
+			var jurl = "http://115.233.208.56/zzzx/getEquipLocation?";
+			//var jurl = "http://172.20.2.158:8080/getEquipLocation?";
+			app.request({
+				url: jurl,
+				method: "GET",
+				crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+				dataType: "json",
+				data: {
+					equipname: equipname,
+					tag: tag
 
-				var equipmsg = data;
-				console.log(equipmsg);
+				},
+				beforeSend: function(e) {
+					//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+				},
+				success: function(data) {
 
-				equipLocatehtml = app.searchLocateEquip(equipmsg);
+					var equipmsg = data;
+					console.log(equipmsg);
 
-			$$('.equip-locate .equiplocatelist').html(equipLocatehtml);
-			}
-		});
+					equipLocatehtml = app.searchLocateEquip(equipmsg);
 
-		//***********************************/
+					$$('.equip-locate .equiplocatelist').html(equipLocatehtml);
+				}
+			});
 
-
-
-
-			
+			//***********************************/
 
 		}
 
@@ -715,10 +740,10 @@ app.financial = function(year, month, channel) {
 
 		var html2 = '';
 		console.log("bbb" + year + "ccc" + month + "ddd" + channel);
-		
+
 		//var userid = JSON.parse($.cookie("o")).username;
-		var userid=plus.storage.getItem("username");
-		
+		var userid = plus.storage.getItem("username");
+
 		//***********ajax************
 		var jurl = "http://115.233.208.56/zzzx/getFinancialStatistic?";
 		//var jurl = "http://172.20.2.158:8080/getFinancialStatistic?";
@@ -731,7 +756,7 @@ app.financial = function(year, month, channel) {
 				channel: channel,
 				month: month,
 				year: year,
-				userid:userid
+				userid: userid
 
 			},
 			beforeSend: function(e) {
@@ -739,35 +764,33 @@ app.financial = function(year, month, channel) {
 			},
 			success: function(data) {
 
-				
-			 var staticmsg=data;
+				var staticmsg = data;
 
 				html2 = app.financialStaticTemplate(staticmsg);
 
-		$$('.staticlist').html(html2);
+				$$('.staticlist').html(html2);
 			}
 		});
 
 		//***********************************/
-		
-//		var staticmsg = {
-//
-//			"totalfee": "20000",
-//			"staticlist": [{
-//				"month": month,
-//				"year": year,
-//				"column": "奔跑吧兄弟",
-//				"fee": "10000"
-//
-//			}, {
-//				"month": month,
-//				"year": year,
-//				"column": "101女团",
-//				"fee": "10000"
-//
-//			}]
-//		};
-		
+
+		//		var staticmsg = {
+		//
+		//			"totalfee": "20000",
+		//			"staticlist": [{
+		//				"month": month,
+		//				"year": year,
+		//				"column": "奔跑吧兄弟",
+		//				"fee": "10000"
+		//
+		//			}, {
+		//				"month": month,
+		//				"year": year,
+		//				"column": "101女团",
+		//				"fee": "10000"
+		//
+		//			}]
+		//		};
 
 	}, 300);
 };
@@ -782,7 +805,7 @@ app.searchManuallist = function(search) {
 
 		var html2 = '';
 		console.log(search);
-		
+
 		//***********ajax************
 		var jurl = "http://115.233.208.56/zzzx/getManual?";
 		//var jurl = "http://172.20.2.158:8080/getManual?";
@@ -792,7 +815,7 @@ app.searchManuallist = function(search) {
 			crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
 			dataType: "json",
 			data: {
-				keyword:search
+				keyword: search
 
 			},
 			beforeSend: function(e) {
@@ -800,29 +823,25 @@ app.searchManuallist = function(search) {
 			},
 			success: function(data) {
 
-				
-			 var msg=data.filelist;
+				var msg = data.filelist;
 
 				html2 = app.searchManual(msg);
 
-		$$('.manualist').html(html2);
+				$$('.manualist').html(html2);
 			}
 		});
 
 		//***********************************/
-		
-		
-		
-//		var msg = [{
-//			"filename": "摄像机手册",
-//			"filepath": "http://www.czbank.com/cn/personal/investment/issue/201608/W020180606616600656738.pdf"
-//
-//		}, {
-//			"filename": "摄像机手册",
-//			"filepath": "files/test.docx"
-//
-//		}];
-		
+
+		//		var msg = [{
+		//			"filename": "摄像机手册",
+		//			"filepath": "http://www.czbank.com/cn/personal/investment/issue/201608/W020180606616600656738.pdf"
+		//
+		//		}, {
+		//			"filename": "摄像机手册",
+		//			"filepath": "files/test.docx"
+		//
+		//		}];
 
 	}, 300);
 };
@@ -838,7 +857,7 @@ app.normalBRlist = function(search) {
 
 		var isverify = search;
 		//var username = JSON.parse($.cookie("o")).username;
-		var username=plus.storage.getItem("username");
+		var username = plus.storage.getItem("username");
 		var brlistmsg;
 		var html2 = '';
 		//***********ajax************
@@ -912,7 +931,7 @@ app.chiefBRlist = function(formdata) {
 		var date_begin = formdata.date_begin;
 		var date_finish = formdata.date_finish;
 		//var username = JSON.parse($.cookie("o")).username;
-		var username=plus.storage.getItem("username")
+		var username = plus.storage.getItem("username")
 		//***********ajax************
 
 		var jurl = "http://115.233.208.56/zzzx/getChiefBrlist?";
@@ -976,7 +995,7 @@ app.financialNormal = function(year, month) {
 
 		var html2 = '';
 		console.log("bbb" + year + "ccc" + month);
-		
+
 		//var username = JSON.parse($.cookie("o")).username;
 		var username = "洪渊";
 		//***********ajax************
@@ -990,8 +1009,8 @@ app.financialNormal = function(year, month) {
 			dataType: "json",
 			data: {
 				username: username,
-				year:year,
-				month:month
+				year: year,
+				month: month
 			},
 			beforeSend: function(e) {
 				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
@@ -1003,29 +1022,28 @@ app.financialNormal = function(year, month) {
 				//console.log("brlistmsg" + brlistmsg);
 				html2 = app.financialNormalTemplate(staticmsg);
 
-		$$('.staticlist').html(html2);
+				$$('.staticlist').html(html2);
 			}
 		});
-//		var staticmsg = {
-//
-//			"totalfee": "20000",
-//			"staticlist": [{
-//				"month": month,
-//				"year": year,
-//				"equipname": "高清蓝光摄像机",
-//				"column": "奔跑吧兄弟",
-//				"fee": "10000"
-//
-//			}, {
-//				"month": month,
-//				"year": year,
-//				"equipname": "摄像机",
-//				"column": "101女团",
-//				"fee": "10000"
-//
-//			}]
-//		};
-		
+		//		var staticmsg = {
+		//
+		//			"totalfee": "20000",
+		//			"staticlist": [{
+		//				"month": month,
+		//				"year": year,
+		//				"equipname": "高清蓝光摄像机",
+		//				"column": "奔跑吧兄弟",
+		//				"fee": "10000"
+		//
+		//			}, {
+		//				"month": month,
+		//				"year": year,
+		//				"equipname": "摄像机",
+		//				"column": "101女团",
+		//				"fee": "10000"
+		//
+		//			}]
+		//		};
 
 	}, 300);
 };
@@ -1089,10 +1107,10 @@ function saveEquipBorrow() {
 			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 		},
 		success: function(data) {
-			if(data.status=='success'){
+			if(data.status == 'success') {
 				alert("借出成功！");
 			}
-			
+
 			console.log(data.status);
 		}
 	});
@@ -1123,14 +1141,14 @@ function saveEquipReturn() {
 		},
 		success: function(data) {
 			console.log(data);
-			var result="归还失败的设备中心条码：";
+			var result = "归还失败的设备中心条码：";
 			//alert(data);
-				$.each(data, function(i,item){
-					if(data[i].status=="N")
-					result=result+data[i].centernum+" "
-					
-				});
-				alert(result);
+			$.each(data, function(i, item) {
+				if(data[i].status == "N")
+					result = result + data[i].centernum + " "
+
+			});
+			alert(result);
 		}
 	});
 	//	//***********************************/
@@ -1289,15 +1307,15 @@ function changepwd() {
 	var newpwd = $$(".newpwd").val();
 	var newpwdagain = $$(".newpwdagain").val();
 	//var username = JSON.parse($.cookie("o")).username;
-	var username=plus.storage.getItem("username");
+	var username = plus.storage.getItem("username");
 	//var userid = JSON.parse($.cookie("o")).userid;
-	console.log(newpwd+" "+newpwdagain)
+	console.log(newpwd + " " + newpwdagain)
 	if(newpwd != newpwdagain) {
 		alert("两次密码不一致");
 	} else {
 		//***********ajax修改密码************
 
-			var jurl = "http://115.233.208.56/zzzx/changePwd?";
+		var jurl = "http://115.233.208.56/zzzx/changePwd?";
 		//var jurl = "http://172.20.2.158:8080/changePwd?";
 		app.request({
 			url: jurl,
@@ -1305,7 +1323,7 @@ function changepwd() {
 			crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
 			dataType: "json",
 			data: {
-				
+
 				password: orginpwd,
 				newpassword: newpwd,
 				userid: username
@@ -1324,7 +1342,6 @@ function changepwd() {
 	}
 
 }
-
 
 function updateRemarks() {
 	var remarks = $$(".input-with-value").val();
@@ -1358,7 +1375,7 @@ function updateRemarks() {
 
 function submitVerify() {
 	//var userid = JSON.parse($.cookie("o")).username;
-	var userid=plus.storage.getItem("username");
+	var userid = plus.storage.getItem("username");
 	var brlistnum = $$(".brlistnum").text();
 	//***********ajax修改密码************
 	var jurl = "http://115.233.208.56/zzzx/updateAdminBrlist?";
@@ -1378,7 +1395,7 @@ function submitVerify() {
 		},
 		success: function(data) {
 
-		  alert(data.status);
+			alert(data.status);
 
 		}
 	});
@@ -1386,53 +1403,56 @@ function submitVerify() {
 	//***********************************/
 }
 
-function searchbrlist(){
+function searchbrlist() {
 	console.log("ddddddddd");
 }
-function downloadManual(filename,surl){
-	console.log("url "+surl);
-	
-	   var url = "http://115.233.208.56/zzzx/Downfile?";
-	 // var url = "http://172.20.2.158:8080/Downfile?";
-        var surl =surl ;
-        var form = $$("<form></form>").attr("action", url).attr("method", "post");
-        form.append($$("<input></input>").attr("type", "hidden").attr("name", "url").attr("value", surl));
-        form.appendTo('body').submit().remove();
-//	var jurl = "http://172.20.2.158:8080/Downfile?";
-//	app.request({
-//		url: jurl,
-//		method: "POST",
-//		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
-//		dataType: "json",
-//		data: {
-//			
-//			url,url
-//
-//		},
-//		beforeSend: function(e) {
-//			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
-//		},
-//		success: function(response, status, request) {
-//			console.log(request);
-//			
-//			 var disp = request.getResponseHeader('Content-Disposition');
-//           if (disp && disp.search('attachment') != -1) {  //判断是否为文件
-//          var form = $$('<form method="POST" action="' + jurl + '">');
-//          $$.each(params, function(k, v) {
-//               form.append($$('<input type="hidden" name="' + k +
-//                      '" value="' + v + '">'));
-//          });
-//          $$('body').append(form);
-//        form.submit(); //自动提交
-//     }
-//		}
-//	});
+
+function downloadManual(filename, surl) {
+	console.log("url " + surl);
+
+	var url = "http://115.233.208.56/zzzx/Downfile?";
+	// var url = "http://172.20.2.158:8080/Downfile?";
+	var surl = surl;
+	var form = $$("<form></form>").attr("action", url).attr("method", "post");
+	form.append($$("<input></input>").attr("type", "hidden").attr("name", "url").attr("value", surl));
+	form.appendTo('body').submit().remove();
+	//	var jurl = "http://172.20.2.158:8080/Downfile?";
+	//	app.request({
+	//		url: jurl,
+	//		method: "POST",
+	//		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+	//		dataType: "json",
+	//		data: {
+	//			
+	//			url,url
+	//
+	//		},
+	//		beforeSend: function(e) {
+	//			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+	//		},
+	//		success: function(response, status, request) {
+	//			console.log(request);
+	//			
+	//			 var disp = request.getResponseHeader('Content-Disposition');
+	//           if (disp && disp.search('attachment') != -1) {  //判断是否为文件
+	//          var form = $$('<form method="POST" action="' + jurl + '">');
+	//          $$.each(params, function(k, v) {
+	//               form.append($$('<input type="hidden" name="' + k +
+	//                      '" value="' + v + '">'));
+	//          });
+	//          $$('body').append(form);
+	//        form.submit(); //自动提交
+	//     }
+	//		}
+	//	});
 
 	//***********************************/
 }
-function dealFinancialSearch(){
-	
+
+function dealFinancialSearch() {
+
 }
+
 function dealEquipViewSearch() {
 	var tag = $$('select[name="tag"]').val();
 	var department = $$('select[name="department"]').val();
@@ -1444,7 +1464,7 @@ function dealEquipViewSearch() {
 function bar(tag, department) {
 
 	var dom = document.getElementById("bar");
-	var myChart = echarts.init(dom);
+	var myChart = echarts.init(dom, 'macarons');
 
 	option = null;
 	//***********ajax修改密码************
@@ -1555,7 +1575,7 @@ function bar(tag, department) {
 
 function line(tag, department) {
 	var dom = document.getElementById("line");
-	var myChart = echarts.init(dom);
+	var myChart = echarts.init(dom, 'macarons');
 
 	option = null;
 	//***********ajax修改密码************
@@ -1567,8 +1587,8 @@ function line(tag, department) {
 		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
 		dataType: "json",
 		data: {
-			tag:tag,
-			department:department
+			tag: tag,
+			department: department
 
 		},
 		beforeSend: function(e) {
@@ -1591,7 +1611,7 @@ function line(tag, department) {
 					axisLabel: {
 						fontSize: 8,
 						interval: 0,
-						rotate: 40,
+						rotate: 30,
 						color: "#657c97",
 						fontFamily: "#Arial"
 					},
@@ -1601,21 +1621,21 @@ function line(tag, department) {
 					type: 'value'
 				},
 				series: [
-//				{
-//						name: "转播车",
-//						data: [120, 200, 150, 80, 70, 110, 130, 200, 150, 80, 60, 110, 130],
-//						type: 'line'
-//					},
-//					{
-//						name: "摄像机",
-//						data: [10, 200, 10, 80, 70, 10, 130, 20, 150, 20, 72, 10, 130],
-//						type: 'line'
-//					},
-//					{
-//						name: "相机",
-//						data: [12, 20, 150, 180, 70, 110, 10, 100, 150, 5, 70, 90, 20],
-//						type: 'line'
-//					}
+					//				{
+					//						name: "转播车",
+					//						data: [120, 200, 150, 80, 70, 110, 130, 200, 150, 80, 60, 110, 130],
+					//						type: 'line'
+					//					},
+					//					{
+					//						name: "摄像机",
+					//						data: [10, 200, 10, 80, 70, 10, 130, 20, 150, 20, 72, 10, 130],
+					//						type: 'line'
+					//					},
+					//					{
+					//						name: "相机",
+					//						data: [12, 20, 150, 180, 70, 110, 10, 100, 150, 5, 70, 90, 20],
+					//						type: 'line'
+					//					}
 				]
 			};
 			var arr = [];
@@ -1626,8 +1646,8 @@ function line(tag, department) {
 				console.log(data.equipusetime[i].equipname)
 				var s = {
 					name: data.equipusetime[i].equipname,
-					data:data.equipusetime[i].monthdata,
-					type:'line'
+					data: data.equipusetime[i].monthdata,
+					type: 'line'
 				};
 				option.series.push(s);
 			});
@@ -1688,412 +1708,446 @@ function line(tag, department) {
 
 function pie(tag, department) {
 	var dom = document.getElementById("pie");
-	var myChart = echarts.init(dom);
+	var myChart = echarts.init(dom, 'macarons');
 
 	option = null;
 	//***********ajax修改密码************
 	var jurl = "http://115.233.208.56/zzzx/getEquipStatusStatistic?";
 	//var jurl = "http://172.20.2.158:8080/getEquipStatusStatistic?";
 	app.request({
-			url: jurl,
-			method: "get",
-			crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
-			dataType: "json",
-			data: {
-				tag: tag,
-				department: department
+		url: jurl,
+		method: "get",
+		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+		dataType: "json",
+		data: {
+			tag: tag,
+			department: department
 
-			},
-			beforeSend: function(e) {
-				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
-			},
-			success: function(data) {
-				//console.log(data.equipactivity)
+		},
+		beforeSend: function(e) {
+			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+		},
+		success: function(data) {
+			//console.log(data.equipactivity)
 
-				option = {
-					title: {
-						text: '部门使用时长',
+			option = {
+				title: {
+					text: '部门使用时长',
 
-					},
-					legend: {
-						type: 'scroll',
-						right: 10,
-						top: 20,
-						bottom: 20,
-						// data:['浙江卫视','教育科技','影视娱乐']
-					},
-					tooltip: {
-						trigger: 'item',
-						formatter: "{a} <br/>{b} : {c}小时({d}%)"
-					},
-					series: [{
-						name: '部门使用时长',
-						type: 'pie',
-						radius: '55%',
-						center: ['50%', '60%'],
-						//          data:[
-						//              {value:335, name:'浙江卫视'},
-						//              {value:310, name:'教育科技'},
-						//              {value:234, name:'影视娱乐'},
-						//             
-						//          ],
-						itemStyle: {
-							emphasis: {
-								shadowBlur: 10,
-								shadowOffsetX: 0,
-								shadowColor: 'rgba(0, 0, 0, 0.5)'
+				},
+				legend: {
+					type: 'scroll',
+					orient: 'vertical',
+					right: 0,
+					top: 20,
+					bottom: 20,
+					formatter: function(name) {
+
+						var index = 0;
+						$.each(data.channelequipuse, function(i, val) {
+							if(data.channelequipuse[i].department == name) {
+								index = i;
+							};
+
+						});
+						return name + "\n" + data.channelequipuse[index].num + "小时";
+					}
+
+					// data:['浙江卫视','教育科技','影视娱乐']
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c}小时({d}%)"
+				},
+				series: [{
+					name: '部门使用时长',
+					type: 'pie',
+					radius: '40%',
+					center: ['30%', '50%'],
+					//          data:[
+					//              {value:335, name:'浙江卫视'},
+					//              {value:310, name:'教育科技'},
+					//              {value:234, name:'影视娱乐'},
+					//             
+					//          ],
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						},
+						normal: {
+							label: {
+								show: false //隐藏标示文字
+							},
+							labelLine: {
+								show: false //隐藏标示线
 							}
 						}
-					}]
+					}
+				}]
+			};
+			var arr = [];
+			var arr2 = [];
+			$.each(data.channelequipuse, function(i, val) {
+				arr.push(data.channelequipuse[i].department);
+				console.log(data.channelequipuse[i].department)
+				var items = {
+					name: data.channelequipuse[i].department,
+					value: parseInt(data.channelequipuse[i].num)
 				};
-				var arr = [];
-				var arr2 = [];
-				$.each(data.channelequipuse, function(i, val) {
-					arr.push(data.channelequipuse[i].department);
-					console.log(data.channelequipuse[i].department)
-					var items = {
-						name: data.channelequipuse[i].department,
-						value: parseInt(data.channelequipuse[i].num)
-					};
-					arr2.push(items);
-				});
-
-				option.legend.data = arr;
-				option.series[0].data = arr2;
-				console.log(arr)
-				console.log(arr2);
-				console.log(option);
-
-				if(option && typeof option === "object") {
-					myChart.setOption(option, true);
-				}
-
-			}
-	});
-
-}
-function dealEquipView(){
-	var begintime=$$('#begintime').val();
-	var finishtime=$$('#finishtime').val();
-	
-	
-	locatePersonBar(begintime,finishtime)
-	equipBar(begintime,finishtime);
-	locatePie(begintime,finishtime);
-}
-function locatePersonBar(begintime,finishtime){
-	var dom = document.getElementById("locate-person-bar");
-var myChart = echarts.init(dom);
-
-option = null;
-//***********ajax修改密码************
-	var jurl = "http://115.233.208.56/zzzx/getEquipStatistic?";
-	//var jurl = "http://172.20.2.158:8080/getEquipStatistic?";
-	app.request({
-		url: jurl,
-		method: "get",
-		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
-		dataType: "json",
-		data: {
-			date_begin:begintime,
-			date_finish:finishtime
-
-		},
-		beforeSend: function(e) {
-			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
-		},
-		success: function(data) {
-			//console.log(data.equipactivity)
-			 
-			
-			
-option = {
-	 title: {
-        text: '设备里程数',
-       
-    },
-    xAxis: {
-        type: 'category',
-        axisLabel: {
-            fontSize : 8,
-           interval:0,
-           rotate:30,
-            color: "#657c97",
-            fontFamily : "#Arial"
-        },
-       // data: ['摄像机', '转播车', '话筒', 'Sony', '电池', '录音机', '相机']
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [{
-    	label:{                     //---图形上的文本标签
-            show:true,
-            position:'insideTop',   //---相对位置
-            rotate:0,               //---旋转角度
-            color:'#eee',
-                    },
-       // data: [120, 200, 150, 80, 70, 110, 130],
-        type: 'bar'
-    }]
-    };
-var arr=[];
-var arr2=[];
-$.each(data.equipdistance, function(i,val){      
-      			arr.push(data.equipdistance[i].equipname);
-      			console.log(data.equipdistance[i].equipname)
-      			
-				arr2.push(data.equipdistance[i].num);
-  				});
-  			
-  				option.xAxis.data=arr;
-  				option.series[0].data=arr2;
-  				console.log(arr)
-  				console.log(arr2);
-  				console.log(option);
-  				
-if (option && typeof option === "object") {
-    myChart.setOption(option, true);
-}
-		
-
-		}
-		});
-//option = {
-//	 title: {
-//      text: '设备里程数',
-//     
-//  },
-//  xAxis: {
-//      type: 'category',
-//      axisLabel: {
-//          fontSize : 8,
-//         interval:0,
-//         rotate:40,
-//          color: "#657c97",
-//          fontFamily : "#Arial"
-//      },
-//      data: ['摄像机', '转播车', '话筒', 'Sony', '电池', '录音机', '相机']
-//  },
-//  yAxis: {
-//      type: 'value'
-//  },
-//  series: [{
-//  	label:{                     //---图形上的文本标签
-//          show:true,
-//          position:'insideTop',   //---相对位置
-//          rotate:0,               //---旋转角度
-//          color:'#eee',
-//                  },
-//      data: [120, 200, 150, 80, 70, 110, 130],
-//      type: 'bar'
-//  }]
-//};
-//
-//if (option && typeof option === "object") {
-//  myChart.setOption(option, true);
-//}
-}
-function equipBar(begintime,finishtime){
-	var dom = document.getElementById("locate-equip-bar");
-var myChart = echarts.init(dom);
-
-option = null;
-//***********ajax修改密码************
-	var jurl = "http://115.233.208.56/zzzx/getEquipStatistic?";
-	//var jurl = "http://172.20.2.158:8080/getEquipStatistic?";
-	app.request({
-		url: jurl,
-		method: "get",
-		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
-		dataType: "json",
-		data: {
-			date_begin:begintime,
-			date_finish:finishtime
-
-		},
-		beforeSend: function(e) {
-			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
-		},
-		success: function(data) {
-			//console.log(data.equipactivity)
-			 
-			
-			
-option = {
-	 title: {
-        text: '员工里程排名（前十位）',
-       
-    },
-    xAxis: {
-        type: 'category',
-        axisLabel: {
-            fontSize : 8,
-           interval:0,
-           rotate:30,
-            color: "#657c97",
-            fontFamily : "#Arial"
-        }
-       // data: ['A', 'B', 'C', 'D', 'E', 'F', 'G','H','I','J']
-    },
-    yAxis: {
-        type: 'value'
-    },
-    series: [{
-    	label:{                     //---图形上的文本标签
-            show:true,
-            position:'insideTop',   //---相对位置
-            rotate:0,               //---旋转角度
-            color:'#eee',
-                    },
-        //data: [120, 200, 150, 80, 70, 110, 130,70, 110, 130],
-        type: 'bar'
-    }]
-};
-var arr=[];
-var arr2=[];
-$.each(data.persondistance, function(i,val){      
-      			arr.push(data.persondistance[i].equipname);
-      			console.log(data.persondistance[i].equipname)
-      			
-				arr2.push(data.persondistance[i].num);
-  				});
-  			
-  				option.xAxis.data=arr;
-  				option.series[0].data=arr2;
-  				console.log(arr)
-  				console.log(arr2);
-  				console.log(option);
-  				
-if (option && typeof option === "object") {
-    myChart.setOption(option, true);
-}
-		
-
-		}
-	});
-//option = {
-//	 title: {
-//      text: '员工里程排名（前十位）',
-//     
-//  },
-//  xAxis: {
-//      type: 'category',
-//      axisLabel: {
-//          fontSize : 8,
-//         interval:0,
-//         rotate:40,
-//          color: "#657c97",
-//          fontFamily : "#Arial"
-//      },
-//      data: ['A', 'B', 'C', 'D', 'E', 'F', 'G','H','I','J']
-//  },
-//  yAxis: {
-//      type: 'value'
-//  },
-//  series: [{
-//  	label:{                     //---图形上的文本标签
-//          show:true,
-//          position:'insideTop',   //---相对位置
-//          rotate:0,               //---旋转角度
-//          color:'#eee',
-//                  },
-//      data: [120, 200, 150, 80, 70, 110, 130,70, 110, 130],
-//      type: 'bar'
-//  }]
-//};
-//
-//if (option && typeof option === "object") {
-//  myChart.setOption(option, true);
-//}
-}
-function locatePie(begintime,finishtime){
-var dom = document.getElementById("locate-pie");
-var myChart = echarts.init(dom);
-
-option = null;
-//***********ajax修改密码************
-	var jurl = "http://115.233.208.56/zzzx/getEquipStatistic?";
-	//var jurl = "http://172.20.2.158:8080/getEquipStatistic?";
-	app.request({
-		url: jurl,
-		method: "get",
-		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
-		dataType: "json",
-		data: {
-			date_begin:begintime,
-			date_finish:finishtime
-
-		},
-		beforeSend: function(e) {
-			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
-		},
-		success: function(data) {
-			//console.log(data.equipactivity)
-			 
-			
-			
-option = {
-	 title: {
-        text: '部门活跃度分析',
-       
-    },
-     legend: {
-     	type: 'scroll',
-        right: 10,
-        top: 20,
-        bottom: 20,
-       // data:['浙江卫视','教育科技','影视娱乐']
-    },
-     tooltip : {
-        trigger: 'item',
-        formatter: "{a} <br/>{b} : {c}公里 ({d}%)"
-    },
-    series: [ {
-            name: '部门里程数',
-            type: 'pie',
-            radius : '55%',
-            center: ['50%', '60%'],
-//          data:[
-//              {value:335, name:'浙江卫视'},
-//              {value:310, name:'教育科技'},
-//              {value:234, name:'影视娱乐'},
-//             
-//          ],
-            itemStyle: {
-                emphasis: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            }
-        }]
-};
-var arr=[];
-var arr2=[];
-$.each(data.equipactivity, function(i,val){      
-      			arr.push(data.equipactivity[i].equipname);
-      			console.log(data.equipactivity[i].equipname)
-      			var items={ 
-							name:data.equipactivity[i].equipname, 
-							value: parseInt(data.equipactivity[i].active)
-						};
 				arr2.push(items);
-  				});
-  			
-  				option.legend.data=arr;
-  				option.series[0].data=arr2;
-  				console.log(arr)
-  				console.log(arr2);
-  				console.log(option);
-  				
-if (option && typeof option === "object") {
-    myChart.setOption(option, true);
-}
-		
+			});
+
+			option.legend.data = arr;
+			option.series[0].data = arr2;
+			console.log(arr)
+			console.log(arr2);
+			console.log(option);
+
+			if(option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
 
 		}
 	});
 
-	
+}
+
+function dealEquipView() {
+	var begintime = $$('#begintime').val();
+	var finishtime = $$('#finishtime').val();
+
+	locatePersonBar(begintime, finishtime)
+	equipBar(begintime, finishtime);
+	locatePie(begintime, finishtime);
+}
+
+function locatePersonBar(begintime, finishtime) {
+	var dom = document.getElementById("locate-person-bar");
+	var myChart = echarts.init(dom, 'macarons');
+
+	option = null;
+	//***********ajax修改密码************
+	var jurl = "http://115.233.208.56/zzzx/getEquipStatistic?";
+	//var jurl = "http://172.20.2.158:8080/getEquipStatistic?";
+	app.request({
+		url: jurl,
+		method: "get",
+		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+		dataType: "json",
+		data: {
+			date_begin: begintime,
+			date_finish: finishtime
+
+		},
+		beforeSend: function(e) {
+			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+		},
+		success: function(data) {
+			//console.log(data.equipactivity)
+
+			option = {
+				title: {
+					text: '设备里程数',
+
+				},
+				xAxis: {
+					type: 'category',
+					axisLabel: {
+						fontSize: 8,
+						interval: 0,
+						rotate: 30,
+						color: "#657c97",
+						fontFamily: "#Arial"
+					},
+					// data: ['摄像机', '转播车', '话筒', 'Sony', '电池', '录音机', '相机']
+				},
+				yAxis: {
+					type: 'value'
+				},
+				series: [{
+					label: { //---图形上的文本标签
+						show: true,
+						position: 'insideTop', //---相对位置
+						rotate: 0, //---旋转角度
+						color: '#eee',
+					},
+					// data: [120, 200, 150, 80, 70, 110, 130],
+					type: 'bar'
+				}]
+			};
+			var arr = [];
+			var arr2 = [];
+			$.each(data.equipdistance, function(i, val) {
+				arr.push(data.equipdistance[i].equipname);
+				console.log(data.equipdistance[i].equipname)
+
+				arr2.push(data.equipdistance[i].num);
+			});
+
+			option.xAxis.data = arr;
+			option.series[0].data = arr2;
+			console.log(arr)
+			console.log(arr2);
+			console.log(option);
+
+			if(option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
+
+		}
+	});
+	//option = {
+	//	 title: {
+	//      text: '设备里程数',
+	//     
+	//  },
+	//  xAxis: {
+	//      type: 'category',
+	//      axisLabel: {
+	//          fontSize : 8,
+	//         interval:0,
+	//         rotate:40,
+	//          color: "#657c97",
+	//          fontFamily : "#Arial"
+	//      },
+	//      data: ['摄像机', '转播车', '话筒', 'Sony', '电池', '录音机', '相机']
+	//  },
+	//  yAxis: {
+	//      type: 'value'
+	//  },
+	//  series: [{
+	//  	label:{                     //---图形上的文本标签
+	//          show:true,
+	//          position:'insideTop',   //---相对位置
+	//          rotate:0,               //---旋转角度
+	//          color:'#eee',
+	//                  },
+	//      data: [120, 200, 150, 80, 70, 110, 130],
+	//      type: 'bar'
+	//  }]
+	//};
+	//
+	//if (option && typeof option === "object") {
+	//  myChart.setOption(option, true);
+	//}
+}
+
+function equipBar(begintime, finishtime) {
+	var dom = document.getElementById("locate-equip-bar");
+	var myChart = echarts.init(dom, 'macarons');
+
+	option = null;
+	//***********ajax修改密码************
+	var jurl = "http://115.233.208.56/zzzx/getEquipStatistic?";
+	//var jurl = "http://172.20.2.158:8080/getEquipStatistic?";
+	app.request({
+		url: jurl,
+		method: "get",
+		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+		dataType: "json",
+		data: {
+			date_begin: begintime,
+			date_finish: finishtime
+
+		},
+		beforeSend: function(e) {
+			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+		},
+		success: function(data) {
+			//console.log(data.equipactivity)
+
+			option = {
+				title: {
+					text: '员工里程排名（前十位）',
+
+				},
+				xAxis: {
+					type: 'category',
+					axisLabel: {
+						fontSize: 8,
+						interval: 0,
+						rotate: 30,
+						color: "#657c97",
+						fontFamily: "#Arial"
+					}
+					// data: ['A', 'B', 'C', 'D', 'E', 'F', 'G','H','I','J']
+				},
+				yAxis: {
+					type: 'value'
+				},
+				series: [{
+					label: { //---图形上的文本标签
+						show: true,
+						position: 'insideTop', //---相对位置
+						rotate: 0, //---旋转角度
+						color: '#eee',
+					},
+					//data: [120, 200, 150, 80, 70, 110, 130,70, 110, 130],
+					type: 'bar'
+				}]
+			};
+			var arr = [];
+			var arr2 = [];
+			$.each(data.persondistance, function(i, val) {
+				arr.push(data.persondistance[i].equipname);
+				console.log(data.persondistance[i].equipname)
+
+				arr2.push(data.persondistance[i].num);
+			});
+
+			option.xAxis.data = arr;
+			option.series[0].data = arr2;
+			console.log(arr)
+			console.log(arr2);
+			console.log(option);
+
+			if(option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
+
+		}
+	});
+	//option = {
+	//	 title: {
+	//      text: '员工里程排名（前十位）',
+	//     
+	//  },
+	//  xAxis: {
+	//      type: 'category',
+	//      axisLabel: {
+	//          fontSize : 8,
+	//         interval:0,
+	//         rotate:40,
+	//          color: "#657c97",
+	//          fontFamily : "#Arial"
+	//      },
+	//      data: ['A', 'B', 'C', 'D', 'E', 'F', 'G','H','I','J']
+	//  },
+	//  yAxis: {
+	//      type: 'value'
+	//  },
+	//  series: [{
+	//  	label:{                     //---图形上的文本标签
+	//          show:true,
+	//          position:'insideTop',   //---相对位置
+	//          rotate:0,               //---旋转角度
+	//          color:'#eee',
+	//                  },
+	//      data: [120, 200, 150, 80, 70, 110, 130,70, 110, 130],
+	//      type: 'bar'
+	//  }]
+	//};
+	//
+	//if (option && typeof option === "object") {
+	//  myChart.setOption(option, true);
+	//}
+}
+
+function locatePie(begintime, finishtime) {
+	var dom = document.getElementById("locate-pie");
+	var myChart = echarts.init(dom, 'macarons');
+
+	option = null;
+	//***********ajax修改密码************
+	var jurl = "http://115.233.208.56/zzzx/getEquipStatistic?";
+	//var jurl = "http://172.20.2.158:8080/getEquipStatistic?";
+	app.request({
+		url: jurl,
+		method: "get",
+		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+		dataType: "json",
+		data: {
+			date_begin: begintime,
+			date_finish: finishtime
+
+		},
+		beforeSend: function(e) {
+			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+		},
+		success: function(data) {
+			//console.log(data.equipactivity)
+
+			option = {
+				title: {
+					text: '部门活跃度分析',
+
+				},
+				legend: {
+					type: 'scroll',
+					orient: 'vertical',
+					right: 10,
+					top: 20,
+					bottom: 20,	
+					formatter: function(name) {
+
+						var index = 0;
+						$.each(data.equipactivity, function(i, val) {
+							if(data.equipactivity[i].equipname == name) {
+								index = i;
+							};
+
+						});
+						return name + "\n" + data.equipactivity[index].active + "公里";
+					}
+					// data:['浙江卫视','教育科技','影视娱乐']
+				},
+				tooltip: {
+					trigger: 'item',
+					formatter: "{a} <br/>{b} : {c}公里 ({d}%)"
+				},
+				series: [{
+					name: '部门里程数',
+					type: 'pie',
+					radius: '40%',
+					center: ['30%', '60%'],
+					//          data:[
+					//              {value:335, name:'浙江卫视'},
+					//              {value:310, name:'教育科技'},
+					//              {value:234, name:'影视娱乐'},
+					//             
+					//          ],
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)'
+						},
+						normal: {
+							label: {
+								show: false //隐藏标示文字
+							},
+							labelLine: {
+								show: false //隐藏标示线
+							}
+						}
+					}
+				}]
+			};
+			var arr = [];
+			var arr2 = [];
+			$.each(data.equipactivity, function(i, val) {
+				arr.push(data.equipactivity[i].equipname);
+				console.log(data.equipactivity[i].equipname)
+				var items = {
+					name: data.equipactivity[i].equipname,
+					value: parseInt(data.equipactivity[i].active)
+				};
+				arr2.push(items);
+			});
+
+			option.legend.data = arr;
+			option.series[0].data = arr2;
+			console.log(arr)
+			console.log(arr2);
+			console.log(option);
+
+			if(option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
+
+		}
+	});
+
 }

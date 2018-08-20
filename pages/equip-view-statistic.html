@@ -13,52 +13,35 @@
 			</div>
 		</div>
 
-		
 		<div class="page-content borrow-take">
-<div class="block searchblock">
-			<div class="list no-hairlines-md inline-labels">
+			<div class=" searchblock">
+				<div class="list no-hairlines-md inline-labels">
 
-				<form class="list" id="chief-form">
-					<ul>
+					<form class="list" id="chief-form">
+						<div class="row">
+							<div class="col-40"><input type="date" id="begintime"></div>
 
-					
-						<li class="item-content item-input">
-							<div class="item-inner">
-								<div class="item-title item-label">开始时间</div>
-								<div class="item-input-wrap">
-									<input type="date"  placeholder="请选择时间" id="begintime">
-									<span class="input-clear-button"></span>
-								</div>
+							<span style="margin: auto 0;">至</span>
+							<div class="col-40"><input type="date" id="finishtime"></div>
+							<div class="col-20">
+								<a class="col button button-fill  convert-form-to-data" onclick="dealEquipView()" style="margin:7px 0">速览</a>
 							</div>
-						</li>
-							<li class="item-content item-input">
-							<div class="item-inner">
-								<div class="item-title item-label">结束时间</div>
-								<div class="item-input-wrap">
-									<input type="date"  placeholder="请选择时间" id="finishtime">
-									<span class="input-clear-button"></span>
-								</div>
-							</div>
-						</li>
-						
-						<li class="item-content item-input">
-							<div class="item-inner row">
-								<a class="col button button-fill  convert-form-to-data" onclick="dealEquipView()">查询</a>
-							</div>
-						</li>
 
-					</ul>
-				</form>
+						</div>
+
+						</ul>
+					</form>
+				</div>
+
 			</div>
+			<div id="locate-equip-bar" style="height: 400px;margin:0 5px"></div>
+			<div id="locate-person-bar" style="height: 400px;margin:0 5px"></div>
+			<div id="locate-pie" style="height: 400px;margin:0 5px"></div>
 
-		</div><div id="locate-equip-bar" style="height: 400px;margin:0 5px"></div>
-		<div id="locate-person-bar" style="height: 400px;margin:0 5px"></div>
-		<div id="locate-pie" style="height: 400px;margin:0 5px"></div>
-			
 			<div class="login-footer">
-									<img src="img/footer.png" class="footer-img">
+				<img src="img/footer.png" class="footer-img">
 
-								</div>
+			</div>
 		</div>
 	</div>
 </template>

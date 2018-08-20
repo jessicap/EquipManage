@@ -51,7 +51,7 @@
 
 									<li>
 										<div class="item-content item-input">
-											<div class="item-inner" style="margin:0">
+											<div class="item-inner" style="margin:0;padding-bottom: 0.2rem;padding-top: 0.2rem;">
 												<div class="item-title item-label">用户名</div>
 												<div class="item-input-wrap">
 													<input type="text" name="username" placeholder="" class="inputboder" />
@@ -62,7 +62,7 @@
 
 									<li>
 										<div class="item-content item-input">
-											<div class="item-inner" style="margin:0" >
+											<div class="item-inner" style="margin:0;padding-bottom: 0.2rem;padding-top: 0.2rem;" >
 												<div class="item-title item-label">密&nbsp;&nbsp;&nbsp;码</div>
 												<div class="item-input-wrap">
 													<div class="inputboder">
@@ -76,10 +76,10 @@
 
 								</ul>
 							</div>
-							<div class="list">
+							<div class="list" style="margin:12px auto">
 								<ul>
 									<li>
-										<a href="#" class="login-button button button-raised button-fill" style="width: 60%; margin: 0 auto;">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</a>
+										<a href="#" class="login-button button button-raised button-fill" style="width: 47%; margin: 0 7rem;">登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录</a>
 									</li>
 
 								</ul>
@@ -88,7 +88,7 @@
 						</form>
 						<div class="login-footer">
 							<div style="font-size:16px">浙广设备管理系统</div>
-							<div class="font-14">浙江广播电视集团©版权所有</div>
+							<div class="font-12">浙江广播电视集团©版权所有</div>
 
 						</div>
 					</div>
@@ -268,53 +268,53 @@
 		<!--管理员-设备查询模板-->
 		<script id="admin-equip-search-template" type="text/template">
 
-			<div class="row">
-				<a class="link popup-open col-100" href="#" data-popup=".popup-about"><button class=" button button-fill color-blue">查询</button></a>
-			</div>
-			<div class="block brlist">
+		
+			<div class=" brlist">
 				{{#each this}}
 				<ul>
+					<a href="/equip-maintenance-detail/{{centernum}}/">
 					<li class="card">
 
 						<div class="row">
-							<div class="col-33">
+							<div class="col-40">
 								<div class="item-inner">
-									<div class="item-title item-label">条码</div>
-									<div class="item-title item-label">
-										<a href="/equip-maintenance-detail/{{centernum}}/">{{centernum}}</a>
-									</div>
+									<span class="item-title item-label">条码:</span>
+									<span class=" item-label">
+										{{centernum}}
+									</span>
 								</div>
 								<div class="item-inner">
-									<div class="item-title item-label">名称</div>
-									<div class="item-title item-label">{{equipname}}</div>
+									<span class="item-title item-label">名称:</span>
+									<span class=" item-label">{{equipname}}</span>
 								</div>
 								<div class="item-inner">
-									<div class="item-title item-label">部门</div>
-									<div class="item-title item-label">{{department}}</div>
+									<span class="item-title item-label">部门:</span>
+									<span class="item-label">{{department}}</span>
 								</div>
 							</div>
-							<div class="col-33">
+							<div class="col-40">
 								<div class="item-inner">
-									<div class="item-title item-label">SN</div>
-									<div class="item-title item-label">{{serial}}</div>
+									<span class="item-title item-label">SN:</span>
+									<span class=" item-label">{{serial}}</span>
 
 								</div>
 								<div class="item-inner">
-									<div class="item-title item-label">型号</div>
-									<div class="item-title item-label">{{scale}}</div>
+									<span class="item-title item-label">型号:</span>
+									<span class=" item-label">{{scale}}</span>
 								</div>
 								<div class="item-inner">
-									<div class="item-title item-label">状态</div>
-									<div class="item-title item-label">{{status}}</div>
+									<span class="item-title item-label">状态:</span>
+									<span class=" item-label">{{status}}</span>
 								</div>
 							</div>
-							<div class="col-33">
+							<div class="col-20">
 								<div class="item-inner">
 									<img src="{{imgurl}}" width="85px;" />
 								</div>
 							</div>
 						</div>
 					</li>
+					</a>
 				</ul>
 				{{/each}}
 			</div>
@@ -323,46 +323,46 @@
 		<!--管理员-设备定位模板-->
 		<script id="equip-locate-template" type="text/template">
 
-			<div class="block brlist">
+			<div class=" brlist">
 				{{#each this}}
 				<ul>
 					<li class="card">
 
-						<div class="row">
-							<div class="col-33">
+						
+							<div class="row">
+							<div class="col-40">
 
 								<div class="item-inner">
-									<div class="item-title item-label">名称</div>
-									<div class="item-title item-label">{{equipname}}</div>
+									<span class="item-title item-label">名称:</span><span class="item-content">{{equipname}}</span>
 								</div>
 								<div class="item-inner">
-									<div class="item-title item-label">当前位置</div>
+									<span class="item-title item-label">当前位置:</span><span class="item-content">
 									{{#if location}}
-									<div class="item-title item-label">
+								
 										<a href="{{location}}" class="external"><i class="f7-icons">compass</i></a>
-									</div>
+									
 									{{else}}
-									<div class="item-title item-label"><i class="f7-icons">compass</i></div>
+									<i class="f7-icons">compass</i>
 									{{/if}}
-
+									</span>
+									
 								</div>
 							</div>
-							<div class="col-33">
+							<div class="col-40">
 
 								<div class="item-inner">
-									<div class="item-title item-label">中心条码</div>
-									<div class="item-title item-label">{{centernum}}</div>
+									<span class="item-title item-label">中心条码:</span><span class="item-content">{{centernum}}</span>
 								</div>
 								<div class="item-inner">
-									<div class="item-title item-label">状态</div>
-									<div class="item-title item-label">{{status}}</div>
+									<span class="item-title item-label">状态:</span><span class="item-content">{{status}}</span>
 								</div>
 							</div>
-							<div class="col-33">
+							<div class="col-20">
 								<div class="item-inner">
 									<img src="{{imgurl}}" width="85px;" />
 								</div>
 							</div>
+					
 						</div>
 
 					</li>
@@ -479,7 +479,7 @@
 		<!--操作手册模板-->
 		<script id="searchManual-template" type="text/template">
 
-			<div class="block brlist">
+			<div class=" brlist">
 
 				<div class="data-table card">
 					<table>
@@ -494,8 +494,14 @@
 								</tr>
 							</thead>
 							{{#each this}}
+							
+							
 							<tr class="">
-								<td class="label-cell">{{@index+1}}</td>
+								{{if filename.split(".")[1]=="txt"}}
+								<td class="label-cell"><img src="img/excel.png.png"></td>
+								{{else}}
+								<td class="label-cell"><img src="img/word.png.png"></td>
+								{{/if}}
 								<td class="label-cell">{{filename}}</td>
 								<td class="label-cell">
 									<a href="#" onclick="downloadManual('{{filename}}','{{url}}')">下载</a>
@@ -660,7 +666,7 @@
 
 		</script>
 		<!-- Framework7 library -->
-
+	
 		<script src="js/framework7.min.js"></script>
 		<script src="js/jquery.js"></script>
 		<script src="js/jquery.cookie.js"></script>
@@ -671,8 +677,7 @@
 
 		<!-- Your custom app scripts -->
 
-		<script src="js/app.js"></script>
-		<script src="js/xback.js"></script>
+		
 		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
 		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
 		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
@@ -682,9 +687,13 @@
 		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
 		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
 		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+		<script src="js/app.js"></script>
+		<script src="js/macarons.js"></script>
+		<script src="js/xback.js"></script>
 		<script src="js/immersed.js"></script>
 		<script src="js/image.js"></script>
 		<script src="js/bottom.js"></script>
+		
 
 	</body>
 

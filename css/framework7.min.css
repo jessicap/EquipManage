@@ -4307,7 +4307,7 @@ html.device-pixel-ratio-3 .ios li li:last-child .item-inner:after, html.device-p
 }
 
 .md .list {
-    margin: 32px 0;
+    margin: 20px 0;
     font-size: 16px
 }
 
@@ -5720,8 +5720,8 @@ button {
 .md .button {
     color: #00528b;
     border-radius: 2px;
-    line-height: 40px;
-    height: 40px;
+    line-height: 36px;
+    height: 35px;
     text-transform: uppercase;
     min-width: 64px;
     padding: 0 8px;

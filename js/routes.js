@@ -249,7 +249,8 @@ routes = [{
 			var channel = data.channel;
 			var column = data.column;
 			var mobilephone=data.mobilephone;
-			if(qx == "normal") { //普通用户
+			if(data.status!="failed"){
+				if(qx == "normal") { //普通用户
 				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
 				$.cookie("o", da, {
 					expires: "",
@@ -320,6 +321,10 @@ routes = [{
 				
 				mainView.router.navigate('/welcome-chief/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
 			}
+			}else{
+				alert("无此用户或密码错误！")
+			}
+			
 
 		}
 						});
@@ -879,7 +884,8 @@ routes = [{
 	},
 	{
 		path: '/manual/',
-		url: './pages/manual.html',
+		url: './pages/manual.html'
+		
 	},
 	{
 		path: '/equip-br-normal-search/', //普通权限借还单查询
@@ -1236,7 +1242,19 @@ routes = [{
 
 	{
 		path: '/equip-view-statistic/', //设备统计界面
-		componentUrl: './pages/equip-view-statistic.html'
+		componentUrl: './pages/equip-view-statistic.html',
+		on: {
+			pageInit: function(e, page) {
+				var now = new Date();
+				var month=("0" + (now.getMonth() + 1)).slice(-2);
+				var day=("0" + now.getDate()).slice(-2);
+				var dateString = now.getFullYear()+"-"+month+"-"+day;
+				console.log(dateString);
+				$$("#begintime").val(dateString);
+				$$("#finishtime").val(dateString);
+
+			}
+		}
 
 	},
 	// Default rute (404 page). MUST BE THE LAST
