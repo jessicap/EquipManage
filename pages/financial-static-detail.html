@@ -21,38 +21,53 @@
             </div>
     		</div>
     	</div>
-    	{{#each staticmsg.staticdetail}}
+    	
     	<div class="card">
-        <div class="row">
-            <div class="col-50">
-            <div class="item-inner">
-                <div class="item-title item-label">设备编号</div>
-                <div class="item-title item-label">{{skf928}}</div>
-            </div>
-            </div>
-            <div class="col-50">
+     <table style="" class="financial-table">
+
+					
+							<thead>
+								<tr>
+									<th class="label-cell">设备</th>
+									<th class="label-cell">借用人</th>
+									<th class="label-cell">费用</th>
+
+								</tr>
+							</thead>
+								<tbody>
+							{{#each staticmsg.staticdetail}}
+							
+							<tr class="">
+								<td class="label-cell">{{skf925}}</td>
+								<td class="label-cell">{{skf991}}</td>
+								<td class="label-cell">¥{{skf1057}}</td>
+
+							</tr>
+							{{/each}}
+						</tbody>
+					</table>
+        <!--<div class="row">
+        	    <div class="col-33">
                 <div class="item-inner">
                     <div class="item-title item-label">设备名称</div>
                     <div class="item-title item-label">{{skf925}}</div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-50">
+            <div class="col-33">
                 <div class="item-inner">
                     <div class="item-title item-label">借用人</div>
                     <div class="item-title item-label">{{skf991}}</div>
                 </div>
             </div>
-            <div class="col-50">
+            <div class="col-33">
                 <div class="item-inner">
                     <div class="item-title item-label">费用</div>
                     <div class="item-title item-label">¥{{skf1057}}</div>
                 </div>
             </div>
-        </div>
+        </div>-->
        </div>
-      {{/each}}
+ 
       
    
     </div>

@@ -12,7 +12,7 @@
     </div>
     <div class="page-content equip-repair">
 	
-    <div class="block ">
+
     	<div class="row">
     		<div class="col-50">
     			 <div class="item-inner">
@@ -38,16 +38,53 @@
     		</div>
     	</div>
                 
-    </div>
-    <div class="block">
+
+ 
     
-        <div class="block">
+        
         	<div class="list no-hairlines-md">
   <form class="list" id="equiprepair-form">
 					<ul>
-
 						
-						<li class="item-content item-input">
+					<li class="row">
+							
+								<div class="item-title item-label col-30">故障现象:</div>
+								<div class="col-70">
+								
+                		  <input type="text" placeholder="故障现象"  name="equipproblem" value="" />
+									<span class="input-clear-button"></span>
+								</div>
+						
+						</li>
+						<li class="row">
+						
+								<div class="item-title item-label col-30">维修内容:</div>
+								<div class="col-70">
+									<input type="text" name="repaircontent" placeholder="请输入维修内容">
+									<span class="input-clear-button"></span>
+								</div>
+						
+						</li>
+						<li class="row">
+							
+								<div class="item-title item-label col-30">维修人员:</div>
+								<div class="col-70">
+									<input type="text" name="repairperson" placeholder="请输入姓名">
+									<span class="input-clear-button"></span>
+								</div>
+						
+						</li>
+						<li class="row">
+						
+								<div class="item-title item-label col-30">维修时间:</div>
+								<div class="col-70">
+									<input type="date" name="repairtime" placeholder="请选择时间" id="repairtime">
+									<span class="input-clear-button"></span>
+								</div>
+							
+						</li>
+						
+						<!--<li class="item-content item-input">
 							<div class="item-inner">
 								<div class="item-title item-label">故障现象</div>
 								<div class="item-input-wrap">
@@ -84,6 +121,12 @@
 								</div>
 							</div>
 						</li>
+						-->
+						
+						
+						
+						
+						
 						<li class="item-content item-input ">
 							<div class="item-inner equiprepair-imgs">
 								<div class="item-title item-label">设备图片</div>
@@ -109,7 +152,7 @@
 						
 						<li class="item-content item-input">
 							<div class="item-inner row">
-								<a class="col button button-fill" onclick="addEquipRepair(this)">确认提交</a>
+								<a class="col button button-fill" onclick="addEquipRepair(this)" style="width:50%;margin:0 auto">确认提交</a>
 							</div>
 						</li>
 
@@ -117,8 +160,11 @@
 				</form>
 </div>
                     	 
-                    </div>
-    </div>
+               
+   <div class="login-footer">
+				<img src="img/footer.png" class="footer-img">
+
+			</div>
 
 
 	</div>

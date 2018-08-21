@@ -62,7 +62,7 @@
 
 									<li>
 										<div class="item-content item-input">
-											<div class="item-inner" style="margin:0;padding-bottom: 0.2rem;padding-top: 0.2rem;" >
+											<div class="item-inner" style="margin:0;padding-bottom: 0.2rem;padding-top: 0.2rem;">
 												<div class="item-title item-label">密&nbsp;&nbsp;&nbsp;码</div>
 												<div class="item-input-wrap">
 													<div class="inputboder">
@@ -149,7 +149,7 @@
 
 								<div class="row" style="padding: 0;">
 									<img src="img/scan.png" / class="scan-barcode col-15" onclick="clicked('barcode_scan2.html',true,true)" style="margin:auto 0.2rem;">
-									<input type="text" placeholder="设备条码" class="numberinput col-60 keyword" name="equipnum" style="margin:0 0 0 2rem"/>
+									<input type="text" placeholder="设备条码" class="numberinput col-60 keyword" name="equipnum" style="margin:0 0 0 2rem" />
 									<p class="totalequip"></p>
 								</div>
 
@@ -171,7 +171,7 @@
 					<thead>
 						<tr>
 							<th class="label-cell" name="centernum">中心条码</th>
-							<th class="label-cell" name="equipname">设备名称</th>	
+							<th class="label-cell" name="equipname">设备名称</th>
 							<th class="label-cell"></th>
 						</tr>
 					</thead>
@@ -180,7 +180,7 @@
 						<tr class="equip-{{centernum}}">
 							<td class="label-cell">{{centernum}}</td>
 							<td class="label-cell">{{equipname}}</td>
-							
+
 							<td class="label-cell" onclick="deleteEquip('{{centernum}}');"><i class="f7-icons">trash_fill</i></td>
 						</tr>
 						{{/each}}
@@ -268,52 +268,51 @@
 		<!--管理员-设备查询模板-->
 		<script id="admin-equip-search-template" type="text/template">
 
-		
 			<div class=" brlist">
 				{{#each this}}
 				<ul>
 					<a href="/equip-maintenance-detail/{{centernum}}/">
-					<li class="card">
+						<li class="card">
 
-						<div class="row">
-							<div class="col-40">
-								<div class="item-inner">
-									<span class="item-title item-label">条码:</span>
-									<span class=" item-label">
+							<div class="row">
+								<div class="col-40">
+									<div class="item-inner">
+										<span class="item-title item-label">条码:</span>
+										<span class=" item-label">
 										{{centernum}}
 									</span>
+									</div>
+									<div class="item-inner">
+										<span class="item-title item-label">名称:</span>
+										<span class=" item-label">{{equipname}}</span>
+									</div>
+									<div class="item-inner">
+										<span class="item-title item-label">部门:</span>
+										<span class="item-label">{{department}}</span>
+									</div>
 								</div>
-								<div class="item-inner">
-									<span class="item-title item-label">名称:</span>
-									<span class=" item-label">{{equipname}}</span>
-								</div>
-								<div class="item-inner">
-									<span class="item-title item-label">部门:</span>
-									<span class="item-label">{{department}}</span>
-								</div>
-							</div>
-							<div class="col-40">
-								<div class="item-inner">
-									<span class="item-title item-label">SN:</span>
-									<span class=" item-label">{{serial}}</span>
+								<div class="col-40">
+									<div class="item-inner">
+										<span class="item-title item-label">SN:</span>
+										<span class=" item-label">{{serial}}</span>
 
+									</div>
+									<div class="item-inner">
+										<span class="item-title item-label">型号:</span>
+										<span class=" item-label">{{scale}}</span>
+									</div>
+									<div class="item-inner">
+										<span class="item-title item-label">状态:</span>
+										<span class=" item-label">{{status}}</span>
+									</div>
 								</div>
-								<div class="item-inner">
-									<span class="item-title item-label">型号:</span>
-									<span class=" item-label">{{scale}}</span>
-								</div>
-								<div class="item-inner">
-									<span class="item-title item-label">状态:</span>
-									<span class=" item-label">{{status}}</span>
+								<div class="col-20">
+									<div class="item-inner">
+										<img src="{{imgurl}}" width="85px;" />
+									</div>
 								</div>
 							</div>
-							<div class="col-20">
-								<div class="item-inner">
-									<img src="{{imgurl}}" width="85px;" />
-								</div>
-							</div>
-						</div>
-					</li>
+						</li>
 					</a>
 				</ul>
 				{{/each}}
@@ -328,8 +327,7 @@
 				<ul>
 					<li class="card">
 
-						
-							<div class="row">
+						<div class="row">
 							<div class="col-40">
 
 								<div class="item-inner">
@@ -345,7 +343,7 @@
 									<i class="f7-icons">compass</i>
 									{{/if}}
 									</span>
-									
+
 								</div>
 							</div>
 							<div class="col-40">
@@ -362,7 +360,7 @@
 									<img src="{{imgurl}}" width="85px;" />
 								</div>
 							</div>
-					
+
 						</div>
 
 					</li>
@@ -431,7 +429,7 @@
 		<!--财务统计模板-->
 		<script id="financial-template" type="text/template">
 
-			<div class="block brlist">
+			<div class=" brlist">
 
 				<div class="data-table card">
 					<table>
@@ -480,34 +478,26 @@
 		<script id="searchManual-template" type="text/template">
 
 			<div class=" brlist">
-
+				<form></form>
 				<div class="data-table card">
 					<table>
 
 						<tbody>
-							<thead>
-								<tr>
-									<th class="label-cell">序号</th>
-									<th class="label-cell">文件名</th>
-									<th class="label-cell">操作</th>
-
-								</tr>
-							</thead>
+							
 							{{#each this}}
-							
-							
+						
 							<tr class="">
-								{{if filename.split(".")[1]=="txt"}}
-								<td class="label-cell"><img src="img/excel.png.png"></td>
-								{{else}}
-								<td class="label-cell"><img src="img/word.png.png"></td>
-								{{/if}}
-								<td class="label-cell">{{filename}}</td>
-								<td class="label-cell">
-									<a href="#" onclick="downloadManual('{{filename}}','{{url}}')">下载</a>
-								</td>
+								
+									<td class="label-cell">
+										{{#if "suffix === txt"}}
+										<img src="img/word.png.png"> {{else}}
+										<img src="img/excel.png.png"> {{/if}}
+										<a href="#" onclick="downloadManual('{{filename}}.{{suffix}}','{{url}}')">{{filename}}.{{suffix}}</a>
+									</td>
+								
 
 							</tr>
+					
 							{{/each}}
 						</tbody>
 					</table>
@@ -666,7 +656,7 @@
 
 		</script>
 		<!-- Framework7 library -->
-	
+
 		<script src="js/framework7.min.js"></script>
 		<script src="js/jquery.js"></script>
 		<script src="js/jquery.cookie.js"></script>
@@ -677,7 +667,6 @@
 
 		<!-- Your custom app scripts -->
 
-		
 		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
 		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
 		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
@@ -693,7 +682,6 @@
 		<script src="js/immersed.js"></script>
 		<script src="js/image.js"></script>
 		<script src="js/bottom.js"></script>
-		
 
 	</body>
 
