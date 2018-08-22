@@ -660,7 +660,8 @@ routes = [{
 				console.log(qx);
 				if(qx == "leader") {
 					$$(".listbutton").hide();
-					$$(".searchlocateequip").append("<button class='col button button-fill' style='margin:1rem 0 0 0;'><a href='/equip-view-statistic/' style='color:#fff;'>统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</a></button>")
+//					$$(".equip-locate-search").append("<button class='col button button-fill' style='margin:1rem 0 0 0;'><a href='/equip-view-statistic/' style='color:#fff;'>统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</a></button>")
+				$$(".equip-locate-search").html("<div class='row'><div class='col-50'><input type='text' placeholder='定位设备名称' class='' name='equipname' style='margin:auto 0'></div><div class='col-50'><select name='tag' style='margin:auto 0'><option value=''>标签</option><option value='t2'>t2</option><option value='t1'>t1</option></select></div></div><div class='row'><button class='col button button-fill ' onclick='dealLocateSearch()' style='margin:1rem 0 0 0;' >查&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;询</button><button class='col button button-fill' style='margin:1rem 0 0 0;'><a href='/equip-view-statistic/' style='color:#fff;'>统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</a></button></div>")
 				}
 			}
 		}

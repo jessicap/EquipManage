@@ -44,7 +44,7 @@
 	height: 35px;
 	margin: 0.5rem 4px;
 }
-
+.leader-equip-view select,
 .borrow-take select,
 .equip-locate select,
 #equipmsg-form select {
@@ -479,6 +479,9 @@ select,
 .equiplocatelist .item-label {
 	color: #a7a7a7;
 	font-size: 11px;
+}
+.equiplocatelist a{
+	color:#009900;
 }
 
 .equiplocatelist .item-content {

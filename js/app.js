@@ -205,6 +205,7 @@ $$('.login-screen-content .login-button').on('click', function() {
 					plus.storage.setItem("qx", qx);
 					plus.storage.setItem("mobilephone", mobilephone);
 					plus.storage.setItem("channel", channel);
+					plus.storage.setItem("column", column);
 					var foo = plus.storage.getItem("username")
 					console.log(foo);
 					/////////
