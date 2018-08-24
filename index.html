@@ -483,21 +483,20 @@
 					<table>
 
 						<tbody>
-							
-							{{#each this}}
-						
-							<tr class="">
-								
-									<td class="label-cell">
-										{{#if "suffix === txt"}}
-										<img src="img/word.png.png"> {{else}}
-										<img src="img/excel.png.png"> {{/if}}
-										<a href="#" onclick="downloadManual('{{filename}}.{{suffix}}','{{url}}')">{{filename}}.{{suffix}}</a>
-									</td>
-								
 
+							{{#each this}}
+
+							<tr class="">
+								<a href="#" onclick="downloadManual('{{filename}}.{{suffix}}','{{url}}')">
+									<td class="label-cell">
+
+										<img src="" class="docimg {{suffix}}"> {{filename}}.{{suffix}}
+									</td>
+								</a>
+
+								
 							</tr>
-					
+
 							{{/each}}
 						</tbody>
 					</table>
@@ -507,38 +506,35 @@
 		<!--普通权限--借还单查询模板-->
 		<script id="normal-search-brlistnum-template" type="text/template">
 
-			<div class="row">
-				<a class="link popup-open col-100" href="#" data-popup=".popup-about"><button class=" button button-fill ">查询</button></a>
-			</div>
-			<div class="block brlist">
-				{{#each this}}
-				<ul>
+			{{#each this}}
+			<ul>
+				<a href="/equip-br-normal-detail/{{brlistnum}}/">
 					<li class="card">
 
 						<div class="row">
 							<div class="col-40">
 								<div class="item-inner">
-									<div class="item-title item-label">单号</div>
-									<div class="item-title item-label">
-										<a href="/equip-br-normal-detail/{{brlistnum}}/">{{brlistnum}}</a>
-									</div>
+									<span class="item-title item-label">单号:</span>
+									<span class="item-title item-label">{{brlistnum}}</span>
 								</div>
 								<div class="item-inner">
-									<div class="item-title item-label">借用时间</div>
-									<div class="item-title item-label">{{borrowtime}}</div>
+									<span class="item-title item-label">借用时间:</span>
+									<span class="item-title item-label">{{borrowtime}}</span>
 								</div>
 
 							</div>
 							<div class="col-40">
 								<div class="item-inner">
-									<div class="item-title item-label">栏目</div>
-									<div class="item-title item-label">{{department}}</div>
+									<span class="item-title item-label">栏目:</span> {{#if department}}
+									<span class="item-title item-label">{{department}}</span>{{else}}
+									<span class="item-title item-label">无</span> {{/if}}
 
 								</div>
 
 								<div class="item-inner">
-									<div class="item-title item-label">归还时间</div>
-									<div class="item-title item-label">{{returntime}}</div>
+									<span class="item-title item-label">归还时间:</span> {{#if returntime}}
+									<span class="item-title item-label">{{returntime}}</span>{{else}}
+									<span class="item-title item-label">无</span> {{/if}}
 								</div>
 							</div>
 							<div class="col-20">
@@ -550,9 +546,9 @@
 							</div>
 						</div>
 					</li>
-				</ul>
-				{{/each}}
-			</div>
+				</a>
+			</ul>
+			{{/each}}
 
 		</script>
 		<!--普通权限--财务速览模板-->
@@ -610,46 +606,48 @@
 			<div class="block brlist">
 				{{#each this}}
 				<ul>
-					<li class="card">
+					<a href="/equip-br-chief-detail/{{brlistnum}}/">
+						<li class="card">
 
-						<div class="row">
-							<div class="col-40">
-								<div class="item-inner">
-									<div class="item-title item-label">单号</div>
-									<div class="item-title item-label">
-										<a href="/equip-br-chief-detail/{{brlistnum}}/">{{brlistnum}}</a>
+							<div class="row">
+								<div class="col-40">
+									<div class="item-inner">
+										<div class="item-title item-label">单号</div>
+										<div class="item-title item-label">
+											{{brlistnum}}
+										</div>
+									</div>
+									<div class="item-inner">
+										<div class="item-title item-label">电话</div>
+										<div class="item-title item-label">{{mobilephone}}</div>
+									</div>
+
+								</div>
+								<div class="col-40">
+									<div class="item-inner">
+										<div class="item-title item-label">栏目</div>
+										<div class="item-title item-label">{{column}}</div>
+
+									</div>
+									<div class="item-inner">
+										<div class="item-title item-label">借用时间</div>
+										<div class="item-title item-label">{{borrowtime}}</div>
+									</div>
+									<div class="item-inner">
+										<div class="item-title item-label">归还时间</div>
+										<div class="item-title item-label">{{returntime}}</div>
 									</div>
 								</div>
-								<div class="item-inner">
-									<div class="item-title item-label">电话</div>
-									<div class="item-title item-label">{{mobilephone}}</div>
-								</div>
-
-							</div>
-							<div class="col-40">
-								<div class="item-inner">
-									<div class="item-title item-label">栏目</div>
-									<div class="item-title item-label">{{column}}</div>
-
-								</div>
-								<div class="item-inner">
-									<div class="item-title item-label">借用时间</div>
-									<div class="item-title item-label">{{borrowtime}}</div>
-								</div>
-								<div class="item-inner">
-									<div class="item-title item-label">归还时间</div>
-									<div class="item-title item-label">{{returntime}}</div>
+								<div class="col-20">
+									<div class="item-inner">
+										{{#if verify}}
+										<i class="f7-icons unverify">close_round</i> {{else}}
+										<i class="f7-icons verified">check_round</i> {{/if}}
+									</div>
 								</div>
 							</div>
-							<div class="col-20">
-								<div class="item-inner">
-									{{#if verify}}
-									<i class="f7-icons unverify">close_round</i> {{else}}
-									<i class="f7-icons verified">check_round</i> {{/if}}
-								</div>
-							</div>
-						</div>
-					</li>
+						</li>
+					</a>
 				</ul>
 				{{/each}}
 			</div>
@@ -661,6 +659,7 @@
 		<script src="js/jquery.js"></script>
 		<script src="js/jquery.cookie.js"></script>
 		<script src="js/mui.min.js"></script>
+		<script src="js/bottom.js"></script>
 		<script type="text/javascript" src="js/common.js"></script>
 		<!-- App routes-->
 		<script src="js/routes.js"></script>
@@ -681,7 +680,7 @@
 		<script src="js/xback.js"></script>
 		<script src="js/immersed.js"></script>
 		<script src="js/image.js"></script>
-		<script src="js/bottom.js"></script>
+		
 
 	</body>
 

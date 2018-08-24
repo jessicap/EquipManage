@@ -115,7 +115,7 @@ $$('.login-screen-content .login-button').on('click', function() {
 			console.log(data);
 			console.log('Load was performed');
 			console.log(data.qx);
-
+			var username=data.username;
 			var qx = data.qx;
 			var userid = data.userid;
 			var channel = data.channel;
@@ -132,6 +132,8 @@ $$('.login-screen-content .login-button').on('click', function() {
 					plus.storage.setItem("qx", qx);
 					plus.storage.setItem("mobilephone", mobilephone);
 					plus.storage.setItem("channel", channel);
+					plus.storage.setItem("column", column);
+					plus.storage.setItem("userid",userid);
 					var foo = plus.storage.getItem("username")
 					console.log(foo);
 					/////////
@@ -155,6 +157,8 @@ $$('.login-screen-content .login-button').on('click', function() {
 					plus.storage.setItem("qx", qx);
 					plus.storage.setItem("mobilephone", mobilephone);
 					plus.storage.setItem("channel", channel);
+					plus.storage.setItem("column", column);
+					plus.storage.setItem("userid",userid);
 					var foo = plus.storage.getItem("username")
 					console.log(foo);
 					/////////
@@ -184,6 +188,8 @@ $$('.login-screen-content .login-button').on('click', function() {
 					plus.storage.setItem("qx", qx);
 					plus.storage.setItem("mobilephone", mobilephone);
 					plus.storage.setItem("channel", channel);
+					plus.storage.setItem("column", column);
+					plus.storage.setItem("userid",userid);
 					var foo = plus.storage.getItem("username")
 					console.log(foo);
 					/////////
@@ -205,6 +211,7 @@ $$('.login-screen-content .login-button').on('click', function() {
 					plus.storage.setItem("qx", qx);
 					plus.storage.setItem("mobilephone", mobilephone);
 					plus.storage.setItem("channel", channel);
+					plus.storage.setItem("userid",userid);
 					plus.storage.setItem("column", column);
 					var foo = plus.storage.getItem("username")
 					console.log(foo);
@@ -370,7 +377,8 @@ app.searchLocation = function(search) {
 						//					}
 						//				});
 						if(data.rs != "failed") {
-							index++;
+							if(data.status=="在库"){
+								index++;
 							console.log('Load was performed');
 							equipname = data.equipname;
 							equip.push({
@@ -383,6 +391,10 @@ app.searchLocation = function(search) {
 							$$('.equip-list').html(html);
 							$$('.totalequip').html("总计：" + equip.length);
 							$$('.saveEquipBorrow').show();
+							}else{
+								alert("设备已经借出");
+							}
+							
 						} else {
 							alert("无此设备！")
 						}
@@ -439,7 +451,8 @@ app.equipReturnStatus = function(search) {
 					},
 					success: function(data) {
 						if(data.rs != "failed") {
-							index1++;
+							if(data.status=="借出"){
+								index1++;
 							console.log('Load was performed');
 							equipname = data.equipname;
 							equipReturn.push({
@@ -453,6 +466,10 @@ app.equipReturnStatus = function(search) {
 							$$('.equip-list').html(equipReturnhtml);
 							$$('.totalequip').html("总计：" + equipReturn.length);
 							$$(".equip-return-submit").show();
+							}else{
+								alert("设备已经归还！")
+							}
+							
 						} else {
 							alert("无此设备！")
 						}
@@ -591,10 +608,11 @@ app.adminEquipSearch = function(formdata) {
 
 			},
 			beforeSend: function(e) {
+				app.preloader.show();
 				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 			},
 			success: function(data) {
-
+				app.preloader.hide();
 				console.log(data);
 
 				console.log('Load was performed' + data.equipname);
@@ -829,6 +847,14 @@ app.searchManuallist = function(search) {
 				html2 = app.searchManual(msg);
 
 				$$('.manualist').html(html2);
+					$$(".docx").attr("src","img/word.png");
+			
+					$$(".xlsx").attr("src","img/excel.png");
+				
+					$$(".pdf").attr("src","img/pdf.png");
+				
+				
+			
 			}
 		});
 
@@ -998,12 +1024,12 @@ app.financialNormal = function(year, month) {
 		console.log("bbb" + year + "ccc" + month);
 
 		//var username = JSON.parse($.cookie("o")).username;
-		var username = "洪渊";
+		var username = plus.storage.getItem("username");
 		//***********ajax************
 
 		var jurl = "http://115.233.208.56/zzzx/getNormalFinancialStatistic?";
 		//var jurl = "http://172.20.2.158:8080/getNormalFinancialStatistic?";
-		app.request({
+		app.request({ 
 			url: jurl,
 			method: "GET",
 			crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
@@ -1082,6 +1108,7 @@ function saveEquipBorrow() {
 	var channel = $$(".channel").text();
 	var column = $$(".column").text();
 	var remarks = $$(".remarks").val();
+	var userid=plus.storage.getItem("userid");
 	//var userid = JSON.parse($.cookie("o")).username;
 	var equiplist = tabToJSONForJquery("equip-list");
 
@@ -1103,6 +1130,7 @@ function saveEquipBorrow() {
 			column: column,
 			remarks: remarks,
 			equiplist: equiplist
+			
 		},
 		beforeSend: function(e) {
 			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
@@ -1157,10 +1185,18 @@ function saveEquipReturn() {
 }
 
 function tabToJSONForJquery(id) {
-	var titles = $("." + id).find("tr:first th:not(:first):not(:last)"); //获得表头td数组
+//	var titles = $("." + id).find("tr:first th:not(:first):not(:last)"); //获得表头td数组
+//	//遍历非表头的，tr、td...拼装json
+//	var json = "[" + $("." + id).find("tr:not(:first)").map(function(i, e) {
+//		return "{" + $(e).children("td:not(:first):not(:last)").map(function(j, el) {
+//			return '"' + $(titles[j]).attr("name") + '":"' + $(el).html() + '"';
+//		}).get().join(",") + "}";
+//	}).get().join(",") + "]";
+//	return json;
+var titles = $("." + id).find("tr:first th:first"); //获得表头td数组
 	//遍历非表头的，tr、td...拼装json
 	var json = "[" + $("." + id).find("tr:not(:first)").map(function(i, e) {
-		return "{" + $(e).children("td:not(:first):not(:last)").map(function(j, el) {
+		return "{" + $(e).children("td:first").map(function(j, el) {
 			return '"' + $(titles[j]).attr("name") + '":"' + $(el).html() + '"';
 		}).get().join(",") + "}";
 	}).get().join(",") + "]";
@@ -1410,13 +1446,25 @@ function searchbrlist() {
 
 function downloadManual(filename, surl) {
 	console.log("url " + surl);
+	var urlafter="http://115.233.208.56/"+surl;
+	//plus.runtime.openFile( "https://www.prudential.com.hk/scws/pages/download/download-center/tc/3-Product-Brochures-Individual-Life-Insurance/3-01-Health-Insurance/PRUhealth-critical-illness-extended-care/CIE_PB_SC_Aug18.pdf" );
+	//var url = "http://115.233.208.56/zzzx/Downfile?";
+	
+//	
+var src = urlafter;
+//'https://www.prudential.com.hk/scws/pages/download/download-center/tc/3-Product-Brochures-Individual-Life-Insurance/3-01-Health-Insurance/PRUhealth-critical-illness-extended-care/CIE_PB_SC_Aug18.pdf';
+var form = document.createElement('form');
+form.action = src;
+document.getElementsByTagName('body')[0].appendChild(form);
+form.submit();
 
-	var url = "http://115.233.208.56/zzzx/Downfile?";
-	// var url = "http://172.20.2.158:8080/Downfile?";
-	var surl = surl;
-	var form = $$("<form></form>").attr("action", url).attr("method", "post");
-	form.append($$("<input></input>").attr("type", "hidden").attr("name", "url").attr("value", surl));
-	form.appendTo('body').submit().remove();
+
+//	var surl = surl;
+//	var form = $$("<form></form>").attr("action", url).attr("method", "post");
+//	form.append($$("<input></input>").attr("type", "hidden").attr("name", "url").attr("value", surl));
+//	form.appendTo('body').submit().remove();
+
+
 	//	var jurl = "http://172.20.2.158:8080/Downfile?";
 	//	app.request({
 	//		url: jurl,

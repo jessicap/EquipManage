@@ -243,12 +243,13 @@ routes = [{
 			console.log(data);
 			console.log('Load was performed');
 			console.log(data.qx);
-
+			var username=data.username;
 			var qx = data.qx;
 			var userid = data.userid;
 			var channel = data.channel;
 			var column = data.column;
 			var mobilephone=data.mobilephone;
+		
 			if(data.status!="failed"){
 				if(qx == "normal") { //普通用户
 				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
@@ -260,6 +261,8 @@ routes = [{
 				plus.storage.setItem("qx",qx);
 				plus.storage.setItem("mobilephone",mobilephone);
 				plus.storage.setItem("channel",channel);
+				plus.storage.setItem("column",column);
+				plus.storage.setItem("userid",userid);
 				var foo=plus.storage.getItem("username")
 				console.log(foo);
 				/////////
@@ -277,7 +280,9 @@ routes = [{
 				plus.storage.setItem("qx",qx);
 				plus.storage.setItem("mobilephone",mobilephone);
 				plus.storage.setItem("channel",channel);
-				var foo=plus.storage.getItem("username")
+				plus.storage.setItem("column",column);
+				plus.storage.setItem("userid",userid);
+				var foo=plus.storage.getItem("username");
 				console.log(foo);
 				/////////
 				
@@ -300,6 +305,8 @@ routes = [{
 				plus.storage.setItem("qx",qx);
 				plus.storage.setItem("mobilephone",mobilephone);
 				plus.storage.setItem("channel",channel);
+				plus.storage.setItem("column",column);
+				plus.storage.setItem("userid",userid);
 				var foo=plus.storage.getItem("username")
 				console.log(foo);
 				/////////
@@ -315,6 +322,8 @@ routes = [{
 				plus.storage.setItem("qx",qx);
 				plus.storage.setItem("mobilephone",mobilephone);
 				plus.storage.setItem("channel",channel);
+				plus.storage.setItem("column",column);
+				plus.storage.setItem("userid",userid);
 				var foo=plus.storage.getItem("username")
 				console.log(foo);
 				/////////
@@ -885,7 +894,19 @@ routes = [{
 	},
 	{
 		path: '/manual/',
-		url: './pages/manual.html'
+		url: './pages/manual.html',
+		on:{
+			pageInit:function(e,page){
+				var type=$$(".docimg").attr("alt");
+				if(type=='docx'){
+					$$(".docimg").attr("src","img/word.png.png");
+				}else if(type=="xlsx"){
+					$$(".docimg").attr("src","img/excel.png.png");
+				}else if(type=="pdf"){
+					$$(".docimg").attr("src","img/pdf.png.png");
+				}
+			}
+		}
 		
 	},
 	{
@@ -893,6 +914,7 @@ routes = [{
 		componentUrl: './pages/equip-br-normal-search.html',
 		on: {
 			pageInit: function(e, page) {
+				  
 				$$(".convert-form-to-data").on('click', function(e) {
 
 					var formData = app.form.convertToData('#normal-form');
@@ -1095,43 +1117,85 @@ routes = [{
 			// Simulate Ajax Request
 			setTimeout(function() {
 				// We got user data from request
-				var brlistmsg = {
-					brlistnum: brlistnum,
-					department: '电视制作中心',
-					column: '中国新歌声第三季',
-					username: '某某某',
-					mobilephone: '18698985865',
-					remarks: '摄像机三个',
-					imgurl: 'img/test.jpg',
-					equiplist: [{
+				
+					var brlistmsg;
 
-							equipname: 'Sony摄像机',
-							centernum: '12345',
-							status: 'Y'
+				//***********ajax************
 
-						},
-						{
+				var jurl = "http://115.233.208.56/zzzx/getAdminBrlistDetail?";
+				//var jurl = "http://172.20.2.158:8080/getAdminBrlistDetail?";
+				app.request({
+					url: jurl,
+					method: "GET",
+					crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+					dataType: "json",
+					data: {
+						brlistnum: brlistnum
 
-							equipname: 'Sony摄像机',
-							centernum: '12345',
-							status: 'N'
+					},
+					beforeSend: function(e) {
+						//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+					},
+					success: function(data) {
 
-						}
-					]
+						console.log('Load was performed');
+						brlistmsg = data;
+						console.log(brlistmsg);
 
-				};
+						// Hide Preloader
+						app.preloader.hide();
 
-				// Hide Preloader
-				app.preloader.hide();
-
-				// Resolve route to load page
-				resolve({
-					componentUrl: './pages/equip-br-chief-search-detail.html',
-				}, {
-					context: {
-						brlistmsg: brlistmsg,
+						// Resolve route to load page
+						resolve({
+							componentUrl: './pages/equip-br-chief-search-detail.html',
+						}, {
+							context: {
+								brlistmsg: brlistmsg,
+							}
+						});
 					}
 				});
+
+				//***********************************/
+				
+				
+//				var brlistmsg = {
+//					brlistnum: brlistnum,
+//					department: '电视制作中心',
+//					column: '中国新歌声第三季',
+//					username: '某某某',
+//					mobilephone: '18698985865',
+//					remarks: '摄像机三个',
+//					imgurl: 'img/test.jpg',
+//					equiplist: [{
+//
+//							equipname: 'Sony摄像机',
+//							centernum: '12345',
+//							status: 'Y'
+//
+//						},
+//						{
+//
+//							equipname: 'Sony摄像机',
+//							centernum: '12345',
+//							status: 'N'
+//
+//						}
+//					]
+//
+//				};
+//
+//				// Hide Preloader
+//				app.preloader.hide();
+//
+//				// Resolve route to load page
+//				resolve({
+//					componentUrl: './pages/equip-br-chief-search-detail.html',
+//				}, {
+//					context: {
+//						brlistmsg: brlistmsg,
+//					}
+//				});
 			}, 1000);
 		}
 
@@ -1183,7 +1247,8 @@ routes = [{
 								console.log("aaaaa");
 								var month = picker.getValue()[0];
 								var year = picker.getValue()[1];
-								var column = JSON.parse($.cookie("o")).column;
+//								var column = JSON.parse($.cookie("o")).column;
+								var column=plus.storage.getItem("column");
 								app.financial(month, year, column);
 
 							});
