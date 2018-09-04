@@ -291,7 +291,23 @@ app.searchBrilstnum = function(username, mobilephone) {
 							console.log(keycode);
 							console.log(which);
 						}
+					
 					});
+					$("input[type='file']").change(function(){   
+ 					var file = this.files[0];
+   				if (window.FileReader) {    
+            var reader = new FileReader();    
+            reader.readAsDataURL(file);    
+            //监听文件读取结束后事件    
+         	 reader.onloadend = function (e) {
+            $(".img").attr("src",e.target.result);    //e.target.result就是最后的路径地址
+            };    
+       			} 
+				});
+					
+					
+					
+					
 				} else {
 					alert("无此用户或手机号！")
 				}
@@ -714,35 +730,60 @@ app.manageLocateEquip = Template7.compile(manageLocateEquipTemplate);
 
 var equipLocatemanagehtml = '';
 
-app.manageEquipLocate = function(equipname, tag) {
+app.manageEquipLocate = function(equipname, centernum) {
 
 	searchTimeout = setTimeout(function() {
 		console.log(equipname);
-		if(equipname || tag) {
+		if(equipname || centernum) {
+//***********ajax************
+			var jurl = "http://115.233.208.56/zzzx/getLocateEquipManage?";
+			//var jurl = "http://172.20.2.158:8080/getLocateEquipManage?";
+			app.request({
+				url: jurl,
+				method: "GET",
+				crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+				dataType: "json",
+				data: {
+					equipname: equipname,
+					centernum: centernum
 
-			var equipmsg = [{
-				"equipname": equipname,
-				"IMME": "353507000803415",
-				"department": "广播制作中心",
-				"battery": "0%",
-				"centernum": "2015-45845",
-				"location": "浙江省杭州市莫干山路111号",
-				"type": "SUSU111",
-				"imgurl": "img/test.jpg"
+				},
+				beforeSend: function(e) {
+					//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+				},
+				success: function(data) {
 
-			}, {
-				"equipname": "转播车",
-				"IMME": "353507000803415",
-				"department": "广播制作中心",
-				"battery": "0%",
-				"centernum": "2015-45845",
-				"location": "浙江省杭州市莫干山路111号",
-				"type": "SUSU111",
-				"imgurl": "img/test.jpg"
-			}];
-			equipLocatemanagehtml = app.manageLocateEquip(equipmsg);
+					var equipmsg = data;
+					console.log(equipmsg);
 
-			$$('.equip-locate-manage .equiplocatelist').html(equipLocatemanagehtml);
+					equipLocatemanagehtml = app.manageLocateEquip(equipmsg);
+
+					$$('.equip-locate-manage .equiplocatelist').html(equipLocatemanagehtml);
+				}
+			});
+
+			//***********************************/
+//			var equipmsg = [{
+//				"equipname": equipname,
+//				"IMME": "353507000803415",
+//				"department": "广播制作中心",
+//				"battery": "0%",
+//				"centernum": "2015-45845",
+//				"location": "浙江省杭州市莫干山路111号",
+//				"type": "SUSU111",
+//				"imgurl": "img/test.jpg"
+//
+//			}, {
+//				"equipname": "转播车",
+//				"IMME": "353507000803415",
+//				"department": "广播制作中心",
+//				"battery": "0%",
+//				"centernum": "2015-45845",
+//				"location": "浙江省杭州市莫干山路111号",
+//				"type": "SUSU111",
+//				"imgurl": "img/test.jpg"
+//			}];
+		
 
 		}
 
@@ -1109,6 +1150,7 @@ function saveEquipBorrow() {
 	var column = $$(".column").text();
 	var remarks = $$(".remarks").val();
 	var userid=plus.storage.getItem("userid");
+	var imgdata=$$(".img").val();
 	//var userid = JSON.parse($.cookie("o")).username;
 	var equiplist = tabToJSONForJquery("equip-list");
 
@@ -1129,7 +1171,8 @@ function saveEquipBorrow() {
 			channel: channel,
 			column: column,
 			remarks: remarks,
-			equiplist: equiplist
+			equiplist: equiplist,
+			imgdata:imgdata
 			
 		},
 		beforeSend: function(e) {
@@ -2200,3 +2243,51 @@ function locatePie(begintime, finishtime) {
 	});
 
 }
+
+function nofind(img){ 
+    img.src="img/video-nofind.png"; 
+    img.onerror=null; //如果错误图片也不存在就会死循环一直跳，所以要设置成null，也可以不加
+} 
+
+function sub(){
+	//获取文件
+	console.log("上传图片啊")
+	var oFiles = document.querySelector(".file").files;
+	//检测是否选择了文件
+	if(oFiles.length == 0){ 
+		alert("没有选择文件");
+		return false; 
+	} 	      
+	 console.log(oFiles.length);
+	// 实例化一个表单数据对象
+	var formData = new FormData();
+	//添加domainid参数
+	formData.append("domainid","1");
+	//添加文件参数
+	for(var i=0;i<oFiles.length;i++){
+		formData.append(oFiles[i].name, oFiles[i]);
+	}
+	$.ajax({
+		url:"http://hzpan2015.oicp.net:88/ckapi/upload",
+		type:"post",
+		data:formData,
+		cache: false,
+		contentType: false,    //不可缺
+		processData: false,    //不可缺
+		success:function(data){
+			console.log(data); 
+			$$(".img").val(data.data.split(";")[0]);
+			if(data.code=='0'){
+				alert("上传成功！");
+			}else{
+				alert("上传失败！");
+			}
+			
+			//alert("code:"+data.code+",data:"+data.data+",msg:"+data.msg);
+			
+		},error:function(){
+	   
+		}
+	})
+}
+

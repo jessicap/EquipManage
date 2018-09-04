@@ -249,7 +249,7 @@ select,
 	bottom: 0;
 	width: 100%;
 	text-align: center;
-	height: 30px;
+	height: 1.875rem;
 	position: relative;
 }
 
@@ -503,3 +503,5 @@ select,
 #equiprepair-form li{
 margin:1rem 0;
 }
+.up_icon,.up_input {position: absolute;top: 30px;left: 245px;width: 40px;height: 40px;z-index: 2}
+.up_icon {overflow: hidden;font-size: 0;line-height: 99em;background: url(../img/camera.png) no-repeat 0 0;z-index: 1;background-size:40px 40px;}

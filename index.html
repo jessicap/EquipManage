@@ -14,6 +14,7 @@
     -->
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, l-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+	<!--	<meta name="viewport" content="width=320,maximum-scale=1.3,user-scalable=no">-->
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="default">
 		<meta name="theme-color" content="#2196f3">
@@ -128,9 +129,14 @@
 									<input type="hidden" id="ckjl.id" name="ckjl.id" value="429">
 									<div class="collapse-content">
 
-										<div id='F_CKJLBS' class="row image-list">
+										<!--<div id='F_CKJLBS' class="row image-list">
 											<i class="f7-icons" id="F_CKJLB" onclick="showActionSheet(this)">camera_fill</i>
-										</div>
+										</div>-->
+										
+										<input type="file"  class="up_input file" style="opacity: 0;width:30px">
+ 									 <span class="up_icon"></span>
+ 									 <img src="" class="img" style="width:150px;height:80px;">
+										<button onclick="sub()" class="button-fill button" style="width: 20%；;">上传</button>
 									</div>
 								</div>
 
@@ -308,7 +314,7 @@
 								</div>
 								<div class="col-20">
 									<div class="item-inner">
-										<img src="{{imgurl}}" width="85px;" />
+										<img src="{{imgurl}}" width="60px;" onerror="nofind(this);" />
 									</div>
 								</div>
 							</div>
@@ -357,7 +363,7 @@
 							</div>
 							<div class="col-20">
 								<div class="item-inner">
-									<img src="{{imgurl}}" width="85px;" />
+									<img src="{{imgurl}}" width="60px;" onerror="nofind(this);"/>
 								</div>
 							</div>
 
@@ -371,9 +377,10 @@
 		</script>
 		<!--管理员-设备定位模板-->
 		<script id="equip-locate-manage-template" type="text/template">
-
+				<div class="brlist">
 			{{#each this}}
 			<ul>
+				<a href="/equip-maintenance-detail/{{centernum}}/">
 				<li class="card">
 
 					<div class="row">
@@ -381,7 +388,7 @@
 							<div class="item-inner">
 								<div class="item-title item-label">条码</div>
 								<div class="item-title item-label">
-									<a href="/equip-maintenance-detail/{{centernum}}/">{{centernum}}</a>
+									{{centernum}}
 								</div>
 							</div>
 							<div class="item-inner">
@@ -397,7 +404,7 @@
 						<div class="col-33">
 							<div class="item-inner">
 								<div class="item-title item-label">型号</div>
-								<div class="item-title item-label">{{type}}</div>
+								<div class="item-title item-label">{{scale}}</div>
 							</div>
 							<div class="item-inner">
 								<div class="item-title item-label">IMME</div>
@@ -410,21 +417,22 @@
 						</div>
 						<div class="col-33">
 							<div class="item-inner">
-								<img src="{{imgurl}}" width="85px;" />
+								<img src="{{imgurl}}" width="60px;" onerror="nofind(this);"/>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="item-inner">
-							<div class="item-title item-label">位置</div>
+							<div class="item-title item-label col-30">位置</div>
 							<div class="item-title item-label">{{location}}</div>
 						</div>
 
 					</div>
+					</a>
 				</li>
 			</ul>
 			{{/each}}
-
+			</div>
 		</script>
 		<!--财务统计模板-->
 		<script id="financial-template" type="text/template">
@@ -485,14 +493,14 @@
 						<tbody>
 
 							{{#each this}}
-
+					
 							<tr class="">
-								<a href="#" onclick="downloadManual('{{filename}}.{{suffix}}','{{url}}')">
+								
 									<td class="label-cell">
 
-										<img src="" class="docimg {{suffix}}"> {{filename}}.{{suffix}}
+											<a href="#" onclick="downloadManual('{{filename}}.{{suffix}}','{{url}}')"><img src="" class="docimg {{suffix}}"> {{filename}}.{{suffix}}</a>
 									</td>
-								</a>
+								
 
 								
 							</tr>
@@ -600,9 +608,7 @@
 		<!--总监权限--借还单查询模板-->
 		<script id="chief-search-brlistnum-template" type="text/template">
 
-			<div class="row">
-				<a class="link popup-open col-100" href="#" data-popup=".popup-about"><button class=" button button-fill ">查询</button></a>
-			</div>
+		
 			<div class="block brlist">
 				{{#each this}}
 				<ul>
@@ -654,7 +660,9 @@
 
 		</script>
 		<!-- Framework7 library -->
-
+		<!--<script src="js/flexible_css.debug.js" ></script>
+		<script src="js/flexible.debug.js" ></script>-->
+	
 		<script src="js/framework7.min.js"></script>
 		<script src="js/jquery.js"></script>
 		<script src="js/jquery.cookie.js"></script>
@@ -666,15 +674,8 @@
 
 		<!-- Your custom app scripts -->
 
-		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
-		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
-		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
-		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
-		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
-		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
-		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
-		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
-		<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+		<script type="text/javascript" src="js/echarts.min.js"></script>
+	
 		<script src="js/app.js"></script>
 		<script src="js/macarons.js"></script>
 		<script src="js/xback.js"></script>
