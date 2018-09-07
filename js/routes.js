@@ -1,27 +1,32 @@
-var ws=null,wo=null;
-var scan=null,domready=false,bCancel=false;var foo;
+var ws = null,
+	wo = null;
+var scan = null,
+	domready = false,
+	bCancel = false;
+var foo;
 // H5 plus事件处理
 
-if(window.plus){
+if(window.plus) {
 	plusReady();
 	console.log("a");
-}else{
+} else {
 	document.addEventListener('plusready', plusReady, false);
 	console.log("bb");
 
 }
-function plusReady(){
-	if(ws||!window.plus||!domready){
+
+function plusReady() {
+	if(ws || !window.plus || !domready) {
 		return;
 	}
 	// 获取窗口对象
-	ws=plus.webview.currentWebview();
-	wo=ws.opener();
-	foo=plus.storage.getItem("username")
+	ws = plus.webview.currentWebview();
+	wo = ws.opener();
+	foo = plus.storage.getItem("username")
 	console.log(foo)
 	// 显示页面并关闭等待框
-    ws.show('pop-in');
-    wo.evalJS('closeWaiting()');
+	ws.show('pop-in');
+	wo.evalJS('closeWaiting()');
 }
 routes = [{
 		path: '/',
@@ -40,73 +45,71 @@ routes = [{
 	{
 		path: '/welcome-admin/', //管理员登录后欢迎界面
 		templateUrl: './pages/welcome-admin.html',
-		options:{
-			context:{
-				
-				
+		options: {
+			context: {
+
 			}
 		}
 
 	},
 	{
-    path: '/upper/',
-    async(routeTo, routeFrom, resolve, reject) {
-    	var qx=plus.storage.getItem("qx");
-    	var username=plus.storage.getItem("username");
-    	var mobilephone=plus.storage.getItem("mobilephone");
-    	var channel=plus.storage.getItem("channel");
-    	
-      if (qx=="admin") {
-       resolve({
-							templateUrl: './pages/welcome-admin.html',
-						}, {
-							context: {
-								username:username,
-								mobilephone:mobilephone,
-								channel:channel
-							}
-						});
-      } else if(qx=="normal"){
-          resolve({
-							templateUrl: './pages/welcome-normal.html',
-						}, {
-							context: {
-								username:username,
-								mobilephone:mobilephone,
-								channel:channel
-							}
-						});
-      } else if(qx=="leader"){
-          resolve({
-							templateUrl: './pages/welcome-leader.html',
-						}, {
-							context: {
-								username:username,
-								mobilephone:mobilephone,
-								channel:channel
-							}
-						});
-      } else if(qx=="chief"){
-          resolve({
-							templateUrl: './pages/welcome-chief.html',
-						}, {
-							context: {
-								username:username,
-								mobilephone:mobilephone,
-								channel:channel
-							}
-						});
-      }
-    }
-  },
+		path: '/upper/',
+		async(routeTo, routeFrom, resolve, reject) {
+			var qx = plus.storage.getItem("qx");
+			var username = plus.storage.getItem("username");
+			var mobilephone = plus.storage.getItem("mobilephone");
+			var channel = plus.storage.getItem("channel");
+
+			if(qx == "admin") {
+				resolve({
+					templateUrl: './pages/welcome-admin.html',
+				}, {
+					context: {
+						username: username,
+						mobilephone: mobilephone,
+						channel: channel
+					}
+				});
+			} else if(qx == "normal") {
+				resolve({
+					templateUrl: './pages/welcome-normal.html',
+				}, {
+					context: {
+						username: username,
+						mobilephone: mobilephone,
+						channel: channel
+					}
+				});
+			} else if(qx == "leader") {
+				resolve({
+					templateUrl: './pages/welcome-leader.html',
+				}, {
+					context: {
+						username: username,
+						mobilephone: mobilephone,
+						channel: channel
+					}
+				});
+			} else if(qx == "chief") {
+				resolve({
+					templateUrl: './pages/welcome-chief.html',
+				}, {
+					context: {
+						username: username,
+						mobilephone: mobilephone,
+						channel: channel
+					}
+				});
+			}
+		}
+	},
 
 	{
 		path: '/welcome-normal/', //普通权限登录后欢迎界面
 		templateUrl: './pages/welcome-normal.html',
-		options:{
-			context:{
-			
-				
+		options: {
+			context: {
+
 			}
 		}
 
@@ -115,10 +118,9 @@ routes = [{
 	{
 		path: '/welcome-chief/', //总监权限登录后欢迎界面
 		templateUrl: './pages/welcome-chief.html',
-		options:{
-			context:{
-				
-				
+		options: {
+			context: {
+
 			}
 		}
 
@@ -127,10 +129,9 @@ routes = [{
 	{
 		path: '/welcome-leader/', //领导权限登录后欢迎界面
 		templateUrl: './pages/welcome-leader.html',
-		options:{
-			context:{
-			
-				
+		options: {
+			context: {
+
 			}
 		}
 
@@ -140,7 +141,7 @@ routes = [{
 		componentUrl: './pages/equip-borrow.html',
 		on: {
 			pageInit: function(e, page) {
-				
+
 				$$(".keyword").on('keypress', function(e) {
 					var keycode = e.keyCode;
 					var which = e.which;
@@ -159,8 +160,8 @@ routes = [{
 							console.log("aaaaa" + searchName);
 							mobilephone = $$(this).val();
 							app.searchBrilstnum(username, mobilephone);
-						}else if($$(this).attr("name") == "equipnum") {
-							
+						} else if($$(this).attr("name") == "equipnum") {
+
 							var num = $$(this).val();
 							console.log(num);
 							dealBorrow("", num);
@@ -188,8 +189,8 @@ routes = [{
 					if(keycode == '13' || e.which == '13') {
 						e.preventDefault();
 						//请求搜索接口
-						 if($$(this).attr("name") == "equipnum") {
-							
+						if($$(this).attr("name") == "equipnum") {
+
 							var num = $$(this).val();
 							dealReturn("", num);
 						}
@@ -238,105 +239,128 @@ routes = [{
 								//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 							},
 							success: function(data) {
-								
-			console.log(username);
-			console.log(password);
-			console.log(data);
-			console.log('Load was performed');
-			console.log(data.qx);
-			var username=data.username;
-			var qx = data.qx;
-			var userid = data.userid;
-			var channel = data.channel;
-			var column = data.column;
-			var mobilephone=data.mobilephone;
-		
-			if(data.status!="failed"){
-				if(qx == "normal") { //普通用户
-				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
-				$.cookie("o", da, {
-					expires: "",
-					path: "/"
-				});
-				plus.storage.setItem("username",username);
-				plus.storage.setItem("qx",qx);
-				plus.storage.setItem("mobilephone",mobilephone);
-				plus.storage.setItem("channel",channel);
-				plus.storage.setItem("column",column);
-				plus.storage.setItem("userid",userid);
-				var foo=plus.storage.getItem("username")
-				console.log(foo);
-				/////////
-				
-				mainView.router.navigate('/welcome-normal/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
-			} else if(qx == "admin"||username==2) { //管理员
-				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '","mobilephone":"' + mobilephone + '"}';
-				$.cookie("o", da, {
-					expires: "",
-					path: "/"
-				});
-				/////////
-				
-				plus.storage.setItem("username",username);
-				plus.storage.setItem("qx",qx);
-				plus.storage.setItem("mobilephone",mobilephone);
-				plus.storage.setItem("channel",channel);
-				plus.storage.setItem("column",column);
-				plus.storage.setItem("userid",userid);
-				var foo=plus.storage.getItem("username");
-				console.log(foo);
-				/////////
-				
-				mainView.router.navigate('/welcome-admin/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
-//				mainView.router.load({ //加载单独页面page
-//					url: 'pages/welcome-admin.html', //页面的url
-//					context: {
-//						username: username,
-//						channel:channel,
-//						mobilephone:mobilephone
-//					}
-//				});
-			} else if(qx == "leader") { //领导
-				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
-				$.cookie("o", da, {
-					expires: "",
-					path: "/"
-				});
-				plus.storage.setItem("username",username);
-				plus.storage.setItem("qx",qx);
-				plus.storage.setItem("mobilephone",mobilephone);
-				plus.storage.setItem("channel",channel);
-				plus.storage.setItem("column",column);
-				plus.storage.setItem("userid",userid);
-				var foo=plus.storage.getItem("username")
-				console.log(foo);
-				/////////
-				
-				mainView.router.navigate('/welcome-leader/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
-			} else if(qx == "chief") { //总监
-				var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
-				$.cookie("o", da, {
-					expires: "",
-					path: "/"
-				});
-				plus.storage.setItem("username",username);
-				plus.storage.setItem("qx",qx);
-				plus.storage.setItem("mobilephone",mobilephone);
-				plus.storage.setItem("channel",channel);
-				plus.storage.setItem("column",column);
-				plus.storage.setItem("userid",userid);
-				var foo=plus.storage.getItem("username")
-				console.log(foo);
-				/////////
-				
-				mainView.router.navigate('/welcome-chief/',{context:{username:username,mobilephone:mobilephone,channel:channel}})
-			}
-			}else{
-				alert("无此用户或密码错误！")
-			}
-			
 
-		}
+								console.log(username);
+								console.log(password);
+								console.log(data);
+								console.log('Load was performed');
+								console.log(data.qx);
+								var username = data.username;
+								var qx = data.qx;
+								var userid = data.userid;
+								var channel = data.channel;
+								var column = data.column;
+								var mobilephone = data.mobilephone;
+
+								if(data.status != "failed") {
+									if(qx == "normal") { //普通用户
+										var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
+										$.cookie("o", da, {
+											expires: "",
+											path: "/"
+										});
+										plus.storage.setItem("username", username);
+										plus.storage.setItem("qx", qx);
+										plus.storage.setItem("mobilephone", mobilephone);
+										plus.storage.setItem("channel", channel);
+										plus.storage.setItem("column", column);
+										plus.storage.setItem("userid", userid);
+										var foo = plus.storage.getItem("username")
+										console.log(foo);
+										/////////
+
+										mainView.router.navigate('/welcome-normal/', {
+											context: {
+												username: username,
+												mobilephone: mobilephone,
+												channel: channel
+											}
+										})
+									} else if(qx == "admin" || username == 2) { //管理员
+										var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '","mobilephone":"' + mobilephone + '"}';
+										$.cookie("o", da, {
+											expires: "",
+											path: "/"
+										});
+										/////////
+
+										plus.storage.setItem("username", username);
+										plus.storage.setItem("qx", qx);
+										plus.storage.setItem("mobilephone", mobilephone);
+										plus.storage.setItem("channel", channel);
+										plus.storage.setItem("column", column);
+										plus.storage.setItem("userid", userid);
+										var foo = plus.storage.getItem("username");
+										console.log(foo);
+										/////////
+
+										mainView.router.navigate('/welcome-admin/', {
+											context: {
+												username: username,
+												mobilephone: mobilephone,
+												channel: channel
+											}
+										})
+										//				mainView.router.load({ //加载单独页面page
+										//					url: 'pages/welcome-admin.html', //页面的url
+										//					context: {
+										//						username: username,
+										//						channel:channel,
+										//						mobilephone:mobilephone
+										//					}
+										//				});
+									} else if(qx == "leader") { //领导
+										var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
+										$.cookie("o", da, {
+											expires: "",
+											path: "/"
+										});
+										plus.storage.setItem("username", username);
+										plus.storage.setItem("qx", qx);
+										plus.storage.setItem("mobilephone", mobilephone);
+										plus.storage.setItem("channel", channel);
+										plus.storage.setItem("column", column);
+										plus.storage.setItem("userid", userid);
+										var foo = plus.storage.getItem("username")
+										console.log(foo);
+										/////////
+
+										mainView.router.navigate('/welcome-leader/', {
+											context: {
+												username: username,
+												mobilephone: mobilephone,
+												channel: channel
+											}
+										})
+									} else if(qx == "chief") { //总监
+										var da = '{"username":"' + username + '","qx":"' + qx + '","userid":"' + userid + '","channel":"' + channel + '","column":"' + column + '"}';
+										$.cookie("o", da, {
+											expires: "",
+											path: "/"
+										});
+										plus.storage.setItem("username", username);
+										plus.storage.setItem("qx", qx);
+										plus.storage.setItem("mobilephone", mobilephone);
+										plus.storage.setItem("channel", channel);
+										plus.storage.setItem("column", column);
+										plus.storage.setItem("userid", userid);
+										var foo = plus.storage.getItem("username")
+										console.log(foo);
+										/////////
+
+										mainView.router.navigate('/welcome-chief/', {
+											context: {
+												username: username,
+												mobilephone: mobilephone,
+												channel: channel
+											}
+										})
+									}
+								} else {
+									alert("无此用户或密码错误！")
+								}
+
+							}
 						});
 
 					//***********************************/
@@ -356,10 +380,10 @@ routes = [{
 					var formData = app.form.convertToData('#brlist-admin-form');
 					//alert(JSON.stringify(formData));
 					$$(".searchblock").remove();
-					
+
 					app.adminBRlist(formData);
 				});
-			
+
 			}
 		}
 
@@ -586,15 +610,30 @@ routes = [{
 		on: {
 			pageInit: function(e, page) {
 				$$(".edit").on('click', function(e) {
-					$$('input[name="storelocation"]').removeAttr("disabled").css({"border":"1px solid #CCCCCC","width":"100%"});
-					$$('input[name="storeplace"]').removeAttr("disabled").css({"border":"1px solid #CCCCCC","width":"100%"});
-					$$('input[name="equipname"]').removeAttr("disabled").css({"border":"1px solid #CCCCCC","width":"100%"});
-					$$('input[name="type"]').removeAttr("disabled").css({"border":"1px solid #CCCCCC","width":"100%"});
-					$$('input[name="remarks"]').removeAttr("disabled").css({"border":"1px solid #CCCCCC","width":"100%"});
+					$$('input[name="storelocation"]').removeAttr("disabled").css({
+						"border": "1px solid #CCCCCC",
+						"width": "100%"
+					});
+					$$('input[name="storeplace"]').removeAttr("disabled").css({
+						"border": "1px solid #CCCCCC",
+						"width": "100%"
+					});
+					$$('input[name="equipname"]').removeAttr("disabled").css({
+						"border": "1px solid #CCCCCC",
+						"width": "100%"
+					});
+					$$('input[name="type"]').removeAttr("disabled").css({
+						"border": "1px solid #CCCCCC",
+						"width": "100%"
+					});
+					$$('input[name="remarks"]').removeAttr("disabled").css({
+						"border": "1px solid #CCCCCC",
+						"width": "100%"
+					});
 					$$(".btn").html("<p class='row'><button class='col button button-fill color-red ' onclick='cancelEquip(123)'>取消</button><button class='col button button-fill color-green ' onclick='updateEquip(this)'>确认</button></p>")
 					$$(".equip-maintenance-imglist").append("<i class='f7-icons img-delete' onclick='deleteimg(this)'>trash</i>")
 				});
-				var flag =plus.storage.getItem("qx");
+				var flag = plus.storage.getItem("qx");
 				console.log(flag);
 				if(flag == "leader") {
 					$$(".btn").hide();
@@ -656,18 +695,57 @@ routes = [{
 				var today = now.getFullYear() + "-" + (month) + "-" + (day);
 				//完成赋值
 				$$('#repairtime').val(today);
-			$("input[type='file']").change(function(){   
- 					var file = this.files[0];
-   				if (window.FileReader) {    
-            var reader = new FileReader();    
-            reader.readAsDataURL(file);    
-            //监听文件读取结束后事件    
-         	 reader.onloadend = function (e) {
-            $(".img").attr("src",e.target.result);    //e.target.result就是最后的路径地址
-           
-            };    
-       			} 
+				//上传图片
+				$("input[type='file']").change(function() {
+					var file = this.files[0];
+					if(window.FileReader) {
+						var reader = new FileReader();
+						reader.readAsDataURL(file);
+						//监听文件读取结束后事件    
+						reader.onloadend = function(e) {
+							$(".img").attr("src", e.target.result); //e.target.result就是最后的路径地址
+							var oFiles = document.querySelector(".file").files;
+							//检测是否选择了文件
+							if(oFiles.length == 0) {
+								alert("没有选择文件");
+								return false;
+							}
+							console.log(oFiles.length);
+							// 实例化一个表单数据对象
+							var formData = new FormData();
+							//添加domainid参数
+							formData.append("domainid", "1");
+							//添加文件参数
+							for(var i = 0; i < oFiles.length; i++) {
+								formData.append(oFiles[i].name, oFiles[i]);
+							}
+							$.ajax({
+								url: "http://hzpan2015.oicp.net:88/ckapi/upload",
+								type:'post',
+								data: formData,							
+								cache: false,
+								contentType: false, //不可缺
+								processData: false, //不可缺
+								success: function(data) {
+									console.log(data);
+									$$(".img").val(data.data.split(";")[0]);
+									if(data.code == '0') {
+										alert("上传成功！");
+									} else {
+										alert("上传失败！");
+									}
+
+									//alert("code:"+data.code+",data:"+data.data+",msg:"+data.msg);
+
+								},
+								error: function() {
+
+								}
+							})
+						};
+					}
 				});
+
 			}
 		},
 
@@ -681,8 +759,8 @@ routes = [{
 				console.log(qx);
 				if(qx == "leader") {
 					$$(".listbutton").hide();
-//					$$(".equip-locate-search").append("<button class='col button button-fill' style='margin:1rem 0 0 0;'><a href='/equip-view-statistic/' style='color:#fff;'>统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</a></button>")
-				$$(".equip-locate-search").html("<div class='row'><div class='col-50'><input type='text' placeholder='定位设备名称' class='' name='equipname' style='margin:auto 0'></div><div class='col-50'><select name='tag' style='margin:auto 0'><option value=''>标签</option><option value='t2'>t2</option><option value='t1'>t1</option></select></div></div><div class='row'><button class='col button button-fill ' onclick='dealLocateSearch()' style='margin:1rem 0 0 0;' >查&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;询</button><button class='col button button-fill' style='margin:1rem 0 0 0;'><a href='/equip-view-statistic/' style='color:#fff;'>统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</a></button></div>")
+					//					$$(".equip-locate-search").append("<button class='col button button-fill' style='margin:1rem 0 0 0;'><a href='/equip-view-statistic/' style='color:#fff;'>统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</a></button>")
+					$$(".equip-locate-search").html("<div class='row'><div class='col-50'><input type='text' placeholder='定位设备名称' class='' name='equipname' style='margin:auto 0'></div><div class='col-50'><select name='tag' style='margin:auto 0'><option value=''>标签</option><option value='t2'>t2</option><option value='t1'>t1</option></select></div></div><div class='row'><button class='col button button-fill ' onclick='dealLocateSearch()' style='margin:1rem 0 0 0;' >查&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;询</button><button class='col button button-fill' style='margin:1rem 0 0 0;'><a href='/equip-view-statistic/' style='color:#fff;'>统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</a></button></div>")
 				}
 			}
 		}
@@ -841,8 +919,7 @@ routes = [{
 			// Simulate Ajax Request
 			setTimeout(function() {
 				// We got user data from request
-				
-				
+
 				//***********ajax************
 
 				var jurl = "http://115.233.208.56/zzzx/getFinancialStatisticDetail?";
@@ -854,8 +931,8 @@ routes = [{
 					dataType: "json",
 					data: {
 						column: column,
-						month:month,
-						year:year
+						month: month,
+						year: year
 
 					},
 					beforeSend: function(e) {
@@ -865,41 +942,39 @@ routes = [{
 
 						console.log('Load was performed');
 						var staticmsg = data;
-						
-						// Hide Preloader
-					app.preloader.hide();
 
-				// Resolve route to load page
-				resolve({
-					componentUrl: './pages/financial-static-detail.html',
-				}, {
-					context: {
-						staticmsg: staticmsg,
-					}
-				});
+						// Hide Preloader
+						app.preloader.hide();
+
+						// Resolve route to load page
+						resolve({
+							componentUrl: './pages/financial-static-detail.html',
+						}, {
+							context: {
+								staticmsg: staticmsg,
+							}
+						});
 					}
 				});
 
 				//***********************************/
-//				var staticmsg = {
-//					"year": year,
-//					"month": month,
-//					"staticdetail": [{
-//						"equipname": "Sony摄像机",
-//						"centernum": "122424",
-//						"username": "管理员A",
-//						"fee": "10000"
-//					}, {
-//						"equipname": "Sony摄像机",
-//						"centernum": "122424",
-//						"username": "管理员A",
-//						"fee": "10000"
-//					}]
-//
-//				};
+				//				var staticmsg = {
+				//					"year": year,
+				//					"month": month,
+				//					"staticdetail": [{
+				//						"equipname": "Sony摄像机",
+				//						"centernum": "122424",
+				//						"username": "管理员A",
+				//						"fee": "10000"
+				//					}, {
+				//						"equipname": "Sony摄像机",
+				//						"centernum": "122424",
+				//						"username": "管理员A",
+				//						"fee": "10000"
+				//					}]
+				//
+				//				};
 
-			
-				
 			}, 1000);
 		}
 
@@ -907,26 +982,26 @@ routes = [{
 	{
 		path: '/manual/',
 		url: './pages/manual.html',
-		on:{
-			pageInit:function(e,page){
-				var type=$$(".docimg").attr("alt");
-				if(type=='docx'){
-					$$(".docimg").attr("src","img/word.png.png");
-				}else if(type=="xlsx"){
-					$$(".docimg").attr("src","img/excel.png.png");
-				}else if(type=="pdf"){
-					$$(".docimg").attr("src","img/pdf.png.png");
+		on: {
+			pageInit: function(e, page) {
+				var type = $$(".docimg").attr("alt");
+				if(type == 'docx') {
+					$$(".docimg").attr("src", "img/word.png.png");
+				} else if(type == "xlsx") {
+					$$(".docimg").attr("src", "img/excel.png.png");
+				} else if(type == "pdf") {
+					$$(".docimg").attr("src", "img/pdf.png.png");
 				}
 			}
 		}
-		
+
 	},
 	{
 		path: '/equip-br-normal-search/', //普通权限借还单查询
 		componentUrl: './pages/equip-br-normal-search.html',
 		on: {
 			pageInit: function(e, page) {
-				  
+
 				$$(".convert-form-to-data").on('click', function(e) {
 
 					var formData = app.form.convertToData('#normal-form');
@@ -1129,8 +1204,8 @@ routes = [{
 			// Simulate Ajax Request
 			setTimeout(function() {
 				// We got user data from request
-				
-					var brlistmsg;
+
+				var brlistmsg;
 
 				//***********ajax************
 
@@ -1169,45 +1244,44 @@ routes = [{
 				});
 
 				//***********************************/
-				
-				
-//				var brlistmsg = {
-//					brlistnum: brlistnum,
-//					department: '电视制作中心',
-//					column: '中国新歌声第三季',
-//					username: '某某某',
-//					mobilephone: '18698985865',
-//					remarks: '摄像机三个',
-//					imgurl: 'img/test.jpg',
-//					equiplist: [{
-//
-//							equipname: 'Sony摄像机',
-//							centernum: '12345',
-//							status: 'Y'
-//
-//						},
-//						{
-//
-//							equipname: 'Sony摄像机',
-//							centernum: '12345',
-//							status: 'N'
-//
-//						}
-//					]
-//
-//				};
-//
-//				// Hide Preloader
-//				app.preloader.hide();
-//
-//				// Resolve route to load page
-//				resolve({
-//					componentUrl: './pages/equip-br-chief-search-detail.html',
-//				}, {
-//					context: {
-//						brlistmsg: brlistmsg,
-//					}
-//				});
+
+				//				var brlistmsg = {
+				//					brlistnum: brlistnum,
+				//					department: '电视制作中心',
+				//					column: '中国新歌声第三季',
+				//					username: '某某某',
+				//					mobilephone: '18698985865',
+				//					remarks: '摄像机三个',
+				//					imgurl: 'img/test.jpg',
+				//					equiplist: [{
+				//
+				//							equipname: 'Sony摄像机',
+				//							centernum: '12345',
+				//							status: 'Y'
+				//
+				//						},
+				//						{
+				//
+				//							equipname: 'Sony摄像机',
+				//							centernum: '12345',
+				//							status: 'N'
+				//
+				//						}
+				//					]
+				//
+				//				};
+				//
+				//				// Hide Preloader
+				//				app.preloader.hide();
+				//
+				//				// Resolve route to load page
+				//				resolve({
+				//					componentUrl: './pages/equip-br-chief-search-detail.html',
+				//				}, {
+				//					context: {
+				//						brlistmsg: brlistmsg,
+				//					}
+				//				});
 			}, 1000);
 		}
 
@@ -1259,8 +1333,8 @@ routes = [{
 								console.log("aaaaa");
 								var month = picker.getValue()[0];
 								var year = picker.getValue()[1];
-//								var column = JSON.parse($.cookie("o")).column;
-								var column=plus.storage.getItem("column");
+								//								var column = JSON.parse($.cookie("o")).column;
+								var column = plus.storage.getItem("column");
 								app.financial(month, year, column);
 
 							});
@@ -1324,9 +1398,9 @@ routes = [{
 		on: {
 			pageInit: function(e, page) {
 				var now = new Date();
-				var month=("0" + (now.getMonth() + 1)).slice(-2);
-				var day=("0" + now.getDate()).slice(-2);
-				var dateString = now.getFullYear()+"-"+month+"-"+day;
+				var month = ("0" + (now.getMonth() + 1)).slice(-2);
+				var day = ("0" + now.getDate()).slice(-2);
+				var dateString = now.getFullYear() + "-" + month + "-" + day;
 				console.log(dateString);
 				$$("#begintime").val(dateString);
 				$$("#finishtime").val(dateString);
@@ -1399,9 +1473,9 @@ function dealLocateManageSearch() {
 }
 
 function deleteEquipReturn(centernum) {
-	console.log("delete "+centernum);
-	console.log(getJsonArrnum(centernum,equipReturn));
-	equipReturn.splice(getJsonArrnum(centernum,equipReturn), 1);
+	console.log("delete " + centernum);
+	console.log(getJsonArrnum(centernum, equipReturn));
+	equipReturn.splice(getJsonArrnum(centernum, equipReturn), 1);
 	console.log(equipReturn);
 	$$('.totalequip').html("总计：" + equipReturn.length);
 	$$(".equip-" + centernum).remove();
@@ -1410,9 +1484,9 @@ function deleteEquipReturn(centernum) {
 
 function deleteEquip(centernum) {
 	console.log("delete " + centernum);
-	console.log(getJsonArrnum(centernum,equip));
-	equip.splice(getJsonArrnum(centernum,equip), 1);
-		console.log(equip);
+	console.log(getJsonArrnum(centernum, equip));
+	equip.splice(getJsonArrnum(centernum, equip), 1);
+	console.log(equip);
 	$$('.totalequip').html("总计：" + equip.length);
 	$$(".equip-" + centernum).remove();
 
@@ -1426,17 +1500,17 @@ function searchManual() {
 
 }
 
-function getJsonArrnum(value,arr){
+function getJsonArrnum(value, arr) {
 	var xiabiao;
-	console.log("1333"+value);
-	$.each(arr,function(i,item){
+	console.log("1333" + value);
+	$.each(arr, function(i, item) {
 		console.log(arr[i].centernum)
-		if(arr[i].centernum==value){
-			xiabiao=i;
+		if(arr[i].centernum == value) {
+			xiabiao = i;
 			console.log(i);
 			return false;
 		}
-		
+
 	});
 	console.log(xiabiao);
 	return xiabiao;

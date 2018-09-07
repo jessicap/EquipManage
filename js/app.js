@@ -293,14 +293,24 @@ app.searchBrilstnum = function(username, mobilephone) {
 						}
 					
 					});
-					$("input[type='file']").change(function(){   
+					$$("input[type='file']").change(function(){   
  					var file = this.files[0];
    				if (window.FileReader) {    
             var reader = new FileReader();    
-            reader.readAsDataURL(file);    
+            reader.readAsDataURL(file);  
+         
             //监听文件读取结束后事件    
          	 reader.onloadend = function (e) {
-            $(".img").attr("src",e.target.result);    //e.target.result就是最后的路径地址
+            $$(".img").attr("src",e.target.result);    //e.target.result就是最后的路径地址
+            	sub();
+            
+            
+            
+            
+            
+            
+            
+            
             };    
        			} 
 				});
@@ -1213,11 +1223,18 @@ function saveEquipReturn() {
 		},
 		success: function(data) {
 			console.log(data);
+			
 			var result = "归还失败的设备中心条码：";
 			//alert(data);
 			$.each(data, function(i, item) {
-				if(data[i].status == "N")
+				if(data[i].status == "N"){
 					result = result + data[i].centernum + " "
+				}else{
+					result="归还成功！";
+					return false;
+				}
+					
+				
 
 			});
 			alert(result);
@@ -1318,22 +1335,22 @@ function addEquipRepair(obj) {
 	var formData = app.form.convertToData('#equiprepair-form');
 	//alert(JSON.stringify(formData));
 	var arr = new Array();
-	$$(".equiprepair-imgs img").each(function() {
-		arr.push(
-
-			{
-				"url": $$(this).attr("src")
-			}
-
-		);
-	});
+//	$$(".equiprepair-imgs img").each(function() {
+//		arr.push(
+//
+//			{
+//				"url": $$(this).attr("src")
+//			}
+//
+//		);
+//	});
 	var equipproblem = formData.equipproblem;
 	var repaircontent = formData.repaircontent;
 	var repairperson = formData.repairperson;
 	var repairtime = formData.repairtime;
-	var imglist = arr;
+//	var imglist = arr;
 	var centernum = $$(".centernum").text();
-
+	var imgdata=$$(".img").val();
 	//***********ajax************
 	var jurl = "http://115.233.208.56/zzzx/addEquipRepair?";
 	//var jurl = "http://172.20.2.158:8080/addEquipRepair?";
@@ -1347,7 +1364,7 @@ function addEquipRepair(obj) {
 			equipproblem: equipproblem,
 			repairperson: repairperson,
 			repairtime: repairtime,
-			imglist: imglist,
+			imgdata: imgdata,
 			repaircontent: repaircontent
 
 		},
@@ -2251,9 +2268,10 @@ function nofind(img){
 
 function sub(){
 	//获取文件
-	console.log("上传图片啊")
-	var oFiles = document.querySelector(".file").files;
+	
+	var oFiles = document.querySelector("#file").files;
 	//检测是否选择了文件
+	console.log(oFiles);
 	if(oFiles.length == 0){ 
 		alert("没有选择文件");
 		return false; 
@@ -2267,9 +2285,10 @@ function sub(){
 	for(var i=0;i<oFiles.length;i++){
 		formData.append(oFiles[i].name, oFiles[i]);
 	}
+
 	$.ajax({
 		url:"http://hzpan2015.oicp.net:88/ckapi/upload",
-		type:"post",
+		type:'POST',
 		data:formData,
 		cache: false,
 		contentType: false,    //不可缺
