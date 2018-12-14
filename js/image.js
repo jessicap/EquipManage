@@ -18,7 +18,7 @@ if(window.plus) {
 //ID：站点编号ID,例如429  
 //src：src="file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/upload/F_ZDDZZ-1467602809090.jpg"  
 function showImgDetail(imgId, imgkey, id, src) {
-	var src_deal= src.split("=")[1];
+	var src_deal = src.split("=")[1];
 
 	var html = "";
 	html += '<div  id="Img' + imgId + imgkey + '" class="image-item ">';
@@ -27,7 +27,7 @@ function showImgDetail(imgId, imgkey, id, src) {
 	html += '        <div class="fa fa-times-circle"></div>';
 	html += '    </span>';
 	html += '</div>';
-	html += '<div onclick="uploadImage(\''+encodeURI(src_deal)+'\');">上传图片</div>'
+	//html += '<div onclick="uploadImageTest(\'' + encodeURI(src_deal) + '\');">上传图片</div>'
 	$$("#" + imgkey + "S").append(html);
 	$$("#" + imgkey + "S>.f7-icons").hide();
 	console.log("#" + imgkey + ">.f7-icons");
@@ -143,6 +143,7 @@ function getImage(divid) {
 			//alert(entry.toLocalURL());//file:///storage/emulated/0/Android/data/io.dcloud...../doc/camera/1467602809090.jpg  
 			//alert(entry.name);//1467602809090.jpg  
 			compressImage(entry.toLocalURL(), entry.name, divid);
+			uploadImageTest(p);//上传照片 
 		}, function(e) {
 			plus.nativeUI.toast("读取拍照文件错误：" + e.message);
 		});
@@ -202,111 +203,195 @@ function saveimage(url, divid, name, path) {
 
 }
 //上传图片，实例中没有添加上传按钮  
-function uploadimge(agree, back) {
-	//plus.storage.clear();  
-	var wa = plus.nativeUI.showWaiting();
-	var DkeyNames = [];
-	var id = document.getElementById("ckjl.id").value;
-	var length = id.toString().length;
-	var idnmae = id.toString();
-	var numKeys = plus.storage.getLength();
-	var task = plus.uploader.createUpload('http://hzpan2015.oicp.net:88/ckapi/upload', {
-			method: "POST"
-		},
-		function(t, status) {
-			if(status == 200) {
-				console.log("上传成功");
-			} else {
-				wa.close();
-				console.log("上传失败");
-			}
-		}
+//function uploadimge(agree, back) {
+//	//plus.storage.clear();  
+//	var wa = plus.nativeUI.showWaiting();
+//	var DkeyNames = [];
+//	var id = document.getElementById("ckjl.id").value;
+//	var length = id.toString().length;
+//	var idnmae = id.toString();
+//	var numKeys = plus.storage.getLength();
+//	var task = plus.uploader.createUpload('http://hzpan2015.oicp.net:88/ckapi/upload', {
+//			method: "POST"
+//		},
+//		function(t, status) {
+//			if(status == 200) {
+//				console.log("上传成功");
+//			} else {
+//				wa.close();
+//				console.log("上传失败");
+//			}
+//		}
+//
+//		//                          function(t, status) {  
+//		//                              if (status == 200) {  
+//		//                                  console.log("上传成功");  
+//		//                                   $$.ajax({  
+//		//                                      type: "post",  
+//		//                                      url: 'http://hzpan2015.oicp.net:88/ckapi/upload',  
+//		//                                      data: {  
+//		//                                          taskId: taskId,  
+//		//                                          voteAgree: agree,  
+//		//                                          back: back,  
+//		//                                          voteContent: $$("#assign").val(),  
+//		//                                      },  
+//		//                                      async: true,  
+//		//                                      dataType: "text",  
+//		//                                      success: function(data) {  
+//		//                                          wa.close();  
+//		//                                          console.log(data);
+//		//                                        
+//		//                                            
+//		//                                      },  
+//		//                                      error: function() {  
+//		//                                          wa.close();  
+//		//                                          myAlert("网络错误，提交审批失败，请稍候再试");  
+//		//                                      }  
+//		//                                  });  
+//		//                                     
+//		//                                    
+//		//                              } else {  
+//		//                                  wa.close();  
+//		//                                  console.log("上传失败");   
+//		//                              }  
+//		//                          }  
+//	);
+//	task.addData("id", id);
+//	for(var i = 0; i < imgArray.length; i++) {
+//		var itemkey = id + "img-" + imgArray[i];
+//		if(plus.storage.getItem(itemkey) != null) {
+//			var itemvalue = plus.storage.getItem(itemkey).split("{");
+//			for(var img = 1; img < itemvalue.length; img++) {
+//				var imgname = itemvalue[img].substr(0, itemvalue[img].indexOf(","));
+//				var imgurl = itemvalue[img].substring(itemvalue[img].indexOf(",") + 1, itemvalue[img].lastIndexOf(","));
+//				task.addFile(imgurl, {
+//					key: imgurl
+//				});
+//			}
+//		}
+//	}
+//	task.start();
+//
+//}
+//
+//function uploadImage(src) {
+//	console.log(src);
+//	var wt = plus.nativeUI.showWaiting();
+//	//console.log("here is image"+decodeURI(src));
+//	var task = plus.uploader.createUpload('http://hzpan2015.oicp.net:88/ckapi/upload', {
+//		method: 'post',
+//		blocksize: 204800,
+//		timeout: 10
+//	}, function(t, status) { //上传完成
+//		if(status == 200) {
+//			alert("上传成功：" + t.responseText);
+//			wt.close(); //关闭等待提示按钮
+//		} else {
+//			alert("上传失败：" + status);
+//			wt.close(); //关闭等待提示按钮
+//		}
+//	});
+//
+//	task.addFile(src, {
+//		key: 'formData'
+//	});
+//	task.addData("domainid", "1");
+//	task.setRequestHeader('cache', 'false');
+//	task.setRequestHeader('contentType', 'false');
+//	task.setRequestHeader('processData', 'false');
+//
+//	//	task.addEventListener('statechanged', stateChanged, false);
+//	//	task.start();
+//	//b
+//	//	function stateChanged(upload, status) {
+//	//		if(upload.state == 4 && status == 200) {
+//	//			plus.uploader.clear(); //清除上传
+//	//			console.log(upload.responseText); //服务器返回存在这里
+//	//		}
+//	//	}
+//	task.start();
+//}
 
-		//                          function(t, status) {  
-		//                              if (status == 200) {  
-		//                                  console.log("上传成功");  
-		//                                   $$.ajax({  
-		//                                      type: "post",  
-		//                                      url: 'http://hzpan2015.oicp.net:88/ckapi/upload',  
-		//                                      data: {  
-		//                                          taskId: taskId,  
-		//                                          voteAgree: agree,  
-		//                                          back: back,  
-		//                                          voteContent: $$("#assign").val(),  
-		//                                      },  
-		//                                      async: true,  
-		//                                      dataType: "text",  
-		//                                      success: function(data) {  
-		//                                          wa.close();  
-		//                                          console.log(data);
-		//                                        
-		//                                            
-		//                                      },  
-		//                                      error: function() {  
-		//                                          wa.close();  
-		//                                          myAlert("网络错误，提交审批失败，请稍候再试");  
-		//                                      }  
-		//                                  });  
-		//                                     
-		//                                    
-		//                              } else {  
-		//                                  wa.close();  
-		//                                  console.log("上传失败");   
-		//                              }  
-		//                          }  
-	);
-	task.addData("id", id);
-	for(var i = 0; i < imgArray.length; i++) {
-		var itemkey = id + "img-" + imgArray[i];
-		if(plus.storage.getItem(itemkey) != null) {
-			var itemvalue = plus.storage.getItem(itemkey).split("{");
-			for(var img = 1; img < itemvalue.length; img++) {
-				var imgname = itemvalue[img].substr(0, itemvalue[img].indexOf(","));
-				var imgurl = itemvalue[img].substring(itemvalue[img].indexOf(",") + 1, itemvalue[img].lastIndexOf(","));
-				task.addFile(imgurl, {
-					key: imgurl
-				});
-			}
-		}
-	}
-	task.start();
+function uploadImageTest(src) {
+	console.log(src);
+
+	//console.log(path);
+	plus.io.resolveLocalFileSystemURL(src, function(entry) {
+		// 可通过entry对象操作文件 
+
+		entry.file(function(file) {
+
+			//为什么file.type 为 -1 ？没搞明白 手动设置为 video/MP4
+			//console.log(&quot;getFile:&quot; + JSON.stringify(file));
+			reader = new plus.io.FileReader();
+
+			reader.onloadend = function(e) {
+				//plus.console.log( &quot;Read success&quot; );
+				// Get data
+				//plus.console.log( e.target.result );
+				//读取文件内容 dataurl 转化为BLOB对象
+				var blob = dataURLtoBlob(e.target.result);
+				//BLOB对象转换为FILE对象 
+				oFiles = new File([blob], file.name);
+			console.log(oFiles);
+			console.log(oFiles.name);
+				var formData = new FormData();
+				//添加domainid参数
+				formData.append("domainid", "1");
+				//添加文件参数
+				//for(var i = 0; i < oFiles.length; i++) {
+					formData.append(oFiles.name, oFiles);
+					
+				//}
+
+				console.log(formData);
+				$.ajax({
+					url: "http://hzpan2015.oicp.net:88/ckapi/upload",
+					type: 'POST',
+					data: formData,
+					cache: false,
+					contentType: false, //不可缺
+					processData: false, //不可缺
+					success: function(data) {
+						console.log(data);
+						//$$("#picBig").val(data.data.split(";")[0]);//获取图片ID赋值到img上
+					
+						$$("#picBig").attr('data-preview-src',data.data.split(";")[0]);
+						console.log(data.data.split(";")[0]);
+						if(data.code == '0') {
+							//alert("上传成功！");
+						} else {
+							alert("上传失败！");
+						}
+
+						//alert("code:"+data.code+",data:"+data.data+",msg:"+data.msg);
+
+					},
+					error: function() {
+
+					}
+				})
+
+			};
+			reader.readAsDataURL(file);
+
+		});
+	}, function(e) {
+		//alert( &quot;Resolve file URL failed: &quot; + e.message );
+	});
 
 }
 
-function uploadImage(src) {
-	var wt = plus.nativeUI.showWaiting();
-	//console.log("here is image"+decodeURI(src));
-	var task = plus.uploader.createUpload('http://hzpan2015.oicp.net:88/ckapi/upload', {
-		method: 'post',
-		blocksize: 204800,
-		timeout: 10
-	}, function(t, status) { //上传完成
-		if(status == 200) {
-			alert("上传成功：" + t.responseText);
-			wt.close(); //关闭等待提示按钮
-		} else {
-			alert("上传失败：" + status);
-			wt.close(); //关闭等待提示按钮
-		}
+function dataURLtoBlob(dataurl) {
+	var arr = dataurl.split(','),
+		mime = arr[0].match(/:(.*?);/)[1],
+		bstr = atob(arr[1]),
+		n = bstr.length,
+		u8arr = new Uint8Array(n);
+	while(n--) {
+		u8arr[n] = bstr.charCodeAt(n);
+	}
+	return new Blob([u8arr], {
+		type: mime
 	});
-	
-	task.addFile(src, {
-		key: 'formData'
-	});
-	task.addData("domainid","1");
-	task.setRequestHeader('cache','false');  
-	task.setRequestHeader('contentType','false');  
-	task.setRequestHeader('processData','false');  
-	
-
-	//	task.addEventListener('statechanged', stateChanged, false);
-	//	task.start();
-	//b
-	//	function stateChanged(upload, status) {
-	//		if(upload.state == 4 && status == 200) {
-	//			plus.uploader.clear(); //清除上传
-	//			console.log(upload.responseText); //服务器返回存在这里
-	//		}
-	//	}
-	task.start();
 }

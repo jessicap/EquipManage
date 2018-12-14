@@ -13,52 +13,51 @@
 			</div>
 		</div>
 
-		<div class="page-content borrow-take">
+		<div class="page-content borrow-take infinite-scroll">
 
-			<div class="">
-				<form id="brlist-admin-form" class="mr-05">
+			<div class="wrap">
+				<div class="main clearfix">
+					<form id="brlist-admin-form" class="mr-05">
+						<div class="row">
+
+							<input type="text" name="username" placeholder="用户名" class="col-33 brlistinput">
+
+							<input type="text" name="centernum" placeholder="中心条码" class="col-33 brlistinput">
+
+							<input type="text" name="brlistnum" placeholder="借还单编号" class="col-33 brlistinput">
+
+						</div>
+						<div class="row">
+
+							<input type="text" name="column" placeholder="栏目" class="col-33 brlistinput">
+
+							<select name="department" class="col-33 brlistinput">
+								<option value="">部门</option>
+								<option value="制作中心">制作中心</option>
+								<option value="卫视">卫视</option>
+							</select>
+
+							<select name="isverify" class="col-33 brlistinput">
+								<option value="">核销状况</option>
+								<option value="0">未核销</option>
+								<option value="1">已核销</option>
+								<option value="2">全部</option>
+
+							</select>
+
+						</div>
+
+					</form>
+
 					<div class="row">
-
-						<input type="text" name="username" placeholder="用户名" class="col-33 brlistinput">
-
-						<input type="text" name="centernum" placeholder="中心条码" class="col-33 brlistinput">
-
-						<input type="text" name="brlistnum" placeholder="借还单编号" class="col-33 brlistinput">
-
+						<a class="col button button-fill mr-05  convert-form-to-data-admin" style="width:50%;margin: 0 auto;font-size: 20px;">查&nbsp;&nbsp;&nbsp;&nbsp;询</a>
 					</div>
-					<div class="row">
-
-						<input type="text" name="column" placeholder="栏目" class="col-33 brlistinput">
-
-						<select name="department" class="col-33 brlistinput">
-							<option value="">部门</option>
-							<option value="制作中心">制作中心</option>
-							<option value="卫视">卫视</option>
-						</select>
-
-						<select name="isverify" class="col-33 brlistinput">
-							<option value="">核销状况</option>
-							<option value="0">未核销</option>
-							<option value="1">已核销</option>
-
-						</select>
-
+					<div class="equip-br-admin">
 					</div>
-
-				</form>
-
-				<div class="row">
-					<a class="col button button-fill mr-05  convert-form-to-data-admin" style="width:50%;margin: 0 auto;font-size: 20px;">查&nbsp;&nbsp;&nbsp;&nbsp;询</a>
 				</div>
-
 			</div>
-			
-				<div class="equip-br-admin">
-				</div>
 
-			
-			
-			<div class="login-footer">
+			<div class="normal-footer">
 				<img src="img/footer.png" class="footer-img">
 
 			</div>

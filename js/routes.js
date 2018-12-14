@@ -375,20 +375,66 @@ routes = [{
 		componentUrl: './pages/equip-br-admin-search.html',
 		on: {
 			pageInit: function(e, page) {
+				var i = 1;
+				//默认进入借还单查询，先查改部门下所有借还单
+				var formData = app.form.convertToData('#brlist-admin-form');
+				//alert(JSON.stringify(formData));
+				$$(".searchblock").remove();
+				app.adminBRlist(formData, i);
+				//-----------------------------------------------------
+				// Loading flag
+				var loading = false;
+
+				// Last loaded index
+				var lastIndex = $$('.brlist ul').length;
+
+				// Max items to load
+				var maxItems = 60;
+
+				// Append items per load
+				var itemsPerLoad = 20;
+
+				// Attach 'infinite' event handler
+				$$('.infinite-scroll').on('infinite', function() {
+					i++; //每拉一次，加一	
+					// Exit, if loading in progress
+					if(loading) return;
+
+					// Set loading flag
+					loading = true;
+
+					// Emulate 1s loading
+					setTimeout(function() {
+						// Reset loading flag
+						loading = false;
+
+						if(lastIndex >= maxItems) {
+							// Nothing more to load, detach infinite scroll events to prevent unnecessary loadings
+							app.detachInfiniteScroll($$('.infinite-scroll'));
+							// Remove preloader
+							$$('.infinite-scroll-preloader').remove();
+							return;
+						}
+						app.adminBRlist(formData, i);
+						// Update last loaded index
+						lastIndex = $$('.brlist ul').length;
+					}, 1000);
+				});
+				//-----------------------------------------------------
 				$$(".convert-form-to-data-admin").on('click', function(e) {
 
 					var formData = app.form.convertToData('#brlist-admin-form');
 					//alert(JSON.stringify(formData));
 					$$(".searchblock").remove();
 
-					app.adminBRlist(formData);
+					app.adminBRlist(formData, 1);
 				});
 
 			}
 		}
 
 	}, {
-		path: '/equip-br-admin-detail/:brlistnum/', //管理员借还单查询详情
+		path: '/equip-br-admin-detail/:brlistnum/:isverify', //管理员借还单查询详情
 		async: function(routeTo, routeFrom, resolve, reject) {
 			// Router instance
 			var router = this;
@@ -401,6 +447,7 @@ routes = [{
 
 			// User ID from request
 			var brlistnum = routeTo.params.brlistnum;
+			var isverify = routeTo.params.isverify;
 
 			// Simulate Ajax Request
 			setTimeout(function() {
@@ -439,6 +486,7 @@ routes = [{
 						}, {
 							context: {
 								brlistmsg: brlistmsg,
+								isverify: isverify
 							}
 						});
 					}
@@ -721,8 +769,8 @@ routes = [{
 							}
 							$.ajax({
 								url: "http://hzpan2015.oicp.net:88/ckapi/upload",
-								type:'post',
-								data: formData,							
+								type: 'post',
+								data: formData,
 								cache: false,
 								contentType: false, //不可缺
 								processData: false, //不可缺
@@ -755,6 +803,10 @@ routes = [{
 		componentUrl: './pages/equip-locate.html',
 		on: {
 			pageInit: function(e, page) {
+				$$(".allequipmap").hide();
+				$$(".allmap").click(function() {
+					$$(".allequipmap").show();
+				})
 				var qx = plus.storage.getItem("qx")
 				console.log(qx);
 				if(qx == "leader") {
@@ -800,7 +852,7 @@ routes = [{
 
 	},
 	{
-		path: '/location/:location/', //设备具体位置地图
+		path: '/equip-location/:location/', //设备具体位置地图
 		async: function(routeTo, routeFrom, resolve, reject) {
 			// Router instance
 			var router = this;
@@ -824,7 +876,7 @@ routes = [{
 
 				// Resolve route to load page
 				resolve({
-					componentUrl: './pages/location.html',
+					componentUrl: './pages/equip-location.html',
 				}, {
 					context: {
 						location: location
@@ -844,7 +896,24 @@ routes = [{
 		componentUrl: './pages/financial-statistic.html',
 		on: {
 			pageInit: function(e, page) {
+				var now = new Date();
+				var month = now.getMonth();
+				if(now.getMonth() == 1) {
+					month = 12
+					console.log(month);
+				} else {
 
+					month = now.getMonth();
+
+				}
+
+				var year = now.getFullYear();
+				var yearandmonth = year + "年" + month + "月"
+				$$("#demo-picker-custom-toolbar").val(yearandmonth)
+				var column = plus.storage.getItem("column");
+				app.financial(month, year, column);
+				
+				
 				var pickerCustomToolbar = app.picker.create({
 					inputEl: '#demo-picker-custom-toolbar',
 					rotateEffect: true,
@@ -881,13 +950,35 @@ routes = [{
 					],
 					on: {
 						open: function(picker) {
-							$$('.searchfinacial').on('click', function() {
-								console.log(picker.getValue());
-								console.log("aaaaa");
-								var month = picker.getValue()[0];
-								var year = picker.getValue()[1];
-								var column = $$("#admin-channel-select").val();
-								app.financial(month, year, column);
+
+							$$('.searchfinacial').off('click').on('click', function() {
+								//								console.log(picker.getValue());
+								//								console.log("aaaaa");
+								//								var month = picker.getValue()[0];
+								//								var year = picker.getValue()[1];
+								//								var column = $$("#admin-channel-select").val();
+								//								app.financial(month, year, column);
+								var year = picker.getValue()[0];
+
+								var month = picker.getValue()[1];
+
+								var now = new Date();
+								var nowmonth = now.getMonth() + 1;
+								var nowyear = now.getFullYear();
+								console.log(year + "  " + nowyear);
+								if(year <= nowyear) {
+									if(month < nowmonth) {
+										console.log(month + " " + year)
+										//	var column = JSON.parse($.cookie("o")).column;
+										var column = $$("#admin-channel-select").val();
+										app.financial(month, year, column);
+									} else {
+										alert("只支持查询上个月之前的数据！");
+										return false;
+									}
+								} else {
+									alert("时间需小于当前时间！");
+								}
 
 							});
 
@@ -992,6 +1083,38 @@ routes = [{
 				} else if(type == "pdf") {
 					$$(".docimg").attr("src", "img/pdf.png.png");
 				}
+
+				//***********ajax************
+				var jurl = "http://115.233.208.56/zzzx/getManual?";
+				//var jurl = "http://172.20.2.158:8080/getManual?";
+				app.request({
+					url: jurl,
+					method: "GET",
+					crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+					dataType: "json",
+					data: {
+						keyword: ""
+
+					},
+					beforeSend: function(e) {
+						//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+					},
+					success: function(data) {
+
+						var msg = data.filelist;
+
+						html2 = app.searchManual(msg);
+
+						$$('.manualist').html(html2);
+						$$(".docx").attr("src", "img/word.png");
+
+						$$(".xlsx").attr("src", "img/excel.png");
+
+						$$(".pdf").attr("src", "img/pdf.png");
+
+					}
+				});
+
 			}
 		}
 
@@ -1175,6 +1298,19 @@ routes = [{
 		componentUrl: './pages/equip-br-chief-search.html',
 		on: {
 			pageInit: function(e, page) {
+				var now = new Date();
+				var month = ("0" + (now.getMonth() + 1)).slice(-2);
+				var day = ("0" + now.getDate()).slice(-2);
+				var dateStringStart = now.getFullYear() - 1 + "-" + month + "-" + day;
+				var dateStringEnd = now.getFullYear() + "-" + month + "-" + day;
+				console.log(dateStringStart);
+				$$("#begintime").val(dateStringStart);
+				$$("#finishtime").val(dateStringEnd);
+				var formData = app.form.convertToData('#chief-form');
+				//alert(JSON.stringify(formData));
+				$$(".searchblock").remove();
+				app.chiefBRlist(formData);
+
 				$$(".convert-form-to-data").on('click', function(e) {
 
 					var formData = app.form.convertToData('#chief-form');
@@ -1291,6 +1427,22 @@ routes = [{
 		componentUrl: './pages/financial-statistic-chief.html',
 		on: {
 			pageInit: function(e, page) {
+				var now = new Date();
+				var month = now.getMonth();
+				if(now.getMonth() == 1) {
+					month = 12
+					console.log(month);
+				} else {
+
+					month = now.getMonth();
+
+				}
+
+				var year = now.getFullYear();
+				var yearandmonth = year + "年" + month + "月"
+				$$("#demo-picker-custom-toolbar").val(yearandmonth)
+				var column = plus.storage.getItem("column");
+				app.financial(month, year, column);
 
 				var pickerCustomToolbar = app.picker.create({
 					inputEl: '#demo-picker-custom-toolbar',
@@ -1328,14 +1480,31 @@ routes = [{
 					],
 					on: {
 						open: function(picker) {
-							$$('.financial-chief').on('click', function() {
+
+							$$('.financial-chief').off("click").on('click', function() {
 								console.log(picker.getValue());
 								console.log("aaaaa");
-								var month = picker.getValue()[0];
-								var year = picker.getValue()[1];
-								//								var column = JSON.parse($.cookie("o")).column;
-								var column = plus.storage.getItem("column");
-								app.financial(month, year, column);
+								var year = picker.getValue()[0];
+
+								var month = picker.getValue()[1];
+
+								var now = new Date();
+								var nowmonth = now.getMonth() + 1;
+								var nowyear = now.getFullYear();
+								console.log(year + "  " + nowyear);
+								if(year <= nowyear) {
+									if(month < nowmonth) {
+										console.log(month + " " + year)
+										//	var column = JSON.parse($.cookie("o")).column;
+										var column = plus.storage.getItem("column");
+										app.financial(month, year, column);
+									} else {
+										alert("只支持查询上个月之前的数据！");
+										return false;
+									}
+								} else {
+									alert("时间需小于当前时间！");
+								}
 
 							});
 
@@ -1400,10 +1569,12 @@ routes = [{
 				var now = new Date();
 				var month = ("0" + (now.getMonth() + 1)).slice(-2);
 				var day = ("0" + now.getDate()).slice(-2);
-				var dateString = now.getFullYear() + "-" + month + "-" + day;
-				console.log(dateString);
-				$$("#begintime").val(dateString);
-				$$("#finishtime").val(dateString);
+				var dateStringStart = now.getFullYear() - 1 + "-" + month + "-" + day;
+				var dateStringEnd = now.getFullYear() + "-" + month + "-" + day;
+				console.log(dateStringStart);
+				$$("#begintime").val(dateStringStart);
+				$$("#finishtime").val(dateStringEnd);
+				dealEquipView()
 
 			}
 		}

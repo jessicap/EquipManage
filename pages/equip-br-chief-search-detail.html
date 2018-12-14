@@ -13,88 +13,85 @@
 			</div>
 		</div>
 		<div class="page-content borrow-take-detail br-search-detail ">
+			<div class="wrap">
+				<div class="main  clearfix">
+					<div class="row">
+						<div class="col-50">
+							<div class="item-inner">
+								<div class="item-title item-label">单号:</div>
+								<div class="item-title item-label">{{brlistmsg.brlistnum}}</div>
+							</div>
+							<div class="item-inner">
+								<div class="item-title item-label">姓名:</div>
+								<div class="item-title item-label">{{brlistmsg.username}}</div>
+							</div>
+							<div class="item-inner">
+								<div class="item-title item-label">电话:</div>
+								<div class="item-title item-label">{{brlistmsg.mobilephone}}</div>
+							</div>
+							<div class="item-inner">
+								<div class="item-title item-label">部门:</div>
+								<div class="item-title item-label">{{brlistmsg.department}}</div>
+							</div>
+							<div class="item-inner">
+								<div class="item-title item-label">栏目:</div>
+								<div class="item-title item-label">{{brlistmsg.column}}</div>
+							</div>
 
-			<div class="row">
-				<div class="col-50">
-					<div class="item-inner">
-						<div class="item-title item-label">单号:</div>
-						<div class="item-title item-label">{{brlistmsg.brlistnum}}</div>
+						</div>
+						<div class="col-50">
+							<div class="item-inner">
+
+								<img src="{{brlistmsg.brlistimgurl}}" width="120px;height:60px" />
+							</div>
+						</div>
 					</div>
-					<div class="item-inner">
-						<div class="item-title item-label">姓名:</div>
-						<div class="item-title item-label">{{brlistmsg.username}}</div>
+					<div class="row">
+						<div class="item-inner col">
+							<div class="item-title item-label">备注:</div>
+							<div class="item-title item-label">{{brlistmsg.remarks}}</div>
+						</div>
 					</div>
-					<div class="item-inner">
-						<div class="item-title item-label">电话:</div>
-						<div class="item-title item-label">{{brlistmsg.mobilephone}}</div>
+
+					<div class="data-table card">
+						<table>
+							<thead>
+								<tr>
+									<th class="label-cell">序号</th>
+									<th class="label-cell">中心条码</th>
+									<th class="label-cell">设备名称</th>
+									<th class="label-cell">状态</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								{{#each brlistmsg.equiplist}}
+								<tr>
+									<td class="label-cell">{{@index+1}}</td>
+									<td class="label-cell">{{centernum}}</td>
+									<td class="label-cell">{{equipname}}</td>
+									{{if "status=='借出'"}}
+									<td class="label-cell"><img src="img/jc.png" width="16px"></td>{{else}}
+									<td class="label-cell"><img src="img/zk.png" width="16px"></td>{{/if}}
+
+								</tr>
+
+								{{/each}}
+							</tbody>
+						</table>
 					</div>
-					<div class="item-inner">
-						<div class="item-title item-label">部门:</div>
-						<div class="item-title item-label">{{brlistmsg.department}}</div>
+					<div class="list">
+
+						<a href="#" class="login-button button color-red button-fill" onclick="">短信提醒</a>
+
 					</div>
-					<div class="item-inner">
-						<div class="item-title item-label">栏目:</div>
-						<div class="item-title item-label">{{brlistmsg.column}}</div>
-					</div>
-					
+
 				</div>
-				<div class="col-50">
-					<div class="item-inner">
-						
-						<img src="{{brlistmsg.brlistimgurl}}" width="120px;height:60px"/>
-					</div>
-				</div>
 			</div>
-			<div class="row">
-				<div class="item-inner col">
-						<div class="item-title item-label">备注:</div>
-						<div class="item-title item-label">{{brlistmsg.remarks}}</div>
-					</div>
+			<div class="normal-footer">
+				<img src="img/footer.png" class="footer-img">
 			</div>
-		
-		
-
-			<div class="data-table card">
-				<table>
-					<thead>
-						<tr>
-							<th class="label-cell">序号</th>
-							<th class="label-cell">中心条码</th>
-							<th class="label-cell">设备名称</th>
-							<th class="label-cell">状态</th>
-							
-						</tr>
-					</thead>
-					<tbody>
-						{{#each brlistmsg.equiplist}}
-						<tr>
-							<td class="label-cell">{{@index+1}}</td>
-							<td class="label-cell">{{centernum}}</td>
-							<td class="label-cell">{{equipname}}</td>
-							{{if "status=='借出'"}}
-							<td class="label-cell"><img src="img/jc.png" width="16px"></td>{{else}}
-							<td class="label-cell"><img src="img/zk.png" width="16px"></td>{{/if}}
-							
-						</tr>
-
-						{{/each}}
-					</tbody>
-				</table>
-			</div>
- 	<div class="list">
-		
-		
-<a href="#" class="login-button button color-red button-fill" onclick="">短信提醒</a>
-			
-		
 		</div>
-  		
-  	
-  		<div class="login-footer">
-			<img src="img/footer.png" class="footer-img">
-		</div>
-		</div>
-		
 
 	</div>
 </template>

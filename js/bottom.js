@@ -37,3 +37,16 @@
 //      index++;
 //  }
 //})
+
+$(function(){
+var oHeight = $(document).height(); //屏幕当前的高度
+$(window).resize(function(){
+        if($(document).height() < oHeight){
+        $(".login-footer").css("display","none");
+		$(".normal-footer").css("display","none");
+    }else{
+        $(".login-footer").css("display","block");
+		$(".normal-footer").css("display","block");
+    } 
+    });
+});

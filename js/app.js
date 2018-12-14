@@ -39,7 +39,12 @@ function plusReady() {
 
 // Dom7
 var $$ = Dom7;
-
+$$(function() {
+	$$('html,body').height(document.body.clientHeight);
+	$$("input").focus(function() {
+		$$(".login-footer").css("position", "fixed");
+	});
+});
 // Framework7 App main instance
 var app = new Framework7({
 	root: '#app', // App root element
@@ -115,7 +120,7 @@ $$('.login-screen-content .login-button').on('click', function() {
 			console.log(data);
 			console.log('Load was performed');
 			console.log(data.qx);
-			var username=data.username;
+			var username = data.username;
 			var qx = data.qx;
 			var userid = data.userid;
 			var channel = data.channel;
@@ -133,7 +138,7 @@ $$('.login-screen-content .login-button').on('click', function() {
 					plus.storage.setItem("mobilephone", mobilephone);
 					plus.storage.setItem("channel", channel);
 					plus.storage.setItem("column", column);
-					plus.storage.setItem("userid",userid);
+					plus.storage.setItem("userid", userid);
 					var foo = plus.storage.getItem("username")
 					console.log(foo);
 					/////////
@@ -158,7 +163,7 @@ $$('.login-screen-content .login-button').on('click', function() {
 					plus.storage.setItem("mobilephone", mobilephone);
 					plus.storage.setItem("channel", channel);
 					plus.storage.setItem("column", column);
-					plus.storage.setItem("userid",userid);
+					plus.storage.setItem("userid", userid);
 					var foo = plus.storage.getItem("username")
 					console.log(foo);
 					/////////
@@ -189,7 +194,7 @@ $$('.login-screen-content .login-button').on('click', function() {
 					plus.storage.setItem("mobilephone", mobilephone);
 					plus.storage.setItem("channel", channel);
 					plus.storage.setItem("column", column);
-					plus.storage.setItem("userid",userid);
+					plus.storage.setItem("userid", userid);
 					var foo = plus.storage.getItem("username")
 					console.log(foo);
 					/////////
@@ -211,7 +216,7 @@ $$('.login-screen-content .login-button').on('click', function() {
 					plus.storage.setItem("qx", qx);
 					plus.storage.setItem("mobilephone", mobilephone);
 					plus.storage.setItem("channel", channel);
-					plus.storage.setItem("userid",userid);
+					plus.storage.setItem("userid", userid);
 					plus.storage.setItem("column", column);
 					var foo = plus.storage.getItem("username")
 					console.log(foo);
@@ -291,33 +296,23 @@ app.searchBrilstnum = function(username, mobilephone) {
 							console.log(keycode);
 							console.log(which);
 						}
-					
+
 					});
-					$$("input[type='file']").change(function(){   
- 					var file = this.files[0];
-   				if (window.FileReader) {    
-            var reader = new FileReader();    
-            reader.readAsDataURL(file);  
-         
-            //监听文件读取结束后事件    
-         	 reader.onloadend = function (e) {
-            $$(".img").attr("src",e.target.result);    //e.target.result就是最后的路径地址
-            	sub();
-            
-            
-            
-            
-            
-            
-            
-            
-            };    
-       			} 
-				});
-					
-					
-					
-					
+					$$("input[type='file']").change(function() {
+						var file = this.files[0];
+						if(window.FileReader) {
+							var reader = new FileReader();
+							reader.readAsDataURL(file);
+
+							//监听文件读取结束后事件    
+							reader.onloadend = function(e) {
+								$$(".img").attr("src", e.target.result); //e.target.result就是最后的路径地址
+								sub(); //上传图片
+
+							};
+						}
+					});
+
 				} else {
 					alert("无此用户或手机号！")
 				}
@@ -403,24 +398,25 @@ app.searchLocation = function(search) {
 						//					}
 						//				});
 						if(data.rs != "failed") {
-							if(data.status=="在库"){
+							if(data.status == "在库") {
 								index++;
-							console.log('Load was performed');
-							equipname = data.equipname;
-							equip.push({
-								"index": index,
-								"equipname": equipname,
-								"centernum": search
-							});
-							html = app.searchResultsTemplate(equip);
+								console.log('Load was performed');
+								equipname = data.equipname;
+								equip.push({
+									"index": index,
+									"equipname": equipname,
+									"centernum": search
+								});
+								html = app.searchResultsTemplate(equip);
 
-							$$('.equip-list').html(html);
-							$$('.totalequip').html("总计：" + equip.length);
-							$$('.saveEquipBorrow').show();
-							}else{
+								$$('.equip-list').html(html);
+								$$('.totalequip').html("总计：" + equip.length);
+								$$('.saveEquipBorrow').show();
+								equip = []; //清空当前的借出设备的数组
+							} else {
 								alert("设备已经借出");
 							}
-							
+
 						} else {
 							alert("无此设备！")
 						}
@@ -477,25 +473,26 @@ app.equipReturnStatus = function(search) {
 					},
 					success: function(data) {
 						if(data.rs != "failed") {
-							if(data.status=="借出"){
+							if(data.status == "借出") {
 								index1++;
-							console.log('Load was performed');
-							equipname = data.equipname;
-							equipReturn.push({
-								"index": index1,
-								"equipname": equipname,
-								"centernum": search,
+								console.log('Load was performed');
+								equipname = data.equipname;
+								equipReturn.push({
+									"index": index1,
+									"equipname": equipname,
+									"centernum": search,
 
-							});
-							equipReturnhtml = app.searchReturnResultsTemplate(equipReturn);
+								});
+								equipReturnhtml = app.searchReturnResultsTemplate(equipReturn);
 
-							$$('.equip-list').html(equipReturnhtml);
-							$$('.totalequip').html("总计：" + equipReturn.length);
-							$$(".equip-return-submit").show();
-							}else{
+								$$('.equip-list').html(equipReturnhtml);
+								$$('.totalequip').html("总计：" + equipReturn.length);
+								$$(".equip-return-submit").show();
+								equipReturn = []; //清空归还数组
+							} else {
 								alert("设备已经归还！")
 							}
-							
+
 						} else {
 							alert("无此设备！")
 						}
@@ -516,7 +513,7 @@ var adminBRlistTemplate = $$('script#admin-search-brlistnum-template').html();
 
 app.adminBRlistsearchTemplate = Template7.compile(adminBRlistTemplate);
 
-app.adminBRlist = function(formdata) {
+app.adminBRlist = function(formdata, page) {
 
 	searchTimeout = setTimeout(function() {
 
@@ -533,6 +530,7 @@ app.adminBRlist = function(formdata) {
 		var isverify = formdata.isverify;
 		//var userid = JSON.parse($.cookie("o")).username;
 		var userid = plus.storage.getItem("username");
+		var page = page;
 
 		//***********ajax************
 
@@ -550,7 +548,8 @@ app.adminBRlist = function(formdata) {
 				department: department,
 				column: column,
 				centernum: centernum,
-				userid: userid
+				userid: userid,
+				page: page
 			},
 			beforeSend: function(e) {
 				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
@@ -745,7 +744,7 @@ app.manageEquipLocate = function(equipname, centernum) {
 	searchTimeout = setTimeout(function() {
 		console.log(equipname);
 		if(equipname || centernum) {
-//***********ajax************
+			//***********ajax************
 			var jurl = "http://115.233.208.56/zzzx/getLocateEquipManage?";
 			//var jurl = "http://172.20.2.158:8080/getLocateEquipManage?";
 			app.request({
@@ -773,27 +772,26 @@ app.manageEquipLocate = function(equipname, centernum) {
 			});
 
 			//***********************************/
-//			var equipmsg = [{
-//				"equipname": equipname,
-//				"IMME": "353507000803415",
-//				"department": "广播制作中心",
-//				"battery": "0%",
-//				"centernum": "2015-45845",
-//				"location": "浙江省杭州市莫干山路111号",
-//				"type": "SUSU111",
-//				"imgurl": "img/test.jpg"
-//
-//			}, {
-//				"equipname": "转播车",
-//				"IMME": "353507000803415",
-//				"department": "广播制作中心",
-//				"battery": "0%",
-//				"centernum": "2015-45845",
-//				"location": "浙江省杭州市莫干山路111号",
-//				"type": "SUSU111",
-//				"imgurl": "img/test.jpg"
-//			}];
-		
+			//			var equipmsg = [{
+			//				"equipname": equipname,
+			//				"IMME": "353507000803415",
+			//				"department": "广播制作中心",
+			//				"battery": "0%",
+			//				"centernum": "2015-45845",
+			//				"location": "浙江省杭州市莫干山路111号",
+			//				"type": "SUSU111",
+			//				"imgurl": "img/test.jpg"
+			//
+			//			}, {
+			//				"equipname": "转播车",
+			//				"IMME": "353507000803415",
+			//				"department": "广播制作中心",
+			//				"battery": "0%",
+			//				"centernum": "2015-45845",
+			//				"location": "浙江省杭州市莫干山路111号",
+			//				"type": "SUSU111",
+			//				"imgurl": "img/test.jpg"
+			//			}];
 
 		}
 
@@ -898,14 +896,12 @@ app.searchManuallist = function(search) {
 				html2 = app.searchManual(msg);
 
 				$$('.manualist').html(html2);
-					$$(".docx").attr("src","img/word.png");
-			
-					$$(".xlsx").attr("src","img/excel.png");
-				
-					$$(".pdf").attr("src","img/pdf.png");
-				
-				
-			
+				$$(".docx").attr("src", "img/word.png");
+
+				$$(".xlsx").attr("src", "img/excel.png");
+
+				$$(".pdf").attr("src", "img/pdf.png");
+
 			}
 		});
 
@@ -1080,7 +1076,7 @@ app.financialNormal = function(year, month) {
 
 		var jurl = "http://115.233.208.56/zzzx/getNormalFinancialStatistic?";
 		//var jurl = "http://172.20.2.158:8080/getNormalFinancialStatistic?";
-		app.request({ 
+		app.request({
 			url: jurl,
 			method: "GET",
 			crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
@@ -1159,43 +1155,53 @@ function saveEquipBorrow() {
 	var channel = $$(".channel").text();
 	var column = $$(".column").text();
 	var remarks = $$(".remarks").val();
-	var userid=plus.storage.getItem("userid");
-	var imgdata=$$(".img").val();
+	var userid = plus.storage.getItem("userid");
+	var imgdata = $$("#picBig").attr("data-preview-src");
 	//var userid = JSON.parse($.cookie("o")).username;
 	var equiplist = tabToJSONForJquery("equip-list");
-
+	//var oFiles = document.querySelector("#file").files;
+	var img = $$("#picBig").attr("src");
 	console.log(equiplist + 678);
 	console.log("borrowusername=" + borrowusername + "&borrowmobilephone=" + borrowmobilephone + "&brlistnum=" + brlistnum + "&channel=" + channel + "&column=" + column + "&remarks=" + remarks + "&equiplist=" + equiplist)
-	//		//***********ajax修改密码************
-	var jurl = "http://115.233.208.56/zzzx/postEquipBorrow?";
-	//var jurl = "http://172.20.2.158:8080/postEquipBorrow?";
-	app.request({
-		url: jurl,
-		method: "POST",
-		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
-		dataType: "json",
-		data: {
-			borrowusername: borrowusername,
-			borrowmobilephone: borrowmobilephone,
-			brlistnum: brlistnum,
-			channel: channel,
-			column: column,
-			remarks: remarks,
-			equiplist: equiplist,
-			imgdata:imgdata
-			
-		},
-		beforeSend: function(e) {
-			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
-		},
-		success: function(data) {
-			if(data.status == 'success') {
-				alert("借出成功！");
-			}
 
-			console.log(data.status);
-		}
-	});
+	//检测是否选择了文件
+	//console.log(oFiles);
+	if(img === null || img === "") {
+		alert("没有上传照片");
+		return false;
+	} else {
+		//		//***********ajax修改密码************
+		var jurl = "http://115.233.208.56/zzzx/postEquipBorrow?";
+		//var jurl = "http://172.20.2.158:8080/postEquipBorrow?";
+		app.request({
+			url: jurl,
+			method: "POST",
+			crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+			dataType: "json",
+			data: {
+				borrowusername: borrowusername,
+				borrowmobilephone: borrowmobilephone,
+				brlistnum: brlistnum,
+				channel: channel,
+				column: column,
+				remarks: remarks,
+				equiplist: equiplist,
+				imgdata: imgdata
+
+			},
+			beforeSend: function(e) {
+				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+			},
+			success: function(data) {
+				if(data.status == 'success') {
+					alert("借出成功！");
+					mainView.router.navigate('/equip-br-admin-detail/' + brlistnum + '/0')
+				}
+				console.log(data.status);
+			}
+		});
+	}
+
 	//	//***********************************/
 
 }
@@ -1223,18 +1229,17 @@ function saveEquipReturn() {
 		},
 		success: function(data) {
 			console.log(data);
-			
+
 			var result = "归还失败的设备中心条码：";
 			//alert(data);
 			$.each(data, function(i, item) {
-				if(data[i].status == "N"){
+				if(data[i].status == "N") {
 					result = result + data[i].centernum + " "
-				}else{
-					result="归还成功！";
+				} else {
+					result = "归还成功！";
+					mainView.router.navigate('/equip-br-admin-search/')
 					return false;
 				}
-					
-				
 
 			});
 			alert(result);
@@ -1245,15 +1250,15 @@ function saveEquipReturn() {
 }
 
 function tabToJSONForJquery(id) {
-//	var titles = $("." + id).find("tr:first th:not(:first):not(:last)"); //获得表头td数组
-//	//遍历非表头的，tr、td...拼装json
-//	var json = "[" + $("." + id).find("tr:not(:first)").map(function(i, e) {
-//		return "{" + $(e).children("td:not(:first):not(:last)").map(function(j, el) {
-//			return '"' + $(titles[j]).attr("name") + '":"' + $(el).html() + '"';
-//		}).get().join(",") + "}";
-//	}).get().join(",") + "]";
-//	return json;
-var titles = $("." + id).find("tr:first th:first"); //获得表头td数组
+	//	var titles = $("." + id).find("tr:first th:not(:first):not(:last)"); //获得表头td数组
+	//	//遍历非表头的，tr、td...拼装json
+	//	var json = "[" + $("." + id).find("tr:not(:first)").map(function(i, e) {
+	//		return "{" + $(e).children("td:not(:first):not(:last)").map(function(j, el) {
+	//			return '"' + $(titles[j]).attr("name") + '":"' + $(el).html() + '"';
+	//		}).get().join(",") + "}";
+	//	}).get().join(",") + "]";
+	//	return json;
+	var titles = $("." + id).find("tr:first th:first"); //获得表头td数组
 	//遍历非表头的，tr、td...拼装json
 	var json = "[" + $("." + id).find("tr:not(:first)").map(function(i, e) {
 		return "{" + $(e).children("td:first").map(function(j, el) {
@@ -1281,12 +1286,12 @@ function deleteimg(obj) {
 }
 //设备编辑更新
 function updateEquip(obj) {
-	var storelocation = $$('input[name="storelocation"]').val();
-	var storeplace = $$('input[name="storeplace"]').val();
-	var equipname = $$('input[name="equipname"]').val();
-	var type = $$('input[name="type"]').val();
-	var remarks = $$('input[name="remarks"]').val();
-	var centernum = $$('input[name="e-centernum"]').val();
+	var storelocation = $$('.equip-maintenance input[name="storelocation"]').val();
+	var storeplace = $$('.equip-maintenance input[name="storeplace"]').val();
+	var equipname = $$('.equip-maintenance input[name="equipname"]').val();
+	var type = $$('.equip-maintenance input[name="type"]').val();
+	var remarks = $$('.equip-maintenance input[name="remarks"]').val();
+	var centernum = $$('.equip-maintenance input[name="e-centernum"]').val();
 	var arr = new Array();
 	console.log(centernum);
 	$$(".equip-maintenance-imglist img").each(function() {
@@ -1334,53 +1339,61 @@ function updateEquip(obj) {
 function addEquipRepair(obj) {
 	var formData = app.form.convertToData('#equiprepair-form');
 	//alert(JSON.stringify(formData));
-	var arr = new Array();
-//	$$(".equiprepair-imgs img").each(function() {
-//		arr.push(
-//
-//			{
-//				"url": $$(this).attr("src")
-//			}
-//
-//		);
-//	});
+	//var arr = new Array();
+	//	$$(".equiprepair-imgs img").each(function() {
+	//		arr.push(
+	//
+	//			{
+	//				"url": $$(this).attr("src")
+	//			}
+	//
+	//		);
+	//	});
 	var equipproblem = formData.equipproblem;
 	var repaircontent = formData.repaircontent;
 	var repairperson = formData.repairperson;
 	var repairtime = formData.repairtime;
-//	var imglist = arr;
+	//	var imglist = arr;
 	var centernum = $$(".centernum").text();
-	var imgdata=$$(".img").val();
-	//***********ajax************
-	var jurl = "http://115.233.208.56/zzzx/addEquipRepair?";
-	//var jurl = "http://172.20.2.158:8080/addEquipRepair?";
-	app.request({
-		url: jurl,
-		method: "GET",
-		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
-		dataType: "json",
-		data: {
-			centernum: centernum,
-			equipproblem: equipproblem,
-			repairperson: repairperson,
-			repairtime: repairtime,
-			imgdata: imgdata,
-			repaircontent: repaircontent
+	var imgdata = $$("#picBig").attr("data-preview-src");
+	if(equipproblem != "" && repaircontent != "" && repairperson != "" && repairtime != "" && imgdata != "") {
+		//***********ajax************
+		var jurl = "http://115.233.208.56/zzzx/addEquipRepair?";
+		//var jurl = "http://172.20.2.158:8080/addEquipRepair?";
+		app.request({
+			url: jurl,
+			method: "GET",
+			crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+			dataType: "json",
+			data: {
+				centernum: centernum,
+				equipproblem: equipproblem,
+				repairperson: repairperson,
+				repairtime: repairtime,
+				imgdata: imgdata,
+				repaircontent: repaircontent
 
-		},
-		beforeSend: function(e) {
-			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
-		},
-		success: function(data) {
+			},
+			beforeSend: function(e) {
+				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+			},
+			success: function(data) {
+				console.log(data);
+				alert(data.status);
+				mainView.router.navigate('/equip-maintenance-detail/' + centernum + '/')
 
-			alert(data.status);
+			}
+		});
 
-		}
-	});
+		//***********************************/
+	} else {
+		alert("请填写完整信息！");
+	}
 
-	//***********************************/
+	console.log(centernum);
+	console.log(repairperson)
 
-	console.log(arr);
+	//console.log(arr);
 }
 
 function switchPwd() {
@@ -1441,7 +1454,7 @@ function changepwd() {
 }
 
 function updateRemarks() {
-	var remarks = $$(".input-with-value").val();
+	var remarks = $$(".mic_text").val();
 	var brlistnum = $$(".brlistnum").text();
 	//***********ajax修改密码************
 
@@ -1472,30 +1485,44 @@ function updateRemarks() {
 
 function submitVerify() {
 	//var userid = JSON.parse($.cookie("o")).username;
-	var userid = plus.storage.getItem("username");
-	var brlistnum = $$(".brlistnum").text();
-	//***********ajax修改密码************
-	var jurl = "http://115.233.208.56/zzzx/updateAdminBrlist?";
-	//var jurl = "http://172.20.2.158:8080/updateAdminBrlist?";
-	app.request({
-		url: jurl,
-		method: "POST",
-		crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
-		dataType: "json",
-		data: {
-			userid: userid,
-			brlistnum: brlistnum
-
-		},
-		beforeSend: function(e) {
-			//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
-		},
-		success: function(data) {
-
-			alert(data.status);
+	var unreturnlist = "";
+	$$(".admin-table tbody>tr").each(function() {
+		var v = $$(this).find("td");
+		if(v.eq(3).text() === "借出") {
+			unreturnlist += v.eq(2).text() + " ; ";
 
 		}
-	});
+
+		//	console.log(v.text());
+	})
+	if(unreturnlist != "") {
+		alert(unreturnlist + "设备未归还")
+	} else {
+		var userid = plus.storage.getItem("username");
+		var brlistnum = $$(".brlistnum").text();
+		//***********ajax修改密码************
+		var jurl = "http://115.233.208.56/zzzx/updateAdminBrlist?";
+		//var jurl = "http://172.20.2.158:8080/updateAdminBrlist?";
+		app.request({
+			url: jurl,
+			method: "POST",
+			crossDomain: true, //这个一定要设置成true，默认是false，true是跨域请求。
+			dataType: "json",
+			data: {
+				userid: userid,
+				brlistnum: brlistnum
+
+			},
+			beforeSend: function(e) {
+				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
+			},
+			success: function(data) {
+
+				alert(data.status);
+
+			}
+		});
+	}
 
 	//***********************************/
 }
@@ -1506,24 +1533,22 @@ function searchbrlist() {
 
 function downloadManual(filename, surl) {
 	console.log("url " + surl);
-	var urlafter="http://115.233.208.56/"+surl;
+	var urlafter = "http://115.233.208.56/" + surl;
 	//plus.runtime.openFile( "https://www.prudential.com.hk/scws/pages/download/download-center/tc/3-Product-Brochures-Individual-Life-Insurance/3-01-Health-Insurance/PRUhealth-critical-illness-extended-care/CIE_PB_SC_Aug18.pdf" );
 	//var url = "http://115.233.208.56/zzzx/Downfile?";
-	
-//	
-var src = urlafter;
-//'https://www.prudential.com.hk/scws/pages/download/download-center/tc/3-Product-Brochures-Individual-Life-Insurance/3-01-Health-Insurance/PRUhealth-critical-illness-extended-care/CIE_PB_SC_Aug18.pdf';
-var form = document.createElement('form');
-form.action = src;
-document.getElementsByTagName('body')[0].appendChild(form);
-form.submit();
 
+	//	
+	var src = urlafter;
+	//'https://www.prudential.com.hk/scws/pages/download/download-center/tc/3-Product-Brochures-Individual-Life-Insurance/3-01-Health-Insurance/PRUhealth-critical-illness-extended-care/CIE_PB_SC_Aug18.pdf';
+	var form = document.createElement('form');
+	form.action = src;
+	document.getElementsByTagName('body')[0].appendChild(form);
+	form.submit();
 
-//	var surl = surl;
-//	var form = $$("<form></form>").attr("action", url).attr("method", "post");
-//	form.append($$("<input></input>").attr("type", "hidden").attr("name", "url").attr("value", surl));
-//	form.appendTo('body').submit().remove();
-
+	//	var surl = surl;
+	//	var form = $$("<form></form>").attr("action", url).attr("method", "post");
+	//	form.append($$("<input></input>").attr("type", "hidden").attr("name", "url").attr("value", surl));
+	//	form.appendTo('body').submit().remove();
 
 	//	var jurl = "http://172.20.2.158:8080/Downfile?";
 	//	app.request({
@@ -1565,9 +1590,10 @@ function dealFinancialSearch() {
 function dealEquipViewSearch() {
 	var tag = $$('select[name="tag"]').val();
 	var department = $$('select[name="department"]').val();
+	pie(tag, department);
 	bar(tag, department);
 	line(tag, department);
-	pie(tag, department);
+
 }
 
 function bar(tag, department) {
@@ -1866,7 +1892,10 @@ function pie(tag, department) {
 				},
 				tooltip: {
 					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c}小时({d}%)"
+					formatter: "{a} <br/>{b} : {c}小时({d}%)",
+					position: function(p) { //其中p为当前鼠标的位置
+						return [p[0] + 10, p[1] - 10];
+					}
 				},
 				series: [{
 					name: '部门使用时长',
@@ -2188,7 +2217,7 @@ function locatePie(begintime, finishtime) {
 					orient: 'vertical',
 					right: 10,
 					top: 20,
-					bottom: 20,	
+					bottom: 20,
 					formatter: function(name) {
 
 						var index = 0;
@@ -2261,52 +2290,54 @@ function locatePie(begintime, finishtime) {
 
 }
 
-function nofind(img){ 
-    img.src="img/video-nofind.png"; 
-    img.onerror=null; //如果错误图片也不存在就会死循环一直跳，所以要设置成null，也可以不加
-} 
+function nofind(img) {
+	img.src = "img/video-nofind.png";
+	img.onerror = null; //如果错误图片也不存在就会死循环一直跳，所以要设置成null，也可以不加
+}
 
-function sub(){
+function sub() {
 	//获取文件
-	
+	console.log("20181206")
 	var oFiles = document.querySelector("#file").files;
 	//检测是否选择了文件
 	console.log(oFiles);
-	if(oFiles.length == 0){ 
+	if(oFiles.length == 0) {
 		alert("没有选择文件");
-		return false; 
-	} 	      
-	 console.log(oFiles.length);
+		return false;
+	}
+	console.log(oFiles.length);
 	// 实例化一个表单数据对象
 	var formData = new FormData();
 	//添加domainid参数
-	formData.append("domainid","1");
+	formData.append("domainid", "1");
 	//添加文件参数
-	for(var i=0;i<oFiles.length;i++){
+	for(var i = 0; i < oFiles.length; i++) {
 		formData.append(oFiles[i].name, oFiles[i]);
+		console.log(oFiles[i].name + " " + oFiles[i])
 	}
 
+	console.log(formData);
 	$.ajax({
-		url:"http://hzpan2015.oicp.net:88/ckapi/upload",
-		type:'POST',
-		data:formData,
+		url: "http://hzpan2015.oicp.net:88/ckapi/upload",
+		type: 'POST',
+		data: formData,
 		cache: false,
-		contentType: false,    //不可缺
-		processData: false,    //不可缺
-		success:function(data){
-			console.log(data); 
+		contentType: false, //不可缺
+		processData: false, //不可缺
+		success: function(data) {
+			console.log(data);
 			$$(".img").val(data.data.split(";")[0]);
-			if(data.code=='0'){
+			if(data.code == '0') {
 				alert("上传成功！");
-			}else{
+			} else {
 				alert("上传失败！");
 			}
-			
+
 			//alert("code:"+data.code+",data:"+data.data+",msg:"+data.msg);
-			
-		},error:function(){
-	   
+
+		},
+		error: function() {
+
 		}
 	})
 }
-

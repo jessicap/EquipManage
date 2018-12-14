@@ -1,143 +1,132 @@
 <template>
-<div class="page" data-name="equip-repair">
-	  <div class="navbar">
-        <div class="navbar-inner sliding">
-            <div class="left">
-                <a href="/equip-maintenance/" class="link ">
-                    <i class="f7-icons">arrow_left</i>
-                </a>
-            </div>
-            <div class="title">维修保养</div>
-        </div>
-    </div>
-    <div class="page-content equip-repair">
-	
+	<div class="page" data-name="equip-repair">
+		<div class="navbar">
+			<div class="navbar-inner sliding">
+				<div class="left">
+					<a href="/equip-maintenance/" class="link ">
+						<i class="f7-icons">arrow_left</i>
+					</a>
+				</div>
+				<div class="title">维修保养</div>
+			</div>
+		</div>
+		<div class="page-content equip-repair">
+			<div class="wrap">
+				<div class="main clearfix">
+					<div class="row">
+						<div class="col-50">
+							<div class="item-inner">
+								<div class="item-title item-label">名称</div>
+								<div class="item-title item-label">{{repairmsg.equipname}}</div>
 
-    	<div class="row">
-    		<div class="col-50">
-    			 <div class="item-inner">
-                                <div class="item-title item-label">名称</div>
-                                <div class="item-title item-label">{{repairmsg.equipname}}</div>
+							</div>
+							<div class="item-inner">
+								<div class="item-title item-label">型号</div>
+								<div class="item-title item-label">{{repairmsg.type}}</div>
+							</div>
+						</div>
+						<div class="col-50">
+							<div class="item-inner">
+								<div class="item-title item-label">条码</div>
+								<div class="item-title item-label centernum">{{repairmsg.centernum}}</div>
 
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title item-label">型号</div>
-                                <div class="item-title item-label">{{repairmsg.type}}</div>
-                            </div>
-    		</div>
-    			<div class="col-50">
-    			 <div class="item-inner">
-                                <div class="item-title item-label">条码</div>
-                                <div class="item-title item-label centernum">{{repairmsg.centernum}}</div>
+							</div>
+							<div class="item-inner">
+								<div class="item-title item-label">序列号</div>
+								<div class="item-title item-label">{{repairmsg.serialnum}}</div>
+							</div>
+						</div>
+					</div>
 
-                            </div>
-                            <div class="item-inner">
-                                <div class="item-title item-label">序列号</div>
-                                <div class="item-title item-label">{{repairmsg.serialnum}}</div>
-                            </div>
-    		</div>
-    	</div>
-                
+					<div class="list no-hairlines-md">
+						<form class="list" id="equiprepair-form">
+							<ul>
 
- 
-    
-        
-        	<div class="list no-hairlines-md">
-  <form class="list" id="equiprepair-form">
-					<ul>
-						
-					<li class="row">
-							
-								<div class="item-title item-label col-30">故障现象:</div>
-								<div class="col-70">
-								
-                		  <input type="text" placeholder="故障现象"  name="equipproblem" value="" />
-									<span class="input-clear-button"></span>
-								</div>
-						
-						</li>
-						<li class="row">
-						
-								<div class="item-title item-label col-30">维修内容:</div>
-								<div class="col-70">
-									<input type="text" name="repaircontent" placeholder="请输入维修内容">
-									<span class="input-clear-button"></span>
-								</div>
-						
-						</li>
-						<li class="row">
-							
-								<div class="item-title item-label col-30">维修人员:</div>
-								<div class="col-70">
-									<input type="text" name="repairperson" placeholder="请输入姓名">
-									<span class="input-clear-button"></span>
-								</div>
-						
-						</li>
-						<li class="row">
-						
-								<div class="item-title item-label col-30">维修时间:</div>
-								<div class="col-70">
-									<input type="date" name="repairtime" placeholder="请选择时间" id="repairtime">
-									<span class="input-clear-button"></span>
-								</div>
-							
-						</li>
-						
-						
-						
-						
-						
-						
-						
-						<li class="item-content item-input ">
-							<div class="item-inner equiprepair-imgs">
-								<div class="item-title item-label">设备图片</div>
-								<div class="row">
-							
-								<!--<div class='collapse-content col-50' >  
+								<li class="row">
+
+									<div class="item-title item-label col-30">故障现象:</div>
+									<div class="col-70">
+
+										<input type="text" placeholder="故障现象" name="equipproblem" value="" />
+										
+									</div>
+
+								</li>
+								<li class="row">
+
+									<div class="item-title item-label col-30">维修内容:</div>
+									<div class="col-70">
+										<input type="text" name="repaircontent" placeholder="请输入维修内容">
+										
+									</div>
+
+								</li>
+								<li class="row">
+
+									<div class="item-title item-label col-30">维修人员:</div>
+									<div class="col-70">
+										<input type="text" name="repairperson" placeholder="请输入姓名">
+										
+									</div>
+
+								</li>
+								<li class="row">
+
+									<div class="item-title item-label col-30">维修时间:</div>
+									<div class="col-70">
+										<input type="date" name="repairtime" placeholder="请选择时间" id="repairtime">
+										
+									</div>
+
+								</li>
+
+								<li class="item-content item-input ">
+									<div class="item-inner equiprepair-imgs">
+										<div class="item-title item-label">设备图片</div>
+										<div class="row">
+
+											<!--<div class='collapse-content col-50' >  
 									<input type='hidden' id='ckjl.id' name='ckjl.id' value='429'> 
 									<div id='F_CKJLBS' class='row image-list'> 
 										<i class='f7-icons' id='F_CKJLB' onclick='showActionSheet(this)'>camera_fill</i>
 									</div>
 								</div>
-								
-								<div class='collapse-content col-50' > 
-									<input type='hidden' id='ckjl.idS' name='ckjl.idS' value='430'> 
+									</div>-->
+								<div class='collapse-content col-50' style="margin:0 auto"> 
+									<input type='hidden' id='ckjl.id' name='ckjl.id' value='430'> 
 									<div id='F_CKJLBSS' class='row image-list'> 
 										<i class='f7-icons' id='F_CKJLBS' onclick='showActionSheet(this)'>camera_fill</i>
 									</div>
-								</div>-->
-								<div class="collapse-content" style="margin:0 auto;">
+							
+											<!--<div class="collapse-content" style="margin:0 auto;">
 
-										<input type="file"  class="up_input file" style="opacity: 0;width:30px;left:140px;top:60px;">
- 									 <span class="up_icon" style="left:140px;top:60px;"></span>
- 									 <img src="" class="img" style="width:150px;height:80px;">
-									<!--	<button onclick="subpic()" class="button-fill button" style="width: 20%;">上传</button>-->
+												<input type="file" class="up_input file" style="opacity: 0;width:30px;left:140px;top:60px;">
+												<span class="up_icon" style="left:140px;top:60px;"></span>
+												<img src="" class="img" style="width:150px;height:80px;">
+												<!--	<button onclick="subpic()" class="button-fill button" style="width: 20%;">上传</button>-->
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-						</li>
-						
-						
-						<li class="item-content item-input">
-							<div class="item-inner row">
-								<a class="col button button-fill" onclick="addEquipRepair(this)" style="width:50%;margin:0 auto">确认提交</a>
-							</div>
-						</li>
+								</li>
 
-					</ul>
-				</form>
-</div>
-                    	 
-               
-   <div class="login-footer">
+								<li class="item-content item-input">
+									<div class="item-inner row">
+										<a class="col button button-fill" onclick="addEquipRepair(this)" style="width:50%;margin:0 auto">确认提交</a>
+									</div>
+								</li>
+
+							</ul>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="normal-footer">
 				<img src="img/footer.png" class="footer-img">
 
 			</div>
 
+		</div>
 
 	</div>
-	
-</div>
 </template>

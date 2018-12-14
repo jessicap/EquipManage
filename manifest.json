@@ -191,8 +191,24 @@
 					"pages/404.html",
 					"pages/equip-borrow-return-search.html",
 					"index.html",
-					"pages/equip-borrow-return-detail.html"
+					"pages/equip-borrow-return-detail.html",
+					"barcode_scan2.html",
+					"barcode_scan_return.html"
 				],
+				"priority": 0
+			},
+			"barcode_scan2.html": {
+				"resources": [
+					"css/common.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"barcode_scan_return.html": {
+				"resources": [
+					"css/common.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},
@@ -202,8 +218,6 @@
 				"pages/pannel-left.html",
 				"pages/page-loader-component.html",
 				"pages/about.html",
-				"css/common.css",
-				"barcode_scan2.html",
 				"pages/form.html",
 				"pages/page-loader-template7.html"
 			]

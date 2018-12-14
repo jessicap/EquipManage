@@ -1,5 +1,9 @@
 /* Your app styles here */
-
+html,body,.wrap{
+	height:100%
+}
+.page-content>.wrap {height: auto; min-height: 100%;}
+.main {padding-bottom: 35px;} 
 .ios .button {
 	line-height: 43px;
 	height: 45px;
@@ -183,7 +187,7 @@ select,
 }
 
 .login-screen-form {
-	margin-bottom: 12rem;
+	
 	width: 100%;
 }
 
@@ -240,17 +244,11 @@ select,
 }
 
 .login-footer {
-	/*position: static;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 0;
-    text-align: center;*/
-	bottom: 0;
-	width: 100%;
-	text-align: center;
-	height: 1.875rem;
 	position: relative;
+	margin-top:-50px;
+	height:50px;
+	clear:both;
+	text-align: center;
 }
 
 .font-12 {
@@ -505,3 +503,31 @@ margin:1rem 0;
 }
 .up_icon,.up_input {position: absolute;top: 30px;left: 245px;width: 40px;height: 40px;z-index: 2}
 .up_icon {overflow: hidden;font-size: 0;line-height: 99em;background: url(../img/camera.png) no-repeat 0 0;z-index: 1;background-size:40px 40px;}
+
+.normal-footer{
+	position: relative;
+	margin-top:-35px;
+	height:35px;
+	clear:both;
+	text-align: center;
+}
+.clearfix:after {
+	content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+.infinite-scroll-preloader {
+  margin-top:-20px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.infinite-scroll-preloader .preloader {
+  width:34px;
+  height:34px;
+} 

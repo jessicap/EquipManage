@@ -1,7 +1,19 @@
 {
 	"index.html": {
 		"refer": [
-			"index.html"
+			"index.html",
+			"barcode_scan2.html",
+			"barcode_scan_return.html"
+		]
+	},
+	"barcode_scan2.html": {
+		"resources": [
+			"css/common.css"
+		]
+	},
+	"barcode_scan_return.html": {
+		"resources": [
+			"css/common.css"
 		]
 	}
 }

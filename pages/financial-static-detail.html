@@ -1,31 +1,32 @@
 <template>
-<div class="page" data-name="financial-static-detail">
-    <div class="navbar">
-        <div class="navbar-inner sliding">
-            <div class="left">
-                <a href="/financial-statistic/" class="link ">
+	<div class="page" data-name="financial-static-detail">
+		<div class="navbar">
+			<div class="navbar-inner sliding">
+				<div class="left">
+					<a href="/financial-statistic/" class="link ">
 
-                    <i class="f7-icons">arrow_left</i>
+						<i class="f7-icons">arrow_left</i>
 
-                </a>
-            </div>
-            <div class="title">财务统计详情</div>
-        </div>
-    </div>
-    <div class="page-content borrow-take-detail ">
-    	<div class="row">
-    		<div class="col-100">
-    			<div class="item-inner">
-                <div class="item-title item-label">{{staticmsg.year}}年{{staticmsg.month}}月</div>
-                
-            </div>
-    		</div>
-    	</div>
-    	
-    	<div class="card">
-     <table style="" class="financial-table">
+					</a>
+				</div>
+				<div class="title">财务统计详情</div>
+			</div>
+		</div>
+		<div class="page-content borrow-take-detail ">
+			<div class="wrap">
+				<div class="main clearfix">
+					<div class="row">
+						<div class="col-100">
+							<div class="item-inner">
+								<div class="item-title item-label">{{staticmsg.year}}年{{staticmsg.month}}月</div>
 
-					
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<table style="" class="financial-table">
+
 							<thead>
 								<tr>
 									<th class="label-cell">设备</th>
@@ -34,19 +35,19 @@
 
 								</tr>
 							</thead>
-								<tbody>
-							{{#each staticmsg.staticdetail}}
-							
-							<tr class="">
-								<td class="label-cell">{{skf925}}</td>
-								<td class="label-cell">{{skf991}}</td>
-								<td class="label-cell">¥{{skf1057}}</td>
+							<tbody>
+								{{#each staticmsg.staticdetail}}
 
-							</tr>
-							{{/each}}
-						</tbody>
-					</table>
-        <!--<div class="row">
+								<tr class="">
+									<td class="label-cell">{{skf925}}</td>
+									<td class="label-cell">{{skf991}}</td>
+									<td class="label-cell">¥{{skf1057}}</td>
+
+								</tr>
+								{{/each}}
+							</tbody>
+						</table>
+						<!--<div class="row">
         	    <div class="col-33">
                 <div class="item-inner">
                     <div class="item-title item-label">设备名称</div>
@@ -66,14 +67,14 @@
                 </div>
             </div>
         </div>-->
-       </div>
- 
-      
-   
-    </div>
-    <div class="login-footer">
-									<img src="img/footer.png" class="footer-img">
+					</div>
 
-								</div>
-</div>
+				</div>
+			</div>
+		</div>
+		<div class="normal-footer">
+			<img src="img/footer.png" class="footer-img">
+
+		</div>
+	</div>
 </template>
