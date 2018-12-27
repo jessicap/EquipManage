@@ -23,7 +23,7 @@
 							</div>
 							<div class="item-inner">
 								<div class="item-title item-label">姓名:</div>
-								<div class="item-title item-label">{{brlistmsg.username}}</div>
+								<div class="item-title item-label name">{{brlistmsg.username}}</div>
 							</div>
 							<div class="item-inner">
 								<div class="item-title item-label">电话:</div>
@@ -35,7 +35,7 @@
 							</div>
 							<div class="item-inner">
 								<div class="item-title item-label">栏目:</div>
-								<div class="item-title item-label">{{brlistmsg.column}}</div>
+								<div class="item-title item-label column">{{brlistmsg.column}}</div>
 							</div>
 						</div>
 						<div class="col-50">
@@ -50,7 +50,7 @@
 
 						<div class="item-title item-label col-15">备注:</div>
 						<div class="remarkborder col-65">
-							<input type="text" value="{{brlistmsg.remarks}}" class="mic_text col-85" />
+							<input type="text" value="{{brlistmsg.remarks}}" class="mic_text col-85" name="remark"/>
 							<i class="f7-icons col-15 mic" onclick="startRecognize()">mic_fill</i>
 						</div>
 						<div class="button button-fill col-20" onclick='updateRemarks()'>更新</div>

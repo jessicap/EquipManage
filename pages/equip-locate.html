@@ -10,7 +10,7 @@
 				<div class="title">设备定位</div>
 			</div>
 		</div>
-		<div class="page-content equip-locate">
+		<div class="page-content equip-locate infinite-scroll-content"  data-distance="100">
 			<div class="wrap">
 				<div class="main clearfix">
 			<div class="list no-hairlines-md equip-locate-search">
@@ -27,7 +27,7 @@
 						</select>
 					</div>
 					<div class="col-33">
-						<div class=" searchlocateequip">
+						<div class="searchlocateequip">
 							<button class="col button button-fill " onclick="dealLocateSearch()">查&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;询</button>
 						</div>
 					</div>
@@ -44,9 +44,15 @@
 				<iframe src="http://hzpan2015.oicp.net:83/dw/dwall.html" style="    width: 100%; height: 28rem;border: 1px solid #eee;"></iframe>
 			</div>
 
-			<div class="equiplocatelist">
-
+			<div class="equiplocatelist" >
+				<div class="brlist">
+					
+				</div>
 			</div>
+			<!-- 加载提示符-->
+					<div class="infinite-scroll-preloader">
+						<div class="preloader"></div>
+					</div> 
 			</div>
 			</div>
 

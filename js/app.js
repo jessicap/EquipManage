@@ -520,7 +520,7 @@ app.adminBRlist = function(formdata, page) {
 		var brlistmsg;
 		var html2 = '';
 		console.log("393 " + formdata)
-		console.log($.cookie("o"))
+		//console.log($.cookie("o"))
 		//var a=JSON.parse(formdata);
 		var username = formdata.username;
 		var brlistnum = formdata.brlistnum;
@@ -530,7 +530,8 @@ app.adminBRlist = function(formdata, page) {
 		var isverify = formdata.isverify;
 		//var userid = JSON.parse($.cookie("o")).username;
 		var userid = plus.storage.getItem("username");
-		var page = page;
+		var pagenum = page;
+		//console.log(page);
 
 		//***********ajax************
 
@@ -549,7 +550,7 @@ app.adminBRlist = function(formdata, page) {
 				column: column,
 				centernum: centernum,
 				userid: userid,
-				page: page
+				page: pagenum
 			},
 			beforeSend: function(e) {
 				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
@@ -559,9 +560,12 @@ app.adminBRlist = function(formdata, page) {
 				console.log('Load was performed');
 				brlistmsg = data;
 				console.log("brlistmsg" + brlistmsg);
-				html2 = app.adminBRlistsearchTemplate(brlistmsg);
+				if(brlistmsg.code==200){
+					html2 = app.adminBRlistsearchTemplate(brlistmsg.rows);
 
-				$$('.equip-br-admin').html(html2);
+				$$('.equip-br-admin').append(html2);
+				}
+				
 
 			}
 		});
@@ -694,7 +698,7 @@ app.searchLocateEquip = Template7.compile(searchLocateEquipTemplate);
 
 var equipLocatehtml = '';
 
-app.searchEquipLocate = function(equipname, tag) {
+app.searchEquipLocate = function(equipname,tag,page) {
 
 	searchTimeout = setTimeout(function() {
 		console.log(equipname);
@@ -710,7 +714,8 @@ app.searchEquipLocate = function(equipname, tag) {
 				dataType: "json",
 				data: {
 					equipname: equipname,
-					tag: tag
+					tag: tag,
+					page:page
 
 				},
 				beforeSend: function(e) {
@@ -720,15 +725,23 @@ app.searchEquipLocate = function(equipname, tag) {
 
 					var equipmsg = data;
 					console.log(equipmsg);
+//				if(equipmsg.rs===0){
+//					alert("无此设备！")
+//				}
+					equipLocatehtml = app.searchLocateEquip(equipmsg.rows);
+					$$('.equip-locate .brlist').append(equipLocatehtml);
+					// 加载flag
+					if(equipmsg.currentPage===equipmsg.pageNum){
+						return false;
+					}else{
+						return true;
+					}
 
-					equipLocatehtml = app.searchLocateEquip(equipmsg);
-
-					$$('.equip-locate .equiplocatelist').html(equipLocatehtml);
 				}
 			});
 
 			//***********************************/
-
+			
 		}
 
 	}, 300);
@@ -802,7 +815,7 @@ var financialTemplate = $$('script#financial-template').html();
 
 app.financialStaticTemplate = Template7.compile(financialTemplate);
 
-app.financial = function(year, month, channel) {
+app.financial = function(year, month, channel,page) {
 
 	searchTimeout = setTimeout(function() {
 
@@ -824,19 +837,28 @@ app.financial = function(year, month, channel) {
 				channel: channel,
 				month: month,
 				year: year,
-				userid: userid
+				userid: userid,
+				page,page
 
 			},
 			beforeSend: function(e) {
 				//alert("ddddd");//发送数据过程，you can do something,比如:loading啥的
 			},
 			success: function(data) {
-
+				if(data.code==200){
+					
 				var staticmsg = data;
-
+				
 				html2 = app.financialStaticTemplate(staticmsg);
 
-				$$('.staticlist').html(html2);
+				$$('.staticlist').append(html2);
+				if(data.currentPage===data.sumPage){
+						return false;
+					}else{
+						return true;
+					}
+				}
+				
 			}
 		});
 
@@ -1379,7 +1401,7 @@ function addEquipRepair(obj) {
 			},
 			success: function(data) {
 				console.log(data);
-				alert(data.status);
+				alert(data.msg);
 				mainView.router.navigate('/equip-maintenance-detail/' + centernum + '/')
 
 			}
@@ -1454,12 +1476,14 @@ function changepwd() {
 }
 
 function updateRemarks() {
-	var remarks = $$(".mic_text").val();
+	var remarks = $$(".remarkborder input[name='remark']").val();
 	var brlistnum = $$(".brlistnum").text();
+	
+	
 	//***********ajax修改密码************
 
-	var jurl = "http://115.233.208.56/zzzx/updateAdminBrlistRemark?";
-	//var jurl = "http://172.20.2.158:8080/updateAdminBrlistRemark?";
+	var jurl = "http://115.233.208.56/zzzx/updateAdminBRListRemark?";
+	//var jurl = "http://172.20.2.158:8080/updateAdminBRListRemark?";
 	app.request({
 		url: jurl,
 		method: "POST",
@@ -1467,7 +1491,8 @@ function updateRemarks() {
 		dataType: "json",
 		data: {
 			remarks: remarks,
-			brlistnum: brlistnum
+			brlistnum: brlistnum,
+			
 
 		},
 		beforeSend: function(e) {
@@ -1475,7 +1500,11 @@ function updateRemarks() {
 		},
 		success: function(data) {
 
-			alert(data.status)
+			if(data.code==200){
+				alert("更新成功！")
+			}else if(data.code==400){
+				alert("更新失败！")
+			}
 
 		}
 	});
@@ -1501,8 +1530,8 @@ function submitVerify() {
 		var userid = plus.storage.getItem("username");
 		var brlistnum = $$(".brlistnum").text();
 		//***********ajax修改密码************
-		var jurl = "http://115.233.208.56/zzzx/updateAdminBrlist?";
-		//var jurl = "http://172.20.2.158:8080/updateAdminBrlist?";
+		var jurl = "http://115.233.208.56/zzzx/updateAdminCheckBrlist?";
+		//var jurl = "http://172.20.2.158:8080/updateAdminCheckBrlist?";
 		app.request({
 			url: jurl,
 			method: "POST",
@@ -2233,7 +2262,10 @@ function locatePie(begintime, finishtime) {
 				},
 				tooltip: {
 					trigger: 'item',
-					formatter: "{a} <br/>{b} : {c}公里 ({d}%)"
+					formatter: "{a} <br/>{b} : {c}公里 ({d}%)",
+					position: function(p) { //其中p为当前鼠标的位置
+						return [p[0] + 10, p[1] - 10];
+					}
 				},
 				series: [{
 					name: '部门里程数',
@@ -2341,3 +2373,5 @@ function sub() {
 		}
 	})
 }
+
+    

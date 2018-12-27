@@ -380,49 +380,10 @@ routes = [{
 				var formData = app.form.convertToData('#brlist-admin-form');
 				//alert(JSON.stringify(formData));
 				$$(".searchblock").remove();
-				app.adminBRlist(formData, i);
-				//-----------------------------------------------------
-				// Loading flag
-				var loading = false;
+				app.adminBRlist(formData, 1);
 
-				// Last loaded index
-				var lastIndex = $$('.brlist ul').length;
-
-				// Max items to load
-				var maxItems = 60;
-
-				// Append items per load
-				var itemsPerLoad = 20;
-
-				// Attach 'infinite' event handler
-				$$('.infinite-scroll').on('infinite', function() {
-					i++; //每拉一次，加一	
-					// Exit, if loading in progress
-					if(loading) return;
-
-					// Set loading flag
-					loading = true;
-
-					// Emulate 1s loading
-					setTimeout(function() {
-						// Reset loading flag
-						loading = false;
-
-						if(lastIndex >= maxItems) {
-							// Nothing more to load, detach infinite scroll events to prevent unnecessary loadings
-							app.detachInfiniteScroll($$('.infinite-scroll'));
-							// Remove preloader
-							$$('.infinite-scroll-preloader').remove();
-							return;
-						}
-						app.adminBRlist(formData, i);
-						// Update last loaded index
-						lastIndex = $$('.brlist ul').length;
-					}, 1000);
-				});
-				//-----------------------------------------------------
 				$$(".convert-form-to-data-admin").on('click', function(e) {
-
+					$$(".equip-br-admin").html("");
 					var formData = app.form.convertToData('#brlist-admin-form');
 					//alert(JSON.stringify(formData));
 					$$(".searchblock").remove();
@@ -430,7 +391,67 @@ routes = [{
 					app.adminBRlist(formData, 1);
 				});
 
+			},
+			pageAfterIn: function() {
+				var formData = app.form.convertToData('#brlist-admin-form');
+				// 加载flag
+				var loading = false;
+
+				// 上次加载的序号
+				var lastIndex = $$('.equip-br-admin ul').length;
+
+				// 最多可加载的条目
+				var maxItems = 60;
+
+				var pagenum = Math.ceil(lastIndex / 10) + 2;
+				// 每次加载添加多少条目
+				var itemsPerLoad = 10;
+
+				// 注册'infinite'事件处理函数
+				$$('.infinite-scroll-content').on('infinite', function() {
+					console.log("infinite!!!!");
+
+					// 如果正在加载，则退出
+					if(loading) return;
+
+					// 设置flag
+					loading = true;
+
+					// 模拟1s的加载过程
+					setTimeout(function() {
+						// 重置加载flag
+						loading = false;
+						console.log(lastIndex % 10 != 0);
+						if(lastIndex >= maxItems || (lastIndex % 10 != 0) || lastIndex < itemsPerLoad) {
+							// 加载完毕，则注销无限加载事件，以防不必要的加载
+							app.infiniteScroll.destroy($$('.infinite-scroll-content'));
+							// 删除加载提示符
+							$$('.infinite-scroll-preloader').remove();
+							return;
+						}
+						//console.log(lastIndex);
+						//console.log(itemsPerLoad);
+						// 生成新条目的HTML
+						//  var html = '';
+						//  for (var i = lastIndex + 1; i <= lastIndex + itemsPerLoad; i++) {
+						//    html += '<ul><li class="item-content"><div class="item-inner"><div class="item-title">Item ' + i + '</div></div></li></ul>';
+						//  }
+						// 
+						//  // 添加新条目
+						//  $$('.equip-br-admin ').append(html);
+						console.log("pagenum" + pagenum);
+						formData = app.form.convertToData('#brlist-admin-form');
+						app.adminBRlist(formData, pagenum);
+
+						// 更新最后加载的序号
+						lastIndex = $$('.equip-br-admin ul').length;
+						console.log("lastIndex:" + lastIndex);
+						pagenum = Math.ceil(lastIndex / 10) + 2;
+
+					}, 1000);
+				});
 			}
+
 		}
 
 	}, {
@@ -814,6 +835,88 @@ routes = [{
 					//					$$(".equip-locate-search").append("<button class='col button button-fill' style='margin:1rem 0 0 0;'><a href='/equip-view-statistic/' style='color:#fff;'>统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</a></button>")
 					$$(".equip-locate-search").html("<div class='row'><div class='col-50'><input type='text' placeholder='定位设备名称' class='' name='equipname' style='margin:auto 0'></div><div class='col-50'><select name='tag' style='margin:auto 0'><option value=''>标签</option><option value='t2'>t2</option><option value='t1'>t1</option></select></div></div><div class='row'><button class='col button button-fill ' onclick='dealLocateSearch()' style='margin:1rem 0 0 0;' >查&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;询</button><button class='col button button-fill' style='margin:1rem 0 0 0;'><a href='/equip-view-statistic/' style='color:#fff;'>统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;计</a></button></div>")
 				}
+
+				//				$$(".searchequiplocate").click(function() {
+				//					$$('.equip-locate .equiplocatelist').html("");
+				//
+				//					//var formData = app.form.convertToData('#equiplocate-form');
+				//					//alert(JSON.stringify(formData));
+				//					//
+				//					var equipname = $$('input[name="equipname"]').val();
+				//					var tag = $$('select[name="tag"]').val();
+				//					var page = 1;
+				//					console.log(equipname + tag);
+				//					app.searchEquipLocate(equipname, tag, page);
+				//					$$(".equip-locate .listbutton").remove();
+				//					$$(".equip-locate .allequipmap").remove();
+				//				})
+
+			},
+			pageAfterIn: function() {
+				//	var formData = app.form.convertToData('#brlist-admin-form');
+				var equipname = $$('input[name="equipname"]').val();
+				var tag = $$('select[name="tag"]').val();
+				// 加载flag
+				var loading = false;
+
+				// 上次加载的序号
+				var lastIndex = $$('.equiploatelist ul').length;
+
+				// 最多可加载的条目
+				var maxItems = 60;
+
+				var pagenum = Math.ceil(lastIndex / 10) + 2;
+				// 每次加载添加多少条目
+				var itemsPerLoad = 10;
+				var endInfinite = true;
+				if(lastIndex < itemsPerLoad) {
+					$$('.infinite-scroll-preloader').hide();
+				}
+				// 注册'infinite'事件处理函数
+				$$('.infinite-scroll-content').on('infinite', function() {
+					$$('.infinite-scroll-preloader').show();
+					console.log("infinite!!!!");
+
+					// 如果正在加载，则退出
+					if(loading) return;
+
+					// 设置flag
+					loading = true;
+
+					// 模拟1s的加载过程
+					setTimeout(function() {
+						// 重置加载flag
+						loading = false;
+						console.log(lastIndex % 10 != 0);
+						if(lastIndex >= maxItems || (lastIndex % 10 != 0 || !endInfinite)) {
+							// 加载完毕，则注销无限加载事件，以防不必要的加载
+							app.infiniteScroll.destroy($$('.infinite-scroll-content'));
+							// 删除加载提示符
+							$$('.infinite-scroll-preloader').remove();
+							return;
+						}
+						//console.log(lastIndex);
+						//console.log(itemsPerLoad);
+						// 生成新条目的HTML
+						//  var html = '';
+						//  for (var i = lastIndex + 1; i <= lastIndex + itemsPerLoad; i++) {
+						//    html += '<ul><li class="item-content"><div class="item-inner"><div class="item-title">Item ' + i + '</div></div></li></ul>';
+						//  }
+						// 
+						//  // 添加新条目
+						//  $$('.equip-br-admin ').append(html);
+						console.log("pagenum" + pagenum);
+						var equipname = $$('input[name="equipname"]').val();
+						var tag = $$('select[name="tag"]').val();
+						endInfinite = app.searchEquipLocate(equipname, tag, pagenum);
+
+						// 更新最后加载的序号
+						lastIndex = $$('.equiplocatelist ul').length;
+						console.log("lastIndex:" + lastIndex);
+						pagenum = Math.ceil(lastIndex / 10) + 2;
+
+					}, 1000);
+				});
 			}
 		}
 	},
@@ -906,14 +1009,13 @@ routes = [{
 					month = now.getMonth();
 
 				}
-
+				var page = 1;
 				var year = now.getFullYear();
 				var yearandmonth = year + "年" + month + "月"
 				$$("#demo-picker-custom-toolbar").val(yearandmonth)
 				var column = plus.storage.getItem("column");
-				app.financial(month, year, column);
-				
-				
+				app.financial(year, month, column, page);
+
 				var pickerCustomToolbar = app.picker.create({
 					inputEl: '#demo-picker-custom-toolbar',
 					rotateEffect: true,
@@ -958,6 +1060,7 @@ routes = [{
 								//								var year = picker.getValue()[1];
 								//								var column = $$("#admin-channel-select").val();
 								//								app.financial(month, year, column);
+								$$(".staticlist").html("");
 								var year = picker.getValue()[0];
 
 								var month = picker.getValue()[1];
@@ -965,13 +1068,14 @@ routes = [{
 								var now = new Date();
 								var nowmonth = now.getMonth() + 1;
 								var nowyear = now.getFullYear();
+								var page = 1;
 								console.log(year + "  " + nowyear);
 								if(year <= nowyear) {
-									if(month < nowmonth) {
+									if(month <= nowmonth) {
 										console.log(month + " " + year)
 										//	var column = JSON.parse($.cookie("o")).column;
 										var column = $$("#admin-channel-select").val();
-										app.financial(month, year, column);
+										app.financial(month, year, column, page);
 									} else {
 										alert("只支持查询上个月之前的数据！");
 										return false;
@@ -986,6 +1090,76 @@ routes = [{
 					}
 				});
 
+			},
+			pageAfterIn: function() {
+
+				var year = $$("#demo-picker-custom-toolbar").val().split("年")[0];
+
+				var month = $$("#demo-picker-custom-toolbar").val().slice(5, 7);
+				var column = $$("#admin-channel-select").val();
+				// 加载flag
+				var loading = false;
+
+				// 上次加载的序号
+				var lastIndex = $$('.fee-list').length;
+
+				// 最多可加载的条目
+				var maxItems = 60;
+
+				var pagenum = Math.ceil(lastIndex / 10) + 2;
+				// 每次加载添加多少条目
+				var itemsPerLoad = 10;
+				var endInfinite = true;
+				if(lastIndex < itemsPerLoad) {
+					$$('.infinite-scroll-preloader').hide();
+				}
+				// 注册'infinite'事件处理函数
+				$$('.infinite-scroll-content').on('infinite', function() {
+					$$('.infinite-scroll-preloader').show();
+					console.log("infinite!!!!");
+
+					// 如果正在加载，则退出
+					if(loading) return;
+
+					// 设置flag
+					loading = true;
+
+					// 模拟1s的加载过程
+					setTimeout(function() {
+						// 重置加载flag
+						loading = false;
+						console.log(lastIndex % 10 != 0);
+						if(lastIndex >= maxItems || (lastIndex % 10 != 0 || !endInfinite)) {
+							// 加载完毕，则注销无限加载事件，以防不必要的加载
+							app.infiniteScroll.destroy($$('.infinite-scroll-content'));
+							// 删除加载提示符
+							$$('.infinite-scroll-preloader').remove();
+							return;
+						}
+						//console.log(lastIndex);
+						//console.log(itemsPerLoad);
+						// 生成新条目的HTML
+						//  var html = '';
+						//  for (var i = lastIndex + 1; i <= lastIndex + itemsPerLoad; i++) {
+						//    html += '<ul><li class="item-content"><div class="item-inner"><div class="item-title">Item ' + i + '</div></div></li></ul>';
+						//  }
+						// 
+						//  // 添加新条目
+						//  $$('.equip-br-admin ').append(html);
+						console.log("pagenum" + pagenum);
+						var year = $$("#demo-picker-custom-toolbar").val().split("年")[0];
+
+						var month = $$("#demo-picker-custom-toolbar").val().slice(5, 7);
+						var column = $$("#admin-channel-select").val();
+						endInfinite = app.financial(year, month, column, pagenum);
+
+						// 更新最后加载的序号
+						lastIndex = $$('.fee-list').length;
+						console.log("lastIndex:" + lastIndex);
+						pagenum = Math.ceil(lastIndex / 10) + 2;
+
+					}, 1000);
+				});
 			}
 		}
 
@@ -1437,12 +1611,12 @@ routes = [{
 					month = now.getMonth();
 
 				}
-
+				var page = 1;
 				var year = now.getFullYear();
 				var yearandmonth = year + "年" + month + "月"
 				$$("#demo-picker-custom-toolbar").val(yearandmonth)
 				var column = plus.storage.getItem("column");
-				app.financial(month, year, column);
+				app.financial(month, year, column, page);
 
 				var pickerCustomToolbar = app.picker.create({
 					inputEl: '#demo-picker-custom-toolbar',
@@ -1482,6 +1656,7 @@ routes = [{
 						open: function(picker) {
 
 							$$('.financial-chief').off("click").on('click', function() {
+								$$(".staticlist").html("");
 								console.log(picker.getValue());
 								console.log("aaaaa");
 								var year = picker.getValue()[0];
@@ -1491,13 +1666,14 @@ routes = [{
 								var now = new Date();
 								var nowmonth = now.getMonth() + 1;
 								var nowyear = now.getFullYear();
+								var page=1;
 								console.log(year + "  " + nowyear);
 								if(year <= nowyear) {
 									if(month < nowmonth) {
 										console.log(month + " " + year)
 										//	var column = JSON.parse($.cookie("o")).column;
 										var column = plus.storage.getItem("column");
-										app.financial(month, year, column);
+										app.financial(year, month, column,page);
 									} else {
 										alert("只支持查询上个月之前的数据！");
 										return false;
@@ -1512,6 +1688,76 @@ routes = [{
 					}
 				});
 
+			},
+			pageAfterIn: function() {
+
+				var year = $$("#demo-picker-custom-toolbar").val().split("年")[0];
+
+				var month = $$("#demo-picker-custom-toolbar").val().slice(5, 7);
+					var column = plus.storage.getItem("column");
+				// 加载flag
+				var loading = false;
+
+				// 上次加载的序号
+				var lastIndex = $$('.fee-list').length;
+
+				// 最多可加载的条目
+				var maxItems = 60;
+
+				var pagenum = Math.ceil(lastIndex / 10) + 2;
+				// 每次加载添加多少条目
+				var itemsPerLoad = 10;
+				var endInfinite = true;
+				if(lastIndex < itemsPerLoad) {
+					$$('.infinite-scroll-preloader').hide();
+				}
+				// 注册'infinite'事件处理函数
+				$$('.infinite-scroll-content').on('infinite', function() {
+					$$('.infinite-scroll-preloader').show();
+					console.log("infinite!!!!");
+
+					// 如果正在加载，则退出
+					if(loading) return;
+
+					// 设置flag
+					loading = true;
+
+					// 模拟1s的加载过程
+					setTimeout(function() {
+						// 重置加载flag
+						loading = false;
+						console.log(lastIndex % 10 != 0);
+						if(lastIndex >= maxItems || (lastIndex % 10 != 0 || !endInfinite)) {
+							// 加载完毕，则注销无限加载事件，以防不必要的加载
+							app.infiniteScroll.destroy($$('.infinite-scroll-content'));
+							// 删除加载提示符
+							$$('.infinite-scroll-preloader').remove();
+							return;
+						}
+						//console.log(lastIndex);
+						//console.log(itemsPerLoad);
+						// 生成新条目的HTML
+						//  var html = '';
+						//  for (var i = lastIndex + 1; i <= lastIndex + itemsPerLoad; i++) {
+						//    html += '<ul><li class="item-content"><div class="item-inner"><div class="item-title">Item ' + i + '</div></div></li></ul>';
+						//  }
+						// 
+						//  // 添加新条目
+						//  $$('.equip-br-admin ').append(html);
+						console.log("pagenum" + pagenum);
+						var year = $$("#demo-picker-custom-toolbar").val().split("年")[0];
+
+						var month = $$("#demo-picker-custom-toolbar").val().slice(5, 7);
+							var column = plus.storage.getItem("column");
+						endInfinite = app.financial(year, month, column, pagenum);
+
+						// 更新最后加载的序号
+						lastIndex = $$('.fee-list').length;
+						console.log("lastIndex:" + lastIndex);
+						pagenum = Math.ceil(lastIndex / 10) + 2;
+
+					}, 1000);
+				});
 			}
 		}
 
@@ -1614,7 +1860,7 @@ function dealEquip(type, result) {
 }
 
 function dealLocateSearch() {
-
+	$$(".equip-locate .brlist").html("");
 	console.log("eeeee");
 
 	//	var formData = app.form.convertToData('#equiplocate-form');
@@ -1622,8 +1868,9 @@ function dealLocateSearch() {
 	//
 	var equipname = $$('input[name="equipname"]').val();
 	var tag = $$('select[name="tag"]').val();
+	var page = 1;
 	console.log(equipname + tag);
-	app.searchEquipLocate(equipname, tag);
+	app.searchEquipLocate(equipname, tag, page);
 	$$(".equip-locate .listbutton").remove();
 	$$(".equip-locate .allequipmap").remove();
 
